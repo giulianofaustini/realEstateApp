@@ -1,4 +1,5 @@
 import { HouseProps } from '../App';
+import { useNavigate } from 'react-router-dom';
 
 
 export interface ListOfHousesProps {
@@ -12,10 +13,13 @@ export const ListOfHouses = ( {housesToPass} : ListOfHousesProps ) => {
 
     console.log('from List Of Houses component', housesToPass)
 
+    const navigate = useNavigate();
+
 
   return (
     <>
     <div>ListOfHouses</div>
+    <button onClick={() => navigate('/')}>home</button>
     <div>
     {housesToPass.map(house => (
         <div key={house.id}>
