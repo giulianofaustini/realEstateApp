@@ -1,0 +1,73 @@
+
+
+import { HouseInterface } from '../interfaces/houseInterface';
+
+// Mock database (array of houses)
+export const houses: HouseInterface[] = [
+  {
+    id: '1',
+    title: 'Spacious Villa',
+    description: 'Beautiful villa with a scenic view',
+    price: 500000,
+    address: '123 Villa Street',
+    imageUrl: 'path/to/image1.jpg',
+    agent: 'John Doe',
+    bedrooms: 4,
+    bathrooms: 3,
+  },
+  {
+    id: '2',
+    title: 'Modern Apartment',
+    description: 'Luxurious apartment in the city center',
+    price: 300000,
+    address: '456 Apartment Lane',
+    imageUrl: 'path/to/image2.jpg',
+    agent: 'Jane Smith',
+    bedrooms: 2,
+    bathrooms: 2,
+  },
+  {
+    id: '3',
+    title: 'Cozy Townhouse',
+    description: 'Charming townhouse with a garden',
+    price: 250000,
+    address: '789 Townhouse Road',
+    imageUrl: 'path/to/image3.jpg',
+    agent: 'Emily Johnson',
+    bedrooms: 3,
+    bathrooms: 2,
+  },
+  {
+    id: '4',
+    title: 'Beachfront Condo',
+    description: 'Stunning condo with ocean views',
+    price: 750000,
+    address: '101 Beachfront Drive',
+    imageUrl: 'path/to/image4.jpg',
+    agent: 'Michael Brown',
+    bedrooms: 2,
+    bathrooms: 2,
+  },
+  {
+    id: '5',
+    title: 'Rustic Cabin',
+    description: 'Secluded cabin surrounded by nature',
+    price: 200000,
+    address: '1122 Cabin Trail',
+    imageUrl: 'path/to/image5.jpg',
+    agent: 'Sophia Wilson',
+    bedrooms: 1,
+    bathrooms: 1,
+  },
+  {
+    id: '6',
+    title: 'Elegant Mansion',
+    description: 'Grand mansion with luxurious amenities',
+    price: 1200000,
+    address: '141 Mansion Avenue',
+    imageUrl: 'path/to/image6.jpg',
+    agent: 'William Taylor',
+    bedrooms: 6,
+    bathrooms: 5,
+  },
+];
