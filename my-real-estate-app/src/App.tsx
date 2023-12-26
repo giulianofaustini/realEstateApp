@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Home } from "./components/Home";
 import { NavBar } from "./components/NavBar";
 import { SingleHouse } from "./components/SingleHouse";
+import { SignIn } from "./pages/SignIn";
 
 export interface HouseProps {
   id: string;
@@ -46,10 +47,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/api/houses/:id" element={<SingleHouse houses={houses} />} />
-          <Route
-            path="/api/houses"
-            element={<ListOfHouses housesToPass={houses} />}
-          />
+          <Route path="/api/houses" element={<ListOfHouses housesToPass={houses} />} />
+          <Route path="/api/sign-in" element={<SignIn />} />
         </Routes>
       </Router>
       </div>

@@ -13,7 +13,7 @@ export const Home = () => {
   return (
     <div style={backgroundImageStyle} className="flex items-center justify-center w-auto">
       <div className="flex flex-col items-center  h-full">
-      <h1 className="mb-4 mt-16 font-extrabold"> MODERN HOUSING SOLUTIONS</h1>
+      <h1 className="mb-4 mt-16 font-extrabold text-2xl"> MODERN HOUSING SOLUTIONS</h1>
 
         <form className="flex flex-row ">
           <input type="text" placeholder="rent in your area" className="mr-5 h-10 pl-4 border rounded-lg bg-sky-100 hover:bg-sky-200 active:bg-sky-300 focus:outline-none focus:ring focus:ring-violet-300"/>
