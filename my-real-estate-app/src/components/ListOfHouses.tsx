@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 
 
+
 export interface ListOfHousesProps {
   housesToPass: HouseProps[];
 }
@@ -14,8 +15,8 @@ export const ListOfHouses = ({ housesToPass }: ListOfHousesProps) => {
 
   return (
     <>
-      <div>ListOfHouses</div>
-      <button onClick={() => navigate("/")}>home</button>
+     
+      
       <div>
         {housesToPass.map((house) => (
           console.log('in the map the id:', house.id),
@@ -27,6 +28,7 @@ export const ListOfHouses = ({ housesToPass }: ListOfHousesProps) => {
           </div>
         ))}
       </div>
+      <button onClick={() => navigate("/")}>home</button>
     </>
   );
 };
