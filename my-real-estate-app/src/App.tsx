@@ -44,12 +44,11 @@ function App() {
         <NavBar />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/api/houses/:id" element={<SingleHouse houses={houses} />} />
           <Route
             path="/api/houses"
             element={<ListOfHouses housesToPass={houses} />}
           />
-          <Route path="/api/houses/:id" element={<SingleHouse />} />
-        
         </Routes>
       </Router>
     </>
