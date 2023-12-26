@@ -1,4 +1,4 @@
-import "./App.css";
+
 import { useState, useEffect } from "react";
 import { ListOfHouses } from "./components/ListOfHouses";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -40,7 +40,8 @@ function App() {
 
   return (
     <>
-      <Router>
+    <div  >
+      <Router >
         <NavBar />
         <Routes>
           <Route path="/" element={<Home />} />
@@ -51,6 +52,7 @@ function App() {
           />
         </Routes>
       </Router>
+      </div>
     </>
   );
 }
