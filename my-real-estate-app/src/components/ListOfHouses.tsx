@@ -1,9 +1,6 @@
 import { HouseProps } from "../App";
 import { Link, useNavigate } from "react-router-dom";
 
-
-
-
 export interface ListOfHousesProps {
   housesToPass: HouseProps[];
 }
@@ -15,19 +12,23 @@ export const ListOfHouses = ({ housesToPass }: ListOfHousesProps) => {
 
   return (
     <>
-     
-      
-      <div>
-        {housesToPass.map((house) => (
-          console.log('in the map the id:', house.id),
-          <div key={house.id}>
-            <Link to={`/api/houses/sale/${house.id}`}>
-               <div>{house.title}</div>
-               <div>{house.description}</div>
-                <div>{house.price}</div>
-            </Link>
-          </div>
-        ))}
+      <div className="grid grid-cols-3 justify-center ">
+        {housesToPass.map(
+          (house) => (
+            console.log("in the map the id:", house.id),
+            (
+              <div  key={house.id}>
+                <Link to={`/api/houses/sale/${house.id}`}>
+                  <div className=" bg-slate-100 p-6 border-2 rounded-xl border-slate-200  m-2 ">
+                    <div className="font-bold ">{house.title}</div>
+                    <div>{house.description}</div>
+                    <div>{house.price}</div>
+                  </div>
+                </Link>
+              </div>
+            )
+          )
+        )}
       </div>
       <button onClick={() => navigate("/")}>home</button>
     </>
