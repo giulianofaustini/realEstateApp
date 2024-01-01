@@ -2,6 +2,10 @@ import express from "express";
 import cors from "cors";
 
 
+import allHousesRouter from "../src/routes/allHouses";
+import allHousesForRentRouter from "../src/routes/allHousesForRent";
+
+
 
 const app = express();
 const port = 3000;
@@ -22,13 +26,16 @@ app.get("/", (req, res) => {
 
 
 
-import allHousesRouter from "../src/routes/allHouses";
-
 app.use("/api/housesForSale", allHousesRouter);
-app.use("/api/housesForRent", allHousesRouter);
+
+
+
+
+app.use("/api/housesForRent", allHousesForRentRouter);
 
 
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
+

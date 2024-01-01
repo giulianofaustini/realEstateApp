@@ -17,9 +17,16 @@ const getHouseById = (id: string) => {
     return house;
 }
 
+const getHouseForRentById = (id: string) => {
+    const house = housesForRent.find((house) => house.id === id);
+    return house;
+}
+
+
 
 export const housesService = {
     getHouses,
     getHouseById,
     getHousesForRent,
+    getHouseForRentById,
 }

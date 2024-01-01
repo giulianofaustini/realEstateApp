@@ -21,7 +21,7 @@ export const ListOfHouses = ({ housesToPass }: ListOfHousesProps) => {
         {housesToPass.map((house) => (
           console.log('in the map the id:', house.id),
           <div key={house.id}>
-            <Link to={`/api/houses/${house.id}`}>
+            <Link to={`/api/houses/sale/${house.id}`}>
                <div>{house.title}</div>
                <div>{house.description}</div>
                 <div>{house.price}</div>

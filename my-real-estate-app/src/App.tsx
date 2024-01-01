@@ -7,6 +7,7 @@ import { NavBar } from "./components/NavBar";
 import { SingleHouse } from "./components/SingleHouse";
 import { SignIn } from "./pages/SignIn";
 import { ListOfHousesForRent } from "./components/ListOfHousesForRent";
+import { SingleHouseForRent } from "./components/SingleHouseForRent";
 
 export interface HouseProps {
   id: string;
@@ -76,9 +77,10 @@ function App() {
         <NavBar />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/api/houses/:id" element={<SingleHouse houses={houses} />} />
+          <Route path="/api/houses/sale/:id" element={<SingleHouse houses={houses} />} />
           <Route path="/api/housesForSale" element={<ListOfHouses housesToPass={houses} />} />
           <Route path="/api/housesForRent" element={<ListOfHousesForRent housesToRent={housesForRent} />} />
+          <Route path="/api/housesForRent/rent/:id" element={<SingleHouseForRent houseToRent={housesForRent} />} />
           <Route path="/api/sign-in" element={<SignIn />} />
         </Routes>
       </Router>

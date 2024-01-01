@@ -11,13 +11,8 @@ router.get("/", (req, res) => {
 }
 );
 
-router.get("/", (req, res) => {
-    const housesForRent = housesService.getHouses();
-    res.json(housesForRent);
-} 
-);
 
-router.get("/:id", (req, res) => {
+router.get("/sale/:id", (req, res) => {
     const id = req.params.id;
     const house = housesService.getHouseById(id);
     if (house) {
@@ -29,3 +24,4 @@ router.get("/:id", (req, res) => {
 );
 
 export default router;
+
