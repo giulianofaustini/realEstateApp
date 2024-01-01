@@ -23,7 +23,7 @@ export const NavBar: React.FC = () => {
         <Link to="/api/housesForSale">Houses on sale</Link>
       </h1>
       <h1 className="mr-10">
-        <Link to="/api/houses">Houses on rent</Link>
+        <Link to="/api/housesForRent">Houses on rent</Link>
       </h1>
       <h1 className="mr-10">
         <Link to="/api/sign-in">Authorized-area</Link>

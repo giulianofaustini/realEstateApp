@@ -24,6 +24,7 @@ export const ListOfHouses = ({ housesToPass }: ListOfHousesProps) => {
             <Link to={`/api/houses/${house.id}`}>
                <div>{house.title}</div>
                <div>{house.description}</div>
+                <div>{house.price}</div>
             </Link>
           </div>
         ))}
