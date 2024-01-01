@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 export const NavBar: React.FC = () => {
   return (
-    <div className=" text-gray h-20 flex justify-between items-center mx-auto">
+    <div className=" text-gray h-20 flex justify-between items-center w-9/12 mx-auto">
       <h1 className="ml-10">
         <Link to="/">
           <span className="text-red-500 pr-2 font-bold">L&D</span>

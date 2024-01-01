@@ -19,17 +19,21 @@ export const SingleHouseForRent = ({
   }
 
   return (
-    <div >
-      <div>{selectedHouse.title}</div>
-      <div>{selectedHouse.description}</div>
-      <div>{selectedHouse.monthlyRent}</div>
-      <div>{selectedHouse.rentalDeposit}</div>
-      <div>{selectedHouse.address}</div>
-      <div>{selectedHouse.location}</div>
-      <div>{selectedHouse.imageUrl}</div>
-      <div>{selectedHouse.agent}</div>
-      <div>{selectedHouse.bedrooms}</div>
-      <div>{selectedHouse.bathrooms}</div>
+    <div className="flex justify-center  h-screen mt-10">
+    <div className=" w-2/3   mx-10 " >
+      <span className="uppercase" > {selectedHouse.title}  FOR RENT</span>
+      
+      <div>Rent a {selectedHouse.description} for {selectedHouse.monthlyRent} € per month</div>
+      <div></div>
+      <div>Where? {selectedHouse.address}</div>
+      <div>City of {selectedHouse.location}</div>
+    
+      
+      <div>Number of bedrooms: {selectedHouse.bedrooms} </div>
+      <div>Number of bathrooms: {selectedHouse.bathrooms}</div>
+      <div>The rental deposit for this house is {selectedHouse.rentalDeposit} €</div>
+      <div>Call our agent {selectedHouse.agent} at this number: 0409380895</div>
     </div>
+    </div>  
   );
 };
