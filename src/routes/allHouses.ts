@@ -6,9 +6,15 @@ import { housesService } from "../services/housesService";
 const router = express.Router();
 
 router.get("/", (req, res) => {
-    const houses = housesService.getHouses();
-    res.json(houses);
+    const housesForSale = housesService.getHouses();
+    res.json(housesForSale);
 }
+);
+
+router.get("/", (req, res) => {
+    const housesForRent = housesService.getHouses();
+    res.json(housesForRent);
+} 
 );
 
 router.get("/:id", (req, res) => {

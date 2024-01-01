@@ -24,7 +24,8 @@ app.get("/", (req, res) => {
 
 import allHousesRouter from "../src/routes/allHouses";
 
-app.use("/api/houses", allHousesRouter);
+app.use("/api/housesForSale", allHousesRouter);
+app.use("/api/housesForRent", allHousesRouter);
 
 
 

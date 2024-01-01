@@ -25,7 +25,7 @@ function App() {
 
   useEffect(() => {
     const fetchHouses = async () => {
-      const response = await fetch("http://localhost:3000/api/houses");
+      const response = await fetch("http://localhost:3000/api/housesForSale");
       const data = await response.json();
       setHouses(data);
       setLoading(false);
@@ -47,7 +47,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/api/houses/:id" element={<SingleHouse houses={houses} />} />
-          <Route path="/api/houses" element={<ListOfHouses housesToPass={houses} />} />
+          <Route path="/api/housesForSale" element={<ListOfHouses housesToPass={houses} />} />
           <Route path="/api/sign-in" element={<SignIn />} />
         </Routes>
       </Router>

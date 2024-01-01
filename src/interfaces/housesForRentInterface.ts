@@ -1,8 +1,9 @@
-export interface HouseInterface {
+export interface housesForRentInterface {
     id: string;
   title: string;
   description: string;
-  price: number;
+  monthlyRent: number;
+  rentalDeposit: number;
   address: string;
   location: string;
   imageUrl: string;
@@ -10,5 +11,3 @@ export interface HouseInterface {
   bedrooms: number;
   bathrooms: number;
 }
-
-

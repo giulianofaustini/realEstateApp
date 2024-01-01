@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { FaSearch } from "react-icons/fa";
+
+
 
 export const NavBar: React.FC = () => {
   return (
@@ -16,10 +17,10 @@ export const NavBar: React.FC = () => {
           placeholder="search ... "
           className="bg-transparent  focus:outline-none pl-5"
         />
-        <FaSearch className="m-5 color-gray  " />
+        
       </form>
       <h1 className="mr-10">
-        <Link to="/api/houses">Houses on sale</Link>
+        <Link to="/api/housesForSale">Houses on sale</Link>
       </h1>
       <h1 className="mr-10">
         <Link to="/api/houses">Houses on rent</Link>
