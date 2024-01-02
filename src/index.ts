@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import authRouter from "./routes/authRoute";
 dotenv.config();
 
 
@@ -39,6 +40,8 @@ app.use("/api/housesForSale", allHousesRouter);
 app.use("/api/housesForRent", allHousesForRentRouter);
 
 app.use("/api/users", allUsersRouter);
+
+app.use("/api/sign-up", authRouter );
 
 
 
