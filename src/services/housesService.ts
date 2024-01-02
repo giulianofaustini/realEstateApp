@@ -1,6 +1,3 @@
-
-
-
 import { housesForSale } from "../data/housesData";
 import { housesForRent } from "../data/housesForRentData";
 

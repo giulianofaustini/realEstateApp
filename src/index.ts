@@ -4,6 +4,7 @@ import cors from "cors";
 
 import allHousesRouter from "../src/routes/allHouses";
 import allHousesForRentRouter from "../src/routes/allHousesForRent";
+import allUsersRouter from "../src/routes/allUsers"
 
 
 
@@ -28,10 +29,9 @@ app.get("/", (req, res) => {
 
 app.use("/api/housesForSale", allHousesRouter);
 
-
-
-
 app.use("/api/housesForRent", allHousesForRentRouter);
+
+app.use("/api/users", allUsersRouter);
 
 
 
