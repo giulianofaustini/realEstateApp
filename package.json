@@ -15,6 +15,8 @@
     "@types/mongoose": "^5.11.97",
     "@types/node": "^20.10.5",
     "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "mongodb": "^6.3.0",
     "mongoose": "^8.0.3",
     "nodemon": "^3.0.2",
     "react-icons": "^4.12.0",

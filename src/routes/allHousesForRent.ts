@@ -12,7 +12,6 @@ router.get("/", (req, res) => {
 } 
 );
 
-
 router.get("/rent/:id", (req, res) => {
     const id = req.params.id;
     const housesForRent = housesService.getHouseForRentById(id);
