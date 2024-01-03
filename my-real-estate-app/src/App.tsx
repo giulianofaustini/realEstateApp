@@ -8,6 +8,7 @@ import { SingleHouse } from "./components/SingleHouse";
 import { SignIn } from "./pages/SignIn";
 import { ListOfHousesForRent } from "./components/ListOfHousesForRent";
 import { SingleHouseForRent } from "./components/SingleHouseForRent";
+import { SignUp } from "./pages/SignUp";
 
 export interface HouseProps {
   id: string;
@@ -81,7 +82,9 @@ function App() {
           <Route path="/api/housesForSale" element={<ListOfHouses housesToPass={houses} />} />
           <Route path="/api/housesForRent" element={<ListOfHousesForRent housesToRent={housesForRent} />} />
           <Route path="/api/housesForRent/rent/:id" element={<SingleHouseForRent houseToRent={housesForRent} />} />
+
           <Route path="/api/sign-in" element={<SignIn />} />
+          <Route path="/api/sign-up" element={<SignUp />} />
         </Routes>
       </Router>
       </div>

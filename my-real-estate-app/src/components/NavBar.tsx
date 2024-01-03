@@ -26,7 +26,7 @@ export const NavBar: React.FC = () => {
         <Link to="/api/housesForRent">Houses on rent</Link>
       </h1>
       <h1 className="mr-10">
-        <Link to="/api/sign-in">Authorized-area</Link>
+        <Link to="/api/sign-up">Authorized-area</Link>
       </h1>
     </div>
   );
