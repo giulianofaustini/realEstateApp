@@ -18,7 +18,7 @@ router.post(
         throw error;
       }
       
-      await authService.addUser(req.body, next);
+      await authService.addUser(req.body, req, res, next);
       console.log("user created", req.body);
     } catch (err) {
       console.log(err);

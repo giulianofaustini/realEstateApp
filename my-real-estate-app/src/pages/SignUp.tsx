@@ -13,7 +13,6 @@ export const SignUp = () => {
   });
 
   const [loading, setLoading] = useState<boolean>(false);
-
   const navigate = useNavigate();
 
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,12 +32,13 @@ export const SignUp = () => {
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
         body: JSON.stringify(formData),
       });
 
       const data = await res.json();
 
-      if (res.ok) {
+      if (res.status === 201) {
         setFormData({
           username: "",
           email: "",
@@ -49,12 +49,11 @@ export const SignUp = () => {
         });
         navigate("/api/sign-in");
         setLoading(false);
-        console.log(data);
+        console.log(data.message);
       } else {
         setLoading(false);
         alert(data.message);
       }
-   
     } catch (error) {
       console.log(error);
       setLoading(false);

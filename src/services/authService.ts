@@ -16,36 +16,37 @@ if (!secret) {
   }
 
 
-const addUser = async (
-  userData: UserInterface,
-  next: NextFunction
-): Promise<void> => {
-
-  try {
-    const { username, email, password, isAdmin } = userData;
-    const hashedPassword = bcryptjs.hashSync(password, 10);
-    const newUser = new User({
-      username,
-      email,
-      password: hashedPassword,
-      isAdmin,
-    });
-
-    if( username.length < 3) {
+  const addUser = async (
+    userData: UserInterface,
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> => {
+    try {
+      const { username, email, password, isAdmin } = userData;
+  
+      if (username.length < 3) {
         const error: Error & { statusCode?: number } = new Error(
-            "Username must contain at least 3 characters"
-          );
-          error.statusCode = 400;
-          throw error;
+          "Username must contain at least 3 characters"
+        );
+        error.statusCode = 400;
+        throw error;
+      }
+  
+      const hashedPassword = bcryptjs.hashSync(password, 10);
+      const newUser = new User({
+        username,
+        email,
+        password: hashedPassword,
+        isAdmin,
+      });
+  
+      await newUser.save();
+      res.status(201).json({ message: 'User created successfully' }); 
+    } catch (error) {
+      next(error);
     }
-
-
-    await newUser.save();
-    console.log("User added successfully");
-  } catch (error) {
-    next(error);
-  }
-};
+  };
 
 const signIn = async (
   userData: UserInterface,
