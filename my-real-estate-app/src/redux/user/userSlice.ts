@@ -3,7 +3,7 @@ import { UserInterface } from "../../../../src/interfaces/userInterface";
 
 
 export interface UserState {
-    currentUser: UserInterface | null; 
+    currentUser: Omit<UserInterface, 'password'> | null; 
     loading: boolean;
   }
   
@@ -28,3 +28,5 @@ export interface UserState {
   
   export const { setCurrentUser, setLoading } = userSlice.actions;
   export default userSlice.reducer;
+
+  

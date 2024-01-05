@@ -4,12 +4,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setCurrentUser, setLoading } from "../redux/user/userSlice";
 import { useSelector } from "react-redux";
+import { UserState } from "../redux/user/userSlice"
 
-type UseState = {
-  user: {
-    loading: boolean;
-  };
-};
+
 
 export const SignIn = () => {
   const [formData, setFormData] = useState<UserInterface>({
@@ -21,7 +18,12 @@ export const SignIn = () => {
     updatedAt: new Date(),
   });
 
-  const { loading } = useSelector((state: UseState) => state.user);
+  
+
+  const { currentUser, loading } = useSelector((state: { user: UserState }) => ({
+    currentUser: state.user.currentUser,
+    loading: state.user.loading,
+  }));
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -49,19 +51,21 @@ export const SignIn = () => {
       const data = await res.json();
 
       if (res.ok) {
-        const { id, username, password, email, isAdmin, createdAt, updatedAt } =
-          data;
+        const { id, username, password , email, isAdmin, createdAt, updatedAt } =
+          data as UserInterface;
         dispatch(
           setCurrentUser({
             id,
             username,
-            password,
+            password, 
             email,
             isAdmin,
             createdAt,
             updatedAt,
           })
         );
+     
+
         setFormData({
           username: "",
           email: "",
@@ -83,7 +87,13 @@ export const SignIn = () => {
 
   // console.log(formData)
   return (
+    
     <div className="max-w-lg  mx-auto mt-10">
+      {currentUser && (
+        <div className="mb-4">
+          <p>Welcome, {currentUser.username}!</p>
+        </div>
+      )}
       <form className="flex flex-col gap-2" onSubmit={handleFormSubmit}>
         <input
           type="email"
