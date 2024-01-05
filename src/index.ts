@@ -1,4 +1,5 @@
-import express from "express";
+import express, { NextFunction , Request, Response,} from "express";
+
 import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
@@ -40,6 +41,17 @@ app.use("/api/users", allUsersRouter);
 
 app.use("/api/sign-up", authRouter );
 
+app.use((err: { statusCode?: number, message?: string }, req: Request, res: Response, next: NextFunction) => {
+  const statusCode = err.statusCode || 500;
+  const message = err.message || "Internal Server Error";
+  return res.status(statusCode).json({ 
+    success: false,
+    statusCode,
+    message,
+   });
+});
+
+  
 
 
 app.listen(port, () => {
