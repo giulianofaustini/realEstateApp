@@ -38,7 +38,7 @@ export const SignUp = () => {
 
       const data = await res.json();
 
-      if (data) {
+      if (res.ok) {
         setFormData({
           username: "",
           email: "",
@@ -48,9 +48,13 @@ export const SignUp = () => {
           updatedAt: new Date(),
         });
         navigate("/api/sign-in");
+        setLoading(false);
+        console.log(data);
+      } else {
+        setLoading(false);
+        alert(data.message);
       }
-      setLoading(false);
-      console.log(data);
+   
     } catch (error) {
       console.log(error);
       setLoading(false);

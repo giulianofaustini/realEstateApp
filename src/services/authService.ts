@@ -9,6 +9,7 @@ dotenv.config();
 import { Request, Response } from "express";
 
 
+
 const secret = process.env.JWT_SECRET;
 if (!secret) {
     throw new Error('JWT_SECRET is not defined in the environment variables.');
@@ -19,6 +20,7 @@ const addUser = async (
   userData: UserInterface,
   next: NextFunction
 ): Promise<void> => {
+
   try {
     const { username, email, password, isAdmin } = userData;
     const hashedPassword = bcryptjs.hashSync(password, 10);
@@ -28,10 +30,20 @@ const addUser = async (
       password: hashedPassword,
       isAdmin,
     });
+
+    if( username.length < 3) {
+        const error: Error & { statusCode?: number } = new Error(
+            "Username must contain at least 3 characters"
+          );
+          error.statusCode = 400;
+          throw error;
+    }
+
+
     await newUser.save();
     console.log("User added successfully");
   } catch (error) {
-    next(errorHandler(500, "Internal Server Error"));
+    next(error);
   }
 };
 
@@ -70,6 +82,7 @@ const signIn = async (
         message: 'User logged in successfully',
         token,
         _id: validUser._id,
+        username: validUser.username,
     })
 
   } catch (error) {
