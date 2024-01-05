@@ -5,10 +5,16 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import authRouter from "./routes/authRoute";
 dotenv.config();
+import cookieParser from 'cookie-parser';
+
+
+
+
 
 import allHousesRouter from "../src/routes/allHouses";
 import allHousesForRentRouter from "../src/routes/allHousesForRent";
 import allUsersRouter from "../src/routes/allUsers"
+import signInRoute from "../src/routes/signInRoute"
 
 mongoose.connect(process.env.MONGO ?? "").then(() => {
   console.log("Connected to MongoDB");
@@ -16,6 +22,7 @@ mongoose.connect(process.env.MONGO ?? "").then(() => {
 ).catch(err => console.log("Error connecting to MongoDB", err));
 const app = express();
 const port = 3000;
+app.use(cookieParser());
 
 app.use(cors(
   {
@@ -40,6 +47,8 @@ app.use("/api/housesForRent", allHousesForRentRouter);
 app.use("/api/users", allUsersRouter);
 
 app.use("/api/sign-up", authRouter );
+
+app.use("/api/sign-in" , signInRoute )
 
 app.use((err: { statusCode?: number, message?: string }, req: Request, res: Response, next: NextFunction) => {
   const statusCode = err.statusCode || 500;

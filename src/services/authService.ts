@@ -3,6 +3,17 @@ import { UserInterface } from "../interfaces/userInterface";
 import bcryptjs from "bcryptjs";
 import { NextFunction } from "express";
 import { errorHandler } from "../utils/error";
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+dotenv.config();
+import { Request, Response } from "express";
+
+
+const secret = process.env.JWT_SECRET;
+if (!secret) {
+    throw new Error('JWT_SECRET is not defined in the environment variables.');
+  }
+
 
 const addUser = async (
   userData: UserInterface,
@@ -26,6 +37,8 @@ const addUser = async (
 
 const signIn = async (
   userData: UserInterface,
+  req: Request,
+  res: Response,
   next: NextFunction
 ): Promise<void> => {
   const { email, password } = userData;
@@ -47,6 +60,17 @@ const signIn = async (
       error.statusCode = 400;
       throw error;
     }
+
+    const token = jwt.sign({ _id: validUser._id }, secret)
+    res.cookie('access_token', token, {
+        httpOnly: true,
+    })
+    res.status(200).json({
+        success: true,
+        message: 'User logged in successfully',
+        token,
+        _id: validUser._id,
+    })
 
   } catch (error) {
     next(error);
