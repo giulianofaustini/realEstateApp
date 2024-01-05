@@ -3,7 +3,7 @@ import { UserInterface } from "../../../../src/interfaces/userInterface";
 
 
 export interface UserState {
-    currentUser: Omit<UserInterface, 'password'> | null; 
+    currentUser: UserInterface | null;
     loading: boolean;
   }
   

@@ -1,8 +1,15 @@
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { UserState } from "../redux/user/userSlice";
 
 
 
 export const NavBar: React.FC = () => {
+
+const { currentUser } = useSelector((state: { user: UserState }) => ({
+  currentUser: state.user.currentUser,
+}));
+
   return (
     <div className=" text-gray h-20 flex justify-between items-center w-9/12 mx-auto">
       <h1 className="ml-10">
@@ -28,6 +35,11 @@ export const NavBar: React.FC = () => {
       <h1 className="mr-10">
         <Link to="/api/sign-up">Authorized-area</Link>
       </h1>
+      {currentUser && (
+        <div className="mb-4">
+          <p>Welcome, {currentUser.username}!</p>
+        </div>
+      )}
     </div>
   );
 };

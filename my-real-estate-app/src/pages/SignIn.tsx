@@ -49,10 +49,12 @@ export const SignIn = () => {
       });
 
       const data = await res.json();
+      console.log('data from the handle submit form to check what info I have', data);
 
       if (res.ok) {
         const { id, username, password , email, isAdmin, createdAt, updatedAt } =
           data as UserInterface;
+          console.log(' email from the singin function' , email)
         dispatch(
           setCurrentUser({
             id,
