@@ -1,0 +1,30 @@
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { UserInterface } from "../../../../src/interfaces/userInterface";
+
+
+export interface UserState {
+    currentUser: UserInterface | null; 
+    loading: boolean;
+  }
+  
+
+  const initialState: UserState = {
+    currentUser: null,
+    loading: false,
+  };
+  
+  const userSlice = createSlice({
+    name: "user",
+    initialState,
+    reducers: {
+      setCurrentUser(state, action: PayloadAction<UserInterface | null>) {
+        state.currentUser = action.payload;
+      },
+      setLoading(state, action: PayloadAction<boolean>) {
+        state.loading = action.payload;
+      },
+    },
+  });
+  
+  export const { setCurrentUser, setLoading } = userSlice.actions;
+  export default userSlice.reducer;

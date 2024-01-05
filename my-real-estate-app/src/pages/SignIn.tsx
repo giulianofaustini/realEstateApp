@@ -1,6 +1,15 @@
 import { useState } from "react";
 import { UserInterface } from "../../../src/interfaces/userInterface";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setCurrentUser, setLoading } from "../redux/user/userSlice";
+import { useSelector } from "react-redux";
+
+type UseState = {
+  user: {
+    loading: boolean;
+  };
+};
 
 export const SignIn = () => {
   const [formData, setFormData] = useState<UserInterface>({
@@ -12,9 +21,10 @@ export const SignIn = () => {
     updatedAt: new Date(),
   });
 
-  const [loading, setLoading] = useState<boolean>(false);
+  const { loading } = useSelector((state: UseState) => state.user);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -25,7 +35,7 @@ export const SignIn = () => {
 
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setLoading(true);
+    dispatch(setLoading(true));
 
     try {
       const res = await fetch("http://localhost:3000/api/sign-in", {
@@ -39,6 +49,19 @@ export const SignIn = () => {
       const data = await res.json();
 
       if (res.ok) {
+        const { id, username, password, email, isAdmin, createdAt, updatedAt } =
+          data;
+        dispatch(
+          setCurrentUser({
+            id,
+            username,
+            password,
+            email,
+            isAdmin,
+            createdAt,
+            updatedAt,
+          })
+        );
         setFormData({
           username: "",
           email: "",
@@ -49,14 +72,12 @@ export const SignIn = () => {
         });
         navigate("/");
       } else {
-        console.log(data);
         alert(data.message);
       }
-      setLoading(false);
-      
+      dispatch(setLoading(false));
     } catch (error) {
       console.log(error);
-      setLoading(false);
+      dispatch(setLoading(false));
     }
   };
 
@@ -64,7 +85,6 @@ export const SignIn = () => {
   return (
     <div className="max-w-lg  mx-auto mt-10">
       <form className="flex flex-col gap-2" onSubmit={handleFormSubmit}>
-    
         <input
           type="email"
           placeholder="email"
@@ -88,7 +108,10 @@ export const SignIn = () => {
         </button>
       </form>
       <div className="flex">
-        <p className="mt-5 text-slate-500"> If you do not have an account, sign up </p>
+        <p className="mt-5 text-slate-500">
+          {" "}
+          If you do not have an account, sign up{" "}
+        </p>
         <Link
           className="mt-5 ml-1 text-blue-500 hover:text-blue-600 "
           to="/api/sign-up"
