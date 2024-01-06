@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { UserState } from "../redux/user/userSlice";
@@ -12,11 +12,21 @@ import { persistor } from "../redux/store"
 
 export const NavBar: React.FC = () => {
 
+  const [showTooltip, setShowTooltip] = useState<boolean>(false)
+  // console.log('showTooltip when compenent mounts', showTooltip)
+  
+
 const { currentUser } = useSelector((state: { user: UserState }) => ({
   currentUser: state.user.currentUser,
 }));
 
-const [showTooltip, setShowTooltip] = useState(false)
+useEffect(() => {
+  if( !currentUser) {
+    setShowTooltip(false)
+  }
+}, [currentUser])
+
+
 
 const dispatch = useDispatch()
 const navigate = useNavigate();
@@ -29,7 +39,15 @@ const handleSignOut = () => {
   
 }
 
+const handleMouseEnter = () => {
+  if (currentUser) {
+    setShowTooltip(true);
+  }
+};
 
+const handleMouseLeave = () => {
+  setShowTooltip(false);
+};
 
 
   return (
@@ -62,18 +80,18 @@ const handleSignOut = () => {
       {currentUser ? (
         <div className="relative mb-4">
           <button
-            onMouseEnter={() => setShowTooltip(true)}
-            onMouseLeave={() => setShowTooltip(false)}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
             onClick={handleSignOut}
             className="select-none rounded-lg bg-gray-800 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-700/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
           >
             Welcome, {currentUser.username}!
           </button>
-          {showTooltip && (
+          {showTooltip ?  (
             <div className="absolute left-1/2 top-full bg-red-600 text-black p-2 rounded-lg">
               Sign out
             </div>
-          )}
+          ) : null }
         </div>
       ) : null}
     </div>
