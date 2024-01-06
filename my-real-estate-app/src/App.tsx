@@ -10,6 +10,7 @@ import { ListOfHousesForRent } from "./components/ListOfHousesForRent";
 import { SingleHouseForRent } from "./components/SingleHouseForRent";
 import { SignUp } from "./pages/SignUp";
 
+
 export interface HouseProps {
   id: string;
   title: string;

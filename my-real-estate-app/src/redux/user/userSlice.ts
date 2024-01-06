@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { UserInterface } from "../../../../src/interfaces/userInterface";
 
 
+
 export interface UserState {
     currentUser: UserInterface | null;
     loading: boolean;
@@ -23,10 +24,14 @@ export interface UserState {
       setLoading(state, action: PayloadAction<boolean>) {
         state.loading = action.payload;
       },
+      signOut(state) {
+        state.currentUser = null;
+        
+      }
     },
   });
   
-  export const { setCurrentUser, setLoading } = userSlice.actions;
+  export const { setCurrentUser, setLoading , signOut } = userSlice.actions;
   export default userSlice.reducer;
 
   

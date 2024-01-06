@@ -84,6 +84,9 @@ const signIn = async (
         token,
         _id: validUser._id,
         username: validUser.username,
+        email: validUser.email,
+        isAdmin: validUser.isAdmin,
+        createdat: validUser.createdAt,
     })
 
   } catch (error) {

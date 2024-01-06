@@ -1,6 +1,12 @@
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { UserState } from "../redux/user/userSlice";
+
+import { useNavigate } from "react-router-dom";
+import { signOut } from "../redux/user/userSlice"
+import { useDispatch } from "react-redux"
+import { persistor } from "../redux/store"
 
 
 
@@ -9,6 +15,22 @@ export const NavBar: React.FC = () => {
 const { currentUser } = useSelector((state: { user: UserState }) => ({
   currentUser: state.user.currentUser,
 }));
+
+const [showTooltip, setShowTooltip] = useState(false)
+
+const dispatch = useDispatch()
+const navigate = useNavigate();
+
+const handleSignOut = () => {
+
+  dispatch(signOut())
+  persistor.purge();
+  navigate('/')
+  
+}
+
+
+
 
   return (
     <div className=" text-gray h-20 flex justify-between items-center w-9/12 mx-auto">
@@ -35,11 +57,25 @@ const { currentUser } = useSelector((state: { user: UserState }) => ({
       <h1 className="mr-10">
         <Link to="/api/sign-up">Authorized-area</Link>
       </h1>
-      {currentUser && (
-        <div className="mb-4">
-          <p>Welcome, {currentUser.username}!</p>
+    
+     
+      {currentUser ? (
+        <div className="relative mb-4">
+          <button
+            onMouseEnter={() => setShowTooltip(true)}
+            onMouseLeave={() => setShowTooltip(false)}
+            onClick={handleSignOut}
+            className="select-none rounded-lg bg-gray-800 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-700/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+          >
+            Welcome, {currentUser.username}!
+          </button>
+          {showTooltip && (
+            <div className="absolute left-1/2 top-full bg-red-600 text-black p-2 rounded-lg">
+              Sign out
+            </div>
+          )}
         </div>
-      )}
+      ) : null}
     </div>
   );
 };
