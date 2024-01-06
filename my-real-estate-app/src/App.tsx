@@ -9,6 +9,8 @@ import { SignIn } from "./pages/SignIn";
 import { ListOfHousesForRent } from "./components/ListOfHousesForRent";
 import { SingleHouseForRent } from "./components/SingleHouseForRent";
 import { SignUp } from "./pages/SignUp";
+import { ActionPage } from "./pages/ActionPage";
+import { HouseForSaleForm } from "../src/pages/HouseForSaleForm";
 
 
 export interface HouseProps {
@@ -83,9 +85,11 @@ function App() {
           <Route path="/api/housesForSale" element={<ListOfHouses housesToPass={houses} />} />
           <Route path="/api/housesForRent" element={<ListOfHousesForRent housesToRent={housesForRent} />} />
           <Route path="/api/housesForRent/rent/:id" element={<SingleHouseForRent houseToRent={housesForRent} />} />
-
           <Route path="/api/sign-in" element={<SignIn />} />
           <Route path="/api/sign-up" element={<SignUp />} />
+          <Route path="/api/action" element={<ActionPage />} />
+          <Route path="/api/create-house-for-sale" element={<HouseForSaleForm />} />
+          
         </Routes>
       </Router>
       </div>

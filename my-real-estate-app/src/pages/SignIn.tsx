@@ -76,7 +76,7 @@ export const SignIn = () => {
           createdAt: new Date(),
           updatedAt: new Date(),
         });
-        navigate("/");
+        navigate("/api/action");
       } else {
         alert(data.message);
       }
