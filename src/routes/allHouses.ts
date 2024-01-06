@@ -23,5 +23,11 @@ router.get("/sale/:id", (req, res) => {
 }
 );
 
+router.post("/", (req, res, next) => {
+    const houseForSaleData = req.body;
+    housesService.createHouseForSale(houseForSaleData, req, res, next);
+}
+);
+
 export default router;
 

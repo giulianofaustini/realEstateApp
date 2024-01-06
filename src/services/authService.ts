@@ -2,7 +2,7 @@ import User from "../models/user.model";
 import { UserInterface } from "../interfaces/userInterface";
 import bcryptjs from "bcryptjs";
 import { NextFunction } from "express";
-import { errorHandler } from "../utils/error";
+
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config();

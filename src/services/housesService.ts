@@ -1,5 +1,10 @@
 import { housesForSale } from "../data/housesData";
 import { housesForRent } from "../data/housesForRentData";
+import { NextFunction } from "express";
+import { HouseInterface } from "../interfaces/houseInterface"
+import { Request, Response } from "express";
+import  HouseForSale from "../models/houseForSale.model"
+
 
 const getHouses = ( ) => {
     return housesForSale;
@@ -19,6 +24,33 @@ const getHouseForRentById = (id: string) => {
     return house;
 }
 
+const createHouseForSale = async (
+    houseForSaleData: HouseInterface,
+    req: Request,
+    res: Response,
+    next: NextFunction
+    ): Promise<void> => {
+    const { title, description, address, location , price, imageUrl, bathrooms, bedrooms, agent } = houseForSaleData;
+    try {
+        const newHouseForSale = new HouseForSale({
+            title,
+            description,
+            address,
+            location,
+            price,
+            imageUrl,
+            bathrooms,
+            bedrooms,
+            agent
+        });
+        await newHouseForSale.save();
+        res.status(201).json({ message: 'House created successfully' });
+    } catch (error) {
+        next(error);
+    }
+}
+
+
 
 
 export const housesService = {
@@ -26,4 +58,5 @@ export const housesService = {
     getHouseById,
     getHousesForRent,
     getHouseForRentById,
+    createHouseForSale
 }
