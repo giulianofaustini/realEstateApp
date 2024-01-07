@@ -5,8 +5,8 @@ import { housesService } from "../services/housesService";
 
 const router = express.Router();
 
-router.get("/", (req, res) => {
-    const housesForRent = housesService.getHousesForRent();
+router.get("/", async (req, res) => {
+    const housesForRent = await housesService.getHousesForRent();
     res.json(housesForRent);
     console.log('houses for rent in all houses set up', housesForRent);
 } 

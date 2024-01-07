@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
-import { housesForRentInterface } from "../App"; // Assuming housesForRentInterface is correctly imported
+import { HousesForRentProps } from "../App"; 
 
 export interface ListOfHousesForRentProps {
-  housesToRent: housesForRentInterface[];
+  housesToRent: HousesForRentProps[];
 }
 
 export const ListOfHousesForRent = ({ housesToRent }: ListOfHousesForRentProps) => {
@@ -11,8 +11,8 @@ export const ListOfHousesForRent = ({ housesToRent }: ListOfHousesForRentProps) 
   return (
     <div  className="grid grid-cols-3 justify-center">
       {housesToRent.map((house) => (
-        <div key={house.id} >
-          <Link  key={house.id} to={`/api/housesForRent/rent/${house.id}`}>
+        <div key={house._id} >
+          <Link  key={house._id} to={`/api/housesForRent/rent/${house._id}`}>
             <div className=" bg-slate-100 p-6 border-2 border-slate-200  m-2 rounded-xl">
             <div className="font-bold " >{house.title}</div>
             <div>{house.description}</div>

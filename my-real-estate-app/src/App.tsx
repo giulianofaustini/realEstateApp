@@ -11,6 +11,7 @@ import { SingleHouseForRent } from "./components/SingleHouseForRent";
 import { SignUp } from "./pages/SignUp";
 import { ActionPage } from "./pages/ActionPage";
 import { HouseForSaleForm } from "../src/pages/HouseForSaleForm";
+import { HouseForRentForm } from "../src/pages/HouseForRentForm";
 
 
 export interface HouseProps {
@@ -25,8 +26,8 @@ export interface HouseProps {
   bathrooms: number;
 }
 
-export interface housesForRentInterface {
-  id: string;
+export interface HousesForRentProps {
+_id: string;
 title: string;
 description: string;
 monthlyRent: number;
@@ -42,7 +43,7 @@ bathrooms: number;
 
 function App() {
   const [houses, setHouses] = useState<HouseProps[]>([]);
-  const [housesForRent , setHousesForRent] = useState<housesForRentInterface[]>([]);
+  const [housesForRent , setHousesForRent] = useState<HousesForRentProps[]>([]);
   const [loading, setLoading] = useState(true);
 
   
@@ -89,6 +90,7 @@ function App() {
           <Route path="/api/sign-up" element={<SignUp />} />
           <Route path="/api/action" element={<ActionPage />} />
           <Route path="/api/create-house-for-sale" element={<HouseForSaleForm />} />
+          <Route path="/api/create-house-for-rent" element={<HouseForRentForm />} />
           
         </Routes>
       </Router>

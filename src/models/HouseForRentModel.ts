@@ -53,7 +53,7 @@ bathrooms: {
 
 
 
-const HouseForSale = mongoose.model("HouseForRent", houseForRentSchema);
+const HouseForRent = mongoose.model("HouseForRent", houseForRentSchema);
 
-export default HouseForSale;
+export default HouseForRent;
 

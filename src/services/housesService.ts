@@ -31,8 +31,29 @@ const getHouses = async (): Promise<HouseInterface[]> => {
     }
 }
 
-const getHousesForRent = ( ) => {
-    return housesForRent;
+const getHousesForRent = async ( ): Promise<housesForRentInterface[]> => {
+   try {
+    const houses = await HouseForRent.find();
+    const convertedHousesForRent = houses.map(house => ({
+        _id: house._id.toString(),
+        title: house.title,
+        description: house.description,
+        address: house.address,
+        location: house.location,
+        monthlyRent: house.monthlyRent,
+        rentalDeposit: house.rentalDeposit,
+        imageUrl: house.imageUrl,
+        bathrooms: house.bathrooms,
+        bedrooms: house.bedrooms,
+        agent: house.agent
+    }));
+    console.log('houses from house service when fetching with all houses for RENT', convertedHousesForRent);
+    return convertedHousesForRent;
+
+   } catch (err) {
+         console.log(err);
+         throw new Error('Error while fetching houses');
+    }
 }
 
 const getHouseById = (id: string) => {

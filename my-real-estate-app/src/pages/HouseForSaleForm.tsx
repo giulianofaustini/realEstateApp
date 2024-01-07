@@ -10,7 +10,6 @@ export const HouseForSaleForm = () => {
 
     
     const [ formDataForSale , setFormDataForSale ] = useState<HouseInterface>({
-        id: "",
         title: "",
         description: "",
         price: 0,
@@ -49,7 +48,6 @@ export const HouseForSaleForm = () => {
 
             if (data.ok) {
                 setFormDataForSale({
-                    id: "",
                     title: "",
                     description: "",
                     price: 0,
@@ -62,7 +60,7 @@ export const HouseForSaleForm = () => {
                 });
                 setLoading(false);
                 console.log(data.message);
-                navigate("/api/housesForSale");
+                
             } else {
                 setLoading(false);
                 alert(data.message);

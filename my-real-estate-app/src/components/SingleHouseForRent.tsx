@@ -1,8 +1,8 @@
-import { housesForRentInterface } from "../App";
+import { HousesForRentProps } from "../App";
 import { useParams } from "react-router-dom";
 
 export interface SingleHouseForRentProps {
-  houseToRent: housesForRentInterface[];
+  houseToRent: HousesForRentProps[];
 }
 
 export const SingleHouseForRent = ({
@@ -12,7 +12,7 @@ export const SingleHouseForRent = ({
 
   console.log("this is the id from the URL of a house to rent:", id);
 
-  const selectedHouse = houseToRent.find((house) => house.id === id);
+  const selectedHouse = houseToRent.find((house) => house._id === id);
 
   if (!selectedHouse) {
     return <div>House not found!</div>;
