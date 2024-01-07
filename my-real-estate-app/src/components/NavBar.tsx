@@ -88,7 +88,7 @@ const handleMouseLeave = () => {
             Welcome, {currentUser.username}!
           </button>
           {showTooltip ?  (
-            <div className="absolute left-1/2 top-full bg-red-600 text-black p-2 rounded-lg">
+            <div className="absolute right-1/2 top-full bg-red-100 text-black p-2 rounded-lg text-xs">
               Sign out
             </div>
           ) : null }

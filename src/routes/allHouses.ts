@@ -5,16 +5,17 @@ import { housesService } from "../services/housesService";
 
 const router = express.Router();
 
-router.get("/", (req, res) => {
-    const housesForSale = housesService.getHouses();
+router.get("/", async (req, res) => {
+    const housesForSale = await housesService.getHouses();
     res.json(housesForSale);
+    console.log('houses from  route', housesForSale);
 }
 );
 
 
-router.get("/sale/:id", (req, res) => {
+router.get("/sale/:id", async (req, res) => {
     const id = req.params.id;
-    const house = housesService.getHouseById(id);
+    const house = await housesService.getHouseById(id);
     if (house) {
         res.json(house);
     } else {

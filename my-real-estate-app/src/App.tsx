@@ -14,7 +14,7 @@ import { HouseForSaleForm } from "../src/pages/HouseForSaleForm";
 
 
 export interface HouseProps {
-  id: string;
+  _id: string;
   title: string;
   description: string;
   price: number;

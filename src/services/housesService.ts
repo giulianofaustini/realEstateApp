@@ -6,8 +6,27 @@ import { Request, Response } from "express";
 import  HouseForSale from "../models/houseForSale.model"
 
 
-const getHouses = ( ) => {
-    return housesForSale;
+const getHouses = async (): Promise<HouseInterface[]> => {
+    try {
+        const houses = await HouseForSale.find();
+        const convertedHouses = houses.map(house => ({
+            _id: house._id.toString(),
+            title: house.title,
+            description: house.description,
+            address: house.address,
+            location: house.location,
+            price: house.price,
+            imageUrl: house.imageUrl,
+            bathrooms: house.bathrooms,
+            bedrooms: house.bedrooms,
+            agent: house.agent
+        }));
+        console.log('houses from house service when fetching with all houses', convertedHouses);
+        return convertedHouses;
+    } catch (err) {
+        console.log(err);
+        throw new Error('Error while fetching houses');
+    }
 }
 
 const getHousesForRent = ( ) => {
@@ -15,7 +34,7 @@ const getHousesForRent = ( ) => {
 }
 
 const getHouseById = (id: string) => {
-    const house = housesForSale.find((house) => house.id === id);
+    const house = housesForSale.find((house) => house._id === id);
     return house;
 }
 
@@ -30,9 +49,10 @@ const createHouseForSale = async (
     res: Response,
     next: NextFunction
     ): Promise<void> => {
-    const { title, description, address, location , price, imageUrl, bathrooms, bedrooms, agent } = houseForSaleData;
+    const { _id, title, description, address, location , price, imageUrl, bathrooms, bedrooms, agent } = houseForSaleData;
     try {
         const newHouseForSale = new HouseForSale({
+            _id,
             title,
             description,
             address,
@@ -49,10 +69,6 @@ const createHouseForSale = async (
         next(error);
     }
 }
-
-
-
-
 export const housesService = {
     getHouses,
     getHouseById,

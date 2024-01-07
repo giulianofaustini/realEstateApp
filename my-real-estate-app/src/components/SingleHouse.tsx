@@ -13,7 +13,7 @@ export const SingleHouse = ({ houses }: SingleHouseProps) => {
   console.log('this is the id from the URL:', id); 
 
   // Find the selected house based on the id
-  const selectedHouse = houses.find((house) => house.id === id);
+  const selectedHouse = houses.find((house) => house._id === id);
 
   if (!selectedHouse) {
     return <div>House not found!</div>;
