@@ -1,5 +1,5 @@
 export interface housesForRentInterface {
-    id: string;
+  _id?: string;
   title: string;
   description: string;
   monthlyRent: number;

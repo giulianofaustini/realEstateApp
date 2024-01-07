@@ -52,6 +52,8 @@ app.use("/api/sign-in" , signInRoute )
 
 app.use("/api/create-house-for-sale", allHousesRouter);
 
+app.use("/api/create-house-for-rent", allHousesForRentRouter);
+
 app.use((err: { statusCode?: number, message?: string }, req: Request, res: Response, next: NextFunction) => {
   const statusCode = err.statusCode || 500;
   const message = err.message || "Internal Server Error";

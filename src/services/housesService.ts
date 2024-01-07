@@ -4,6 +4,8 @@ import { NextFunction } from "express";
 import { HouseInterface } from "../interfaces/houseInterface"
 import { Request, Response } from "express";
 import  HouseForSale from "../models/houseForSale.model"
+import  {housesForRentInterface} from "../interfaces/housesForRentInterface"
+import HouseForRent from "../models/HouseForRentModel"
 
 
 const getHouses = async (): Promise<HouseInterface[]> => {
@@ -39,7 +41,7 @@ const getHouseById = (id: string) => {
 }
 
 const getHouseForRentById = (id: string) => {
-    const house = housesForRent.find((house) => house.id === id);
+    const house = housesForRent.find((house) => house._id === id);
     return house;
 }
 
@@ -69,10 +71,46 @@ const createHouseForSale = async (
         next(error);
     }
 }
+
+
+const createHouseForRent = async (
+    houseForRentData: housesForRentInterface,
+    req: Request,
+    res: Response,
+    next: NextFunction
+    ): Promise<void> => {
+    const { _id, title, description, address, location , monthlyRent, rentalDeposit, imageUrl, bathrooms, bedrooms, agent } = houseForRentData;
+    try {
+        const newHouseForRent = new HouseForRent({
+            _id,
+            title,
+            description,
+            address,
+            location,
+            monthlyRent,
+            rentalDeposit,
+            imageUrl,
+            bathrooms,
+            bedrooms,
+            agent
+        });
+        await newHouseForRent.save();
+        res.status(201).json({ message: 'House created successfully' });
+    } catch (error) {
+        next(error);
+    }
+}
+
+
+
+
+
+
 export const housesService = {
     getHouses,
     getHouseById,
     getHousesForRent,
     getHouseForRentById,
-    createHouseForSale
+    createHouseForSale,
+    createHouseForRent
 }

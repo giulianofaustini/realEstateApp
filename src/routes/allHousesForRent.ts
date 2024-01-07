@@ -23,5 +23,11 @@ router.get("/rent/:id", (req, res) => {
 }
 );
 
+router.post("/", (req, res, next) => {
+    const houseForRentData = req.body;
+    housesService.createHouseForRent(houseForRentData, req, res, next);
+}
+);
+
 
 export default router;

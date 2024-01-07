@@ -79,6 +79,9 @@ const handleMouseLeave = () => {
      
       {currentUser ? (
         <div className="relative mb-4">
+          <h1 className="mr-10">
+        <Link to="/api/action">Action</Link>
+      </h1> 
           <button
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}

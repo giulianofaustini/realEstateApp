@@ -2,7 +2,7 @@ import { housesForRentInterface } from '../interfaces/housesForRentInterface';
 
 export const housesForRent: housesForRentInterface[] = [
   {
-    id: '1',
+    _id: '1',
     title: 'Downtown Loft',
     description: 'Spacious loft in the bustling city center',
     monthlyRent: 2500,
@@ -15,7 +15,7 @@ export const housesForRent: housesForRentInterface[] = [
     bathrooms: 3,
   },
   {
-    id: '2',
+    _id: '2',
     title: 'Riverside Apartment',
     description: 'Chic apartment with a view of the river',
     monthlyRent: 1800,
@@ -28,7 +28,7 @@ export const housesForRent: housesForRentInterface[] = [
     bathrooms: 2,
   },
   {
-    id: '3',
+    _id: '3',
     title: 'Suburban House',
     description: 'Spacious house in a tranquil suburban area',
     monthlyRent: 2100,
@@ -41,7 +41,7 @@ export const housesForRent: housesForRentInterface[] = [
     bathrooms: 2,
   },
   {
-    id: '4',
+    _id: '4',
     title: 'Beachfront Condo',
     description: 'Condo with stunning beach views',
     monthlyRent: 2700,
@@ -54,7 +54,7 @@ export const housesForRent: housesForRentInterface[] = [
     bathrooms: 2,
   },
   {
-    id: '5',
+    _id: '5',
     title: 'Penthouse Apartment',
     description: 'Luxurious penthouse with city skyline views',
     monthlyRent: 3200,
@@ -67,7 +67,7 @@ export const housesForRent: housesForRentInterface[] = [
     bathrooms: 2,
   },
   {
-    id: '6',
+    _id: '6',
     title: 'Modern Townhouse',
     description: 'Contemporary townhouse with garden',
     monthlyRent: 2400,
@@ -80,7 +80,7 @@ export const housesForRent: housesForRentInterface[] = [
     bathrooms: 2,
   },
   {
-    id: '7',
+    _id: '7',
     title: 'Lakeview Mansion',
     description: 'Mansion with panoramic lake views',
     monthlyRent: 3500,
@@ -93,7 +93,7 @@ export const housesForRent: housesForRentInterface[] = [
     bathrooms: 4,
   },
   {
-    id: '8',
+    _id: '8',
     title: 'Studio Apartment',
     description: 'Compact studio in the city center',
     monthlyRent: 1500,
@@ -106,7 +106,7 @@ export const housesForRent: housesForRentInterface[] = [
     bathrooms: 1,
   },
   {
-    id: '9',
+    _id: '9',
     title: 'Hillside House',
     description: 'House located on a scenic hillside',
     monthlyRent: 2600,
@@ -119,7 +119,7 @@ export const housesForRent: housesForRentInterface[] = [
     bathrooms: 3,
   },
   {
-    id: '10',
+    _id: '10',
     title: 'Garden Apartment',
     description: 'Apartment with a private garden',
     monthlyRent: 1900,

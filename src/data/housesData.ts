@@ -2,7 +2,7 @@ import { HouseInterface } from '../interfaces/houseInterface';
 
 export const housesForSale: HouseInterface[] = [
   {
-    id: '1',
+    _id: '1',
     title: 'Elegant Villa',
     description: 'Luxurious villa overlooking the sea',
     price: 500000,
@@ -14,7 +14,7 @@ export const housesForSale: HouseInterface[] = [
     bathrooms: 3,
   },
   {
-    id: '2',
+    _id: '2',
     title: 'City Center Apartment',
     description: 'Modern apartment in the heart of Helsinki',
     price: 350000,
@@ -26,7 +26,7 @@ export const housesForSale: HouseInterface[] = [
     bathrooms: 2,
   },
   {
-    id: '3',
+    _id: '3',
     title: 'Seaside Cottage',
     description: 'Cozy cottage by the Helsinki shoreline',
     price: 270000,
@@ -38,7 +38,7 @@ export const housesForSale: HouseInterface[] = [
     bathrooms: 1,
   },
   {
-    id: '4',
+    _id: '4',
     title: 'Penthouse Suite',
     description: 'Luxurious penthouse with city views',
     price: 700000,
@@ -50,7 +50,7 @@ export const housesForSale: HouseInterface[] = [
     bathrooms: 2,
   },
   {
-    id: '5',
+    _id: '5',
     title: 'Country Home',
     description: 'Traditional home in a peaceful setting',
     price: 320000,
@@ -62,7 +62,7 @@ export const housesForSale: HouseInterface[] = [
     bathrooms: 3,
   },
   {
-    id: '6',
+    _id: '6',
     title: 'Modern Townhouse',
     description: 'Contemporary townhouse with garden',
     price: 420000,
@@ -74,7 +74,7 @@ export const housesForSale: HouseInterface[] = [
     bathrooms: 2,
   },
   {
-    id: '7',
+    _id: '7',
     title: 'Riverside Mansion',
     description: 'Mansion with a view of the river',
     price: 950000,
@@ -86,7 +86,7 @@ export const housesForSale: HouseInterface[] = [
     bathrooms: 4,
   },
   {
-    id: '8',
+    _id: '8',
     title: 'Historic Apartment',
     description: 'Apartment in a historic building',
     price: 280000,
@@ -98,7 +98,7 @@ export const housesForSale: HouseInterface[] = [
     bathrooms: 1,
   },
   {
-    id: '9',
+    _id: '9',
     title: 'Scenic Villa',
     description: 'Villa with scenic views of the city',
     price: 620000,
@@ -110,7 +110,7 @@ export const housesForSale: HouseInterface[] = [
     bathrooms: 3,
   },
   {
-    id: '10',
+    _id: '10',
     title: 'Garden House',
     description: 'House with a spacious garden',
     price: 380000,
