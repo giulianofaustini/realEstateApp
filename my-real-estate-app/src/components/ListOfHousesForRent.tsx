@@ -34,7 +34,7 @@ export const ListOfHousesForRent = ({ housesToRent , setHousesForRent }: ListOfH
             <div className=" bg-slate-100 p-6 border-2 border-slate-200  m-2 rounded-xl">
             <div className="font-bold " >{house.title}</div>
             <div>{house.description}</div>
-            <div>{house.monthlyRent}</div>
+            <div>{house.monthlyRent} € </div>
             { house.addedBy ? (
               <div className="capitalize">Added by {house.addedBy} </div>
             ): null }
