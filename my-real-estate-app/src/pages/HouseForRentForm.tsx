@@ -2,8 +2,16 @@ import React, { useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 import { housesForRentInterface } from "../../../src/interfaces/housesForRentInterface";
+import { useSelector } from "react-redux";
+import { UserState } from "../redux/user/userSlice";
 
 export const HouseForRentForm = () => {
+const { currentUser } = useSelector((state: { user: UserState }) => ({
+    currentUser: state.user.currentUser,
+  
+  }));
+
+
   const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
 
@@ -19,6 +27,7 @@ export const HouseForRentForm = () => {
       agent: "",
       bedrooms: 0,
       bathrooms: 0,
+      addedBy: currentUser?.username,
     });
 
   

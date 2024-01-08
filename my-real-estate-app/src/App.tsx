@@ -38,6 +38,7 @@ imageUrl: string;
 agent: string;
 bedrooms: number;
 bathrooms: number;
+addedBy: string;
 }
 
 

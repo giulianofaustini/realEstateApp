@@ -10,4 +10,5 @@ export interface housesForRentInterface {
   agent: string;
   bedrooms: number;
   bathrooms: number;
+  addedBy?: string;
 }

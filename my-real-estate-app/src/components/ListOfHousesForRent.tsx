@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { HousesForRentProps } from "../App"; 
 import { useEffect } from "react";
 
+
 export interface ListOfHousesForRentProps {
   housesToRent: HousesForRentProps[];
   
@@ -9,7 +10,8 @@ export interface ListOfHousesForRentProps {
 }
 
 export const ListOfHousesForRent = ({ housesToRent , setHousesForRent }: ListOfHousesForRentProps) => {
-  
+
+
 
   useEffect(() => {
     const fetchHousesForRent = async () => {
@@ -33,6 +35,10 @@ export const ListOfHousesForRent = ({ housesToRent , setHousesForRent }: ListOfH
             <div className="font-bold " >{house.title}</div>
             <div>{house.description}</div>
             <div>{house.monthlyRent}</div>
+            { house.addedBy ? (
+              <div className="capitalize">Added by {house.addedBy} </div>
+            ): null }
+            
             </div>
           </Link>
         </div>

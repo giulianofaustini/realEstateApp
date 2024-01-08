@@ -45,10 +45,11 @@ const getHousesForRent = async ( ): Promise<housesForRentInterface[]> => {
         imageUrl: house.imageUrl,
         bathrooms: house.bathrooms,
         bedrooms: house.bedrooms,
-        agent: house.agent
+        agent: house.agent,
+        addedBy: house.addedBy?.toString()
     }));
     console.log('houses from house service when fetching with all houses for RENT', convertedHousesForRent);
-    return convertedHousesForRent;
+    return convertedHousesForRent as housesForRentInterface[];
 
    } catch (err) {
          console.log(err);
@@ -72,7 +73,7 @@ const createHouseForSale = async (
     res: Response,
     next: NextFunction
     ): Promise<void> => {
-    const { _id, title, description, address, location , price, imageUrl, bathrooms, bedrooms, agent } = houseForSaleData;
+    const { _id, title, description, address, location , price, imageUrl, bathrooms, bedrooms, agent  } = houseForSaleData;
     try {
         const newHouseForSale = new HouseForSale({
             _id,
@@ -84,7 +85,7 @@ const createHouseForSale = async (
             imageUrl,
             bathrooms,
             bedrooms,
-            agent
+            agent,
         });
         await newHouseForSale.save();
         res.status(201).json({ message: 'House created successfully' });
@@ -100,7 +101,7 @@ const createHouseForRent = async (
     res: Response,
     next: NextFunction
     ): Promise<void> => {
-    const { _id, title, description, address, location , monthlyRent, rentalDeposit, imageUrl, bathrooms, bedrooms, agent } = houseForRentData;
+    const { _id, title, description, address, location , monthlyRent, rentalDeposit, imageUrl, bathrooms, bedrooms, agent, addedBy } = houseForRentData;
     try {
         const newHouseForRent = new HouseForRent({
             _id,
@@ -113,7 +114,8 @@ const createHouseForRent = async (
             imageUrl,
             bathrooms,
             bedrooms,
-            agent
+            agent,
+            addedBy
         });
         await newHouseForRent.save();
         res.status(201).json({ message: 'House created successfully' });
