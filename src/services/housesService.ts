@@ -6,6 +6,7 @@ import { Request, Response } from "express";
 import  HouseForSale from "../models/houseForSale.model"
 import  {housesForRentInterface} from "../interfaces/housesForRentInterface"
 import HouseForRent from "../models/HouseForRentModel"
+import User from "../models/user.model";
 
 
 const getHouses = async (): Promise<HouseInterface[]> => {
@@ -21,7 +22,8 @@ const getHouses = async (): Promise<HouseInterface[]> => {
             imageUrl: house.imageUrl,
             bathrooms: house.bathrooms,
             bedrooms: house.bedrooms,
-            agent: house.agent
+            agent: house.agent,
+            addedBy: house.addedBy?.toString()
         }));
         console.log('houses from house service when fetching with all houses', convertedHouses);
         return convertedHouses;
@@ -73,7 +75,7 @@ const createHouseForSale = async (
     res: Response,
     next: NextFunction
     ): Promise<void> => {
-    const { _id, title, description, address, location , price, imageUrl, bathrooms, bedrooms, agent  } = houseForSaleData;
+    const { _id, title, description, address, location , price, imageUrl, bathrooms, bedrooms, agent , addedBy } = houseForSaleData;
     try {
         const newHouseForSale = new HouseForSale({
             _id,
@@ -86,6 +88,7 @@ const createHouseForSale = async (
             bathrooms,
             bedrooms,
             agent,
+            addedBy
         });
         await newHouseForSale.save();
         res.status(201).json({ message: 'House created successfully' });

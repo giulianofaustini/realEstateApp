@@ -39,6 +39,9 @@ export const ListOfHouses = ({ housesToPass , setHouses }: ListOfHousesProps) =>
                     <div className="font-bold ">{house.title}</div>
                     <div>{house.description}</div>
                     <div>{house.price}</div>
+                    { house &&  house.addedBy ? (
+                    <div className="capitalize">Added by: {house.addedBy}</div> 
+                    ) : null }
                   </div>
                 </Link>
               </div>

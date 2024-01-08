@@ -24,6 +24,7 @@ export interface HouseProps {
   agent: string;
   bedrooms: number;
   bathrooms: number;
+  addedBy: string;
 }
 
 export interface HousesForRentProps {

@@ -1,12 +1,22 @@
 import React, { useState } from 'react'
 import { HouseInterface } from  "../../../src/interfaces/houseInterface"
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { UserState } from '../redux/user/userSlice';
+
 
 
 export const HouseForSaleForm = () => {
 
     const [loading, setLoading] = useState<boolean>(false);
     const navigate = useNavigate();
+
+    const { currentUser } = useSelector((state: { user: UserState }) => ({
+        currentUser: state.user.currentUser,
+    }));
+
+    console.log('currentUser from the house for sale form', currentUser);
+
 
     
     const [ formDataForSale , setFormDataForSale ] = useState<HouseInterface>({
@@ -19,6 +29,7 @@ export const HouseForSaleForm = () => {
         agent: "",
         bedrooms: 0,
         bathrooms: 0,
+        addedBy: currentUser?.username,
     })
 
     const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
