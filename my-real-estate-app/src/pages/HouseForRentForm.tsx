@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+import React, { useState , useEffect} from "react";
 
 import { useNavigate } from "react-router-dom";
 import { housesForRentInterface } from "../../../src/interfaces/housesForRentInterface";
 import { useSelector } from "react-redux";
 import { UserState } from "../redux/user/userSlice";
 import { app } from "../firebase";
-import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
-
+import {
+  getDownloadURL,
+  getStorage,
+  ref,
+  uploadBytesResumable,
+} from "firebase/storage";
 
 export const HouseForRentForm = () => {
   const { currentUser } = useSelector((state: { user: UserState }) => ({
@@ -31,8 +35,22 @@ export const HouseForRentForm = () => {
   const [files, setFiles] = useState<File[]>([]);
   console.log("files form HouseForRentForm at state level ", files);
 
+  const [imageUploadError, setImageUploadError] = useState<string | null>("");
+
   const [loading, setLoading] = useState<boolean>(false);
+  const [uploading, setUpLoading] = useState<boolean>(false);
+
   const navigate = useNavigate();
+
+
+  useEffect(() => {
+    if (imageUploadError) {
+      const timeoutId = setTimeout(() => {
+        setImageUploadError(null);
+      }, 5000);
+      return () => clearTimeout(timeoutId);
+    }
+  }, [imageUploadError]);
 
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormDataForRent({
@@ -99,14 +117,15 @@ export const HouseForRentForm = () => {
       const fileName = new Date().getTime() + file.name;
       const storageRef = ref(storage, fileName);
       const uploadTask = uploadBytesResumable(storageRef, file);
-  
+
       uploadTask.on(
         "state_changed",
         (snapshot: { bytesTransferred: number; totalBytes: number }) => {
-          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
           console.log(`Upload is ${progress}% done`);
         },
-        (error ) => {
+        (error) => {
           reject(error);
         },
         async () => {
@@ -116,7 +135,7 @@ export const HouseForRentForm = () => {
             const newImageUrl = {
               url: downloadURL,
             };
-            resolve(newImageUrl.url); // Resolving with the URL string
+            resolve(newImageUrl.url);
           } catch (error) {
             reject(error);
           }
@@ -125,25 +144,44 @@ export const HouseForRentForm = () => {
     });
   };
 
-
   const handleImageSubmit = () => {
-    if (!files || files.length === 0) return;
-    if (files.length > 0 && files.length < 7) {
-      const promises = [];
+    if (!files ) return;
+    try {
+      if (
+        files.length > 0 &&
+        files.length + formDataForRent.imageUrl.length < 7
+      ) {
+        setUpLoading(true);
+        const promises = [];
 
-      for (let i = 0; i < files.length; i++) {
-        promises.push(storeImage(files[i]));
-      }
-      Promise.all(promises).then((urls) => {
-        setFormDataForRent({
-          ...formDataForRent,
-          imageUrl: formDataForRent.imageUrl.concat(urls),
+        for (let i = 0; i < files.length; i++) {
+          promises.push(storeImage(files[i]));
+        }
+        Promise.all(promises).then((urls) => {
+          setFormDataForRent({
+            ...formDataForRent,
+            imageUrl: formDataForRent.imageUrl.concat(urls),
+          });
+          setImageUploadError(null);
+          setUpLoading(false);
         });
-      });
-    } else {
-      alert("Please upload between 1 and 6 images");
+      } else {
+        setImageUploadError("Please upload between 1 and 6 images");
+      }
+    } catch (error) {
+      setImageUploadError("Something went wrong, please try again");
     }
   };
+
+  const handleRemoveImages = (index: number) => {
+    setFormDataForRent({
+      ...formDataForRent,
+      imageUrl: formDataForRent.imageUrl.filter((_url, i) => i !== index),
+    });
+
+  }
+
+
 
   return (
     <div className="max-w-lg  mx-auto mt-10">
@@ -205,11 +243,12 @@ export const HouseForRentForm = () => {
             onChange={(e) => setFiles(e.target.files)}
           />
           <button
+          disabled={uploading}
             onClick={handleImageSubmit}
             type="button"
             className="p-5 border rounded-full"
           >
-            Upload
+           { uploading ? 'uploading' :  'Upload' }
           </button>
         </div>
 
@@ -234,28 +273,26 @@ export const HouseForRentForm = () => {
           id="bathrooms"
           onChange={handleFormChange}
         />
+        <p>
+        {imageUploadError ? (
+          <div className="text-red-500 ">{imageUploadError}</div>
+        ) : null}
+        </p>
+        { formDataForRent.imageUrl.length > 0 ? (
+          <div className="flex flex-col gap-2">
+            {formDataForRent.imageUrl.map((url, index) => (
+              <div className="flex justify-between">
+                <img key={index} src={url} alt="listing images"  className="w-20 h-20 object-contain rounded-lg"/>
+                <button onClick={() => handleRemoveImages(index)} className="text-red-700 uppercase hover:opacity-75 pr-5">delete</button>
+              </div>
+            ))}
+          </div>
+        ) : null} 
         <button className="p-5 border rounded-lg" disabled={loading}>
           Submit
         </button>
+    
       </form>
     </div>
   );
 };
-
-
-
-// rules_version = '2';
-
-// // Craft rules based on data in your Firestore database
-// // allow write: if firestore.get(
-// //    /databases/(default)/documents/users/$(request.auth.uid)).data.isAdmin;
-// service firebase.storage {
-//   match /b/{bucket}/o {
-//     match /{allPaths=**} {
-//       allow read,
-//       write: if
-//       request.resource.size < 2 * 1024 * 1024 &&
-//       request.resource.contentType.matches('image/.*')
-//     }
-//   }
-// }
