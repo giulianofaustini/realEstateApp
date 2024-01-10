@@ -1,3 +1,5 @@
+
+
 export interface housesForRentInterface {
   _id?: string;
   title: string;
@@ -6,7 +8,7 @@ export interface housesForRentInterface {
   rentalDeposit: number;
   address: string;
   location: string;
-  imageUrl: string;
+  imageUrl: string[];
   agent: string;
   bedrooms: number;
   bathrooms: number;

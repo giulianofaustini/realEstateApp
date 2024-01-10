@@ -62,9 +62,7 @@ export const NavBar: React.FC = () => {
       <h1 className="mr-10">
         <Link to="/api/housesForRent">Houses on rent</Link>
       </h1>
-      <h1 className="mr-10">
-        <Link to="/api/sign-up">Authorized-area</Link>
-      </h1>
+     
 
       {currentUser ? (
         <div className="relative mb-4 flex h-10 items-center">
@@ -90,7 +88,9 @@ export const NavBar: React.FC = () => {
             </div>
           ) : null}
         </div>
-      ) : null}
+      ) :  <h1 className="mr-10">
+      <Link to="/api/sign-up">Authorized-area</Link>
+    </h1>}
     </div>
   );
 };
