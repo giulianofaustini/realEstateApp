@@ -7,6 +7,7 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config();
 import { Request, Response } from "express";
+import { clearScreenDown } from "readline";
 
 
 
@@ -23,7 +24,7 @@ if (!secret) {
     next: NextFunction
   ): Promise<void> => {
     try {
-      const { username, email, password, isAdmin } = userData;
+      const { username, email, password, isAdmin , avatar } = userData;
   
       if (username.length < 3) {
         const error: Error & { statusCode?: number } = new Error(
@@ -39,6 +40,7 @@ if (!secret) {
         email,
         password: hashedPassword,
         isAdmin,
+        avatar
       });
   
       await newUser.save();
@@ -54,7 +56,9 @@ const signIn = async (
   res: Response,
   next: NextFunction
 ): Promise<void> => {
-  const { email, password } = userData;
+  const { email, password , avatar } = userData;
+
+  console.log('avatar in sign in funciton ',userData.avatar)
 
   try {
     const validUser = await User.findOne({ email });
@@ -87,6 +91,7 @@ const signIn = async (
         email: validUser.email,
         isAdmin: validUser.isAdmin,
         createdat: validUser.createdAt,
+        avatar
     })
 
   } catch (error) {
@@ -94,7 +99,75 @@ const signIn = async (
   }
 };
 
+
+
+const google = async ( req: Request, res: Response, next: NextFunction) => {
+ 
+
+
+  const { username, email, photo } = req.body;
+  console.log('avatara from google function in backend', photo)
+
+
+  try {
+   
+    const user = await User.findOne({ email });
+    console.log('user from google functino ',user)
+    if (user){
+    
+      const token = jwt.sign({ _id: user._id }, secret)
+   
+        res.cookie('access_token', token, {
+          httpOnly: true,
+        })
+        res.status(200).json({
+          success: true,
+          message: 'User logged in successfully with google account',
+          token,
+          _id: user._id,
+          username: user.username,
+          email: user.email,
+          isAdmin: user.isAdmin,
+          createdat: user.createdAt,
+          photo
+        })
+    } else {
+      const generatedPassword = Math.random().toString(36).slice(-8) + Math.random().toString(36).slice(-8);
+      const hashedPassword = bcryptjs.hashSync(generatedPassword, 10);
+      const newUser = new User({
+        username: username.split(" ").join("").toLowerCase() + Math.random().toString(36).slice(-4),
+        email: email,
+        password: hashedPassword,
+        photo
+        
+      });
+      
+      await newUser.save();
+      const token = jwt.sign({ _id: newUser._id }, secret)
+      res.cookie('access_token', token, {
+          httpOnly: true,
+      })
+      res.status(200).json({
+          success: true,
+          message: 'User logged in successfully',
+          token,
+          _id: newUser._id,
+          username: newUser.username,
+          email: newUser.email,
+          isAdmin: newUser.isAdmin,
+          createdat: newUser.createdAt,
+          photo
+      })
+
+
+    }
+  } catch (error) {
+    next(error);
+  }
+}
+
 export const authService = {
   addUser,
   signIn,
+  google
 };

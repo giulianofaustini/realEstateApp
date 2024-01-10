@@ -8,14 +8,14 @@ router.post(
   "/",
   async (req: express.Request, res: express.Response, next: NextFunction) => {
     try {
-      await authService.signIn(req.body, req, res, next);
+      await authService.google(req, res, next);
+      console.log('req.body from google route', req.body)
     } catch (error) {
       console.log(error);
       next(error);
     }
   }
 );
-
 
 
 

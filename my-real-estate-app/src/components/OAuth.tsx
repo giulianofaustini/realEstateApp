@@ -1,45 +1,46 @@
-import { GoogleAuthProvider, getAuth, signInWithPopup } from 'firebase/auth';
-import { app } from '../firebase';
-import { useDispatch } from 'react-redux';
-import { setCurrentUser } from  "../redux/user/userSlice"
+import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
+import { app } from "../firebase";
+import { useDispatch } from "react-redux";
+import { setCurrentUser } from "../redux/user/userSlice";
+import React from "react";
 
-
-export const OAuth = () => {
-
-const handleGoogleClick = async () => {
-
-
-  // eslint-disable-next-line react-hooks/rules-of-hooks
+export const OAuth: React.FC = () => {
   const dispatch = useDispatch();
 
+  const handleGoogleClick = async () => {
+    
 
     try {
-
-       
-
-        const provider = new GoogleAuthProvider();
-        const auth = getAuth(app)
-        const result = await signInWithPopup(auth, provider)
-        const res = await fetch('http://localhost:3000/api/auth/google', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ name: result.user?.displayName, email: result.user?.email, photo: result.user?.photoURL })
-        })
-        const data = await res.json()
-        dispatch(setCurrentUser(data))
-        
-
+      const provider = new GoogleAuthProvider();
+      const auth = getAuth(app);
+      const result = await signInWithPopup(auth, provider);
+      console.log('result from hanlde GOOGLE CLICK',result)
+      const res = await fetch("http://localhost:3000/api/auth/google", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: result.user.displayName,
+          email: result.user.email,
+          photo: result.user.photoURL,
+        }),
+      });
+      const data = await res.json();
+      dispatch(setCurrentUser(data));
+      console.log(' Oauth data from handle GOOGLE CLICK', data)
     } catch (error) {
-        console.log('cannot sign in with googlwe')
-        
+      console.log("cannot sign in with googlwe");
     }
-
-}
-
+  };
 
   return (
-    <button onClick={handleGoogleClick} type="button" className="bg-red-700 text-white p-3 rounded-lg hover:opacity-95 disabled:opacity-80 uppercase">Continute with google</button>
-  )
-}
+    <button
+      onClick={handleGoogleClick}
+      type="button"
+      className="bg-red-700 text-white p-3 rounded-lg hover:opacity-95 disabled:opacity-80 uppercase"
+    >
+      Continute with google
+    </button>
+  );
+};

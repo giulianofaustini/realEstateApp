@@ -8,6 +8,7 @@ export interface UserInterface {
     isAdmin?: boolean | null
     createdAt: Date;
     updatedAt: Date;
+    avatar?: string | null | undefined;
     }
 
     
