@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { UserInterface } from "../../../src/interfaces/userInterface";
 import { Link, useNavigate } from "react-router-dom";
+import { OAuth } from "../components/OAuth";
 
 export const SignUp = () => {
   const [formData, setFormData] = useState<UserInterface>({
@@ -92,6 +93,7 @@ export const SignUp = () => {
         >
           {loading ? "Loading..." : "Sign Up"}
         </button>
+        <OAuth/>
       </form>
       <div className="flex">
         <p className="mt-5 text-slate-500">Or sign in </p>

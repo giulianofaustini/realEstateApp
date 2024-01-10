@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { setCurrentUser, setLoading } from "../redux/user/userSlice";
 import { useSelector } from "react-redux";
 import { UserState } from "../redux/user/userSlice"
+import { OAuth } from "../components/OAuth";
 
 
 
@@ -118,6 +119,7 @@ export const SignIn = () => {
         >
           {loading ? "Loading..." : "Sign in"}
         </button>
+        <OAuth />
       </form>
       <div className="flex">
         <p className="mt-5 text-slate-500">
