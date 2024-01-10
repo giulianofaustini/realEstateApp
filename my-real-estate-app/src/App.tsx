@@ -12,6 +12,7 @@ import { SignUp } from "./pages/SignUp";
 import { ActionPage } from "./pages/ActionPage";
 import { HouseForSaleForm } from "../src/pages/HouseForSaleForm";
 import { HouseForRentForm } from "../src/pages/HouseForRentForm";
+import { PrivateComponent } from "./components/PrivateComponent";
 
 
 export interface HouseProps {
@@ -93,7 +94,10 @@ function App() {
           <Route path="/api/housesForRent/rent/:id" element={<SingleHouseForRent houseToRent={housesForRent} />} />
           <Route path="/api/sign-in" element={<SignIn />} />
           <Route path="/api/sign-up" element={<SignUp />} />
+
+          <Route  element={<PrivateComponent />}>
           <Route path="/api/action" element={<ActionPage />} />
+          </Route>
           <Route path="/api/create-house-for-sale" element={<HouseForSaleForm />} />
           <Route path="/api/create-house-for-rent" element={<HouseForRentForm />} />
           

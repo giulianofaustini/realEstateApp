@@ -24,7 +24,7 @@ if (!secret) {
     next: NextFunction
   ): Promise<void> => {
     try {
-      const { username, email, password, isAdmin , avatar } = userData;
+      const { username, email, password, isAdmin , photo } = userData;
   
       if (username.length < 3) {
         const error: Error & { statusCode?: number } = new Error(
@@ -40,7 +40,7 @@ if (!secret) {
         email,
         password: hashedPassword,
         isAdmin,
-        avatar
+        photo
       });
   
       await newUser.save();
@@ -56,9 +56,7 @@ const signIn = async (
   res: Response,
   next: NextFunction
 ): Promise<void> => {
-  const { email, password , avatar } = userData;
-
-  console.log('avatar in sign in funciton ',userData.avatar)
+  const { email, password , photo } = userData;
 
   try {
     const validUser = await User.findOne({ email });
@@ -91,7 +89,7 @@ const signIn = async (
         email: validUser.email,
         isAdmin: validUser.isAdmin,
         createdat: validUser.createdAt,
-        avatar
+        photo
     })
 
   } catch (error) {

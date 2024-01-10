@@ -3,9 +3,11 @@ import { app } from "../firebase";
 import { useDispatch } from "react-redux";
 import { setCurrentUser } from "../redux/user/userSlice";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 export const OAuth: React.FC = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleGoogleClick = async () => {
     
@@ -28,6 +30,7 @@ export const OAuth: React.FC = () => {
       });
       const data = await res.json();
       dispatch(setCurrentUser(data));
+      navigate("/");
       console.log(' Oauth data from handle GOOGLE CLICK', data)
     } catch (error) {
       console.log("cannot sign in with googlwe");
