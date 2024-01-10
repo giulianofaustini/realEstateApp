@@ -21,6 +21,7 @@ export const SingleHouseForRent = ({
   return (
     <div className="flex justify-center  h-screen mt-10">
     <div className=" w-2/3   mx-10 " >
+    
       <span className="uppercase" > {selectedHouse.title}  FOR RENT</span>
       
       <div>Rent a {selectedHouse.description} for {selectedHouse.monthlyRent} € per month</div>
