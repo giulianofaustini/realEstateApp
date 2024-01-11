@@ -27,6 +27,10 @@ export const HouseForSaleForm = () => {
     addedBy: currentUser?.username,
   });
 
+  const [files, setFiles] = useState<File[] | null >([]);
+    console.log("files form HouseForSaleForm at state level ", files);
+
+
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormDataForSale({
       ...formDataForSale,
@@ -85,6 +89,14 @@ export const HouseForSaleForm = () => {
     }
   };
 
+
+const handleUploadImagesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    setFiles(files ? Array.from(files) : []);
+   
+    console.log("files", files);
+  }
+
   return (
     <div className="max-w-lg  mx-auto mt-10">
       <form
@@ -135,7 +147,7 @@ export const HouseForSaleForm = () => {
             type="file"
             placeholder="imageUrl"
             id="imageUrl"
-            onChange={handleFormChange}
+            onChange={handleUploadImagesChange}
           />
           <button type="button" className="p-3 border rounded-full max-h-20 uppercase" >upload image</button>
         </div>
