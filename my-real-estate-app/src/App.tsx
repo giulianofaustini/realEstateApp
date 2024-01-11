@@ -21,7 +21,7 @@ export interface HouseProps {
   description: string;
   price: number;
   address: string;
-  imageUrl: string;
+  imageUrl: string[];
   agent: string;
   bedrooms: number;
   bathrooms: number;

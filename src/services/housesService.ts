@@ -19,14 +19,14 @@ const getHouses = async (): Promise<HouseInterface[]> => {
             address: house.address,
             location: house.location,
             price: house.price,
-            imageUrl: house.imageUrl,
+            imageUrl: [house.imageUrl],
             bathrooms: house.bathrooms,
             bedrooms: house.bedrooms,
             agent: house.agent,
             addedBy: house.addedBy?.toString()
         }));
         console.log('houses from house service when fetching with all houses', convertedHouses);
-        return convertedHouses;
+        return convertedHouses as HouseInterface[];
     } catch (err) {
         console.log(err);
         throw new Error('Error while fetching houses');

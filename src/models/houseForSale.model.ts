@@ -28,10 +28,10 @@ location: {
     type: String,
     required: true,
 },
-imageUrl: {
+imageUrl: [{
     type: String,
     required: true,
-},
+}],
 agent: {
     type: String,
     required: true,

@@ -5,7 +5,7 @@ export interface HouseInterface {
   price: number;
   address: string;
   location: string;
-  imageUrl: string;
+  imageUrl: string[];
   agent: string;
   bedrooms: number;
   bathrooms: number;
