@@ -93,7 +93,10 @@ export const HouseForSaleForm = () => {
   };
 
   const handleUploadImagesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-   setFiles(e.target.files);
+    const files = e.target.files;
+    setFiles(files ? Array.from(files) : []);
+
+    console.log("files", files);
   };
 
   const storeImage = async (file: File) => {

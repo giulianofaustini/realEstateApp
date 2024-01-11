@@ -111,6 +111,14 @@ export const HouseForRentForm = () => {
     }
   };
 
+
+  const handleUploadImagesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    setFiles(files ? Array.from(files) : []);
+
+    console.log("files", files);
+  };
+
   const storeImage = async (file: File) => {
     return new Promise((resolve, reject) => {
       const storage = getStorage(app);
@@ -240,7 +248,7 @@ export const HouseForRentForm = () => {
             placeholder="imageUrl"
             id="imageUrl"
             multiple
-            onChange={(e) => setFiles(e.target.files)}
+            onChange={handleUploadImagesChange}
           />
           <button
           disabled={uploading}
