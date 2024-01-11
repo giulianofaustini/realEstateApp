@@ -168,7 +168,7 @@ export const HouseForRentForm = () => {
         Promise.all(promises).then((urls) => {
           setFormDataForRent({
             ...formDataForRent,
-            imageUrl: formDataForRent.imageUrl.concat(urls),
+            imageUrl: formDataForRent.imageUrl.concat(urls as string[]),
           });
           setImageUploadError(null);
           setUpLoading(false);

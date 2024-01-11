@@ -148,7 +148,7 @@ export const HouseForSaleForm = () => {
         Promise.all(promises).then((urls) => {
             setFormDataForSale({
             ...formDataForSale,
-            imageUrl: formDataForSale.imageUrl.concat(urls),
+            imageUrl: formDataForSale.imageUrl.concat(urls as string[]),
           });
          
         });
