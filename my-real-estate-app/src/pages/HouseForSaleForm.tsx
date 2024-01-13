@@ -34,6 +34,9 @@ export const HouseForSaleForm = () => {
   const [files, setFiles] = useState<File[] | null>([]);
   console.log("files form HouseForSaleForm at state level ", files);
 
+  const [imageUploadError, setImageUploadError] = useState<string | null>("");
+  const [uploading, setUpLoading] = useState<boolean>(false);
+
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormDataForSale({
       ...formDataForSale,
@@ -139,7 +142,7 @@ export const HouseForSaleForm = () => {
         files.length > 0 &&
         files.length + formDataForSale.imageUrl.length < 7
       ) {
-     
+        setUpLoading(true);
         const promises = [];
 
         for (let i = 0; i < files.length; i++) {
@@ -150,15 +153,25 @@ export const HouseForSaleForm = () => {
             ...formDataForSale,
             imageUrl: formDataForSale.imageUrl.concat(urls as string[]),
           });
-         
+         setImageUploadError(null);
+            setUpLoading(false);
         });
       } else {
-        alert("You can only upload 6 images");
+        setImageUploadError("You can only upload 6 images");
       }
     } catch (error) {
-        console.log(error);
+       setImageUploadError("Something went wrong, please try again");
     }
   };
+
+  const handleImageDelete = (index: number) => {
+    setFormDataForSale({
+      ...formDataForSale,
+      imageUrl: formDataForSale.imageUrl.filter(
+        (_url, i) => i !== index
+      ),
+    });
+  }
 
   
 
@@ -220,7 +233,7 @@ export const HouseForSaleForm = () => {
             type="button"
             className="p-3 border rounded-full max-h-20 uppercase"
           >
-            upload image
+           { uploading ? 'uploading' :  'upload' }
           </button>
         </div>
 
@@ -245,6 +258,21 @@ export const HouseForSaleForm = () => {
           id="bathrooms"
           onChange={handleFormChange}
         />
+        <p>
+        { imageUploadError ? (
+            <div className="text-red-500 ">{imageUploadError}</div>
+        ) : null }
+        </p>
+        { formDataForSale.imageUrl.length > 0 ? (
+          <div className="flex flex-col gap-2">
+            {formDataForSale.imageUrl.map((url, index) => (
+                <div className="flex justify-between">
+                    <img key={index} src={url} alt="listing image" className="w-20 h-20 object-contain rounded-lg" />
+                    <button onClick={() =>  handleImageDelete(index)} className="text-red-700 uppercase hover:opacity-75 pr-5" >delete</button>
+                </div>
+            ))}
+          </div>
+            ) :  null}
         <button className="p-5 border rounded-lg" disabled={loading}>
           Submit
         </button>
