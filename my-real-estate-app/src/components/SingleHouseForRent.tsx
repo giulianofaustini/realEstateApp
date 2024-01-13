@@ -34,6 +34,9 @@ export const SingleHouseForRent = ({
       <div>Number of bathrooms: {selectedHouse.bathrooms}</div>
       <div>The rental deposit for this house is {selectedHouse.rentalDeposit} €</div>
       <div>Call our agent {selectedHouse.agent} at this number: 0409380895</div>
+      {selectedHouse.imageUrl.map((image) => (
+        <img src={image} alt="all pictures in the listing" />
+      ))}
     </div>
     </div>  
   );

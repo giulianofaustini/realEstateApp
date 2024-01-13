@@ -31,6 +31,10 @@ export const SingleHouse = ({ houses }: SingleHouseProps) => {
       <p>Number of bathrooms: {selectedHouse.bathrooms}</p>
       <p>Number of bedrooms: {selectedHouse.bedrooms}</p>
       <p>Call our agent {selectedHouse.agent} at this number: 0409380895</p>
+      { selectedHouse.imageUrl.map((image) => (
+        <img src={image} alt="all pictures in the listing" />
+      ))}
+
      
     </div>
     </div>

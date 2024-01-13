@@ -36,6 +36,7 @@ export const ListOfHouses = ({ housesToPass , setHouses }: ListOfHousesProps) =>
               <div  key={house._id}>
                 <Link to={`/api/houses/sale/${house._id}`}>
                   <div className=" bg-slate-100 p-6 border-2 rounded-xl border-slate-200  m-2 ">
+                    <img className="w-full h-40 object-cover" src={house.imageUrl[0]} alt="listing first image" />
                     <div className="font-bold ">{house.title}</div>
                     <div>{house.description}</div>
                     <div>{house.price} € </div>
