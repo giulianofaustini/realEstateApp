@@ -19,7 +19,7 @@ const getHouses = async (): Promise<HouseInterface[]> => {
             address: house.address,
             location: house.location,
             price: house.price,
-            imageUrl: [house.imageUrl],
+            imageUrl: house.imageUrl,
             bathrooms: house.bathrooms,
             bedrooms: house.bedrooms,
             agent: house.agent,
