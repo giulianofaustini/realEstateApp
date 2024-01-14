@@ -18,9 +18,9 @@ const getUsers = async (): Promise<UserInterface[]> => {
 }
 
 
-const getUser = async (email: string): Promise<UserInterface | null> => {
+const getUser = async (userEmail: string): Promise<UserInterface | null> => {
   try {
-    const user = await User.findOne( { email});
+    const user = await User.findOne( { userEmail});
     return user;
   } catch (err) {
    console.log(err);

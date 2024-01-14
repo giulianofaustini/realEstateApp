@@ -7,14 +7,14 @@ title: {
     required: true,
     unique: true,
     minlength: 3,
-    maxlength: 30,
+    maxlength: 100,
 },
 description: {
     type: String,
     required: true,
     unique: true,
     minlength: 10,
-    maxlength: 100,
+    maxlength: 300,
 },
 monthlyRent: {
     type: Number,
