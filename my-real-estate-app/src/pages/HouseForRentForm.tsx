@@ -16,6 +16,9 @@ export const HouseForRentForm = () => {
   const { currentUser } = useSelector((state: { user: UserState }) => ({
     currentUser: state.user.currentUser,
   }));
+
+  console.log("current user from the form", currentUser);
+
   const [formDataForRent, setFormDataForRent] =
     useState<housesForRentInterface>({
       title: "",

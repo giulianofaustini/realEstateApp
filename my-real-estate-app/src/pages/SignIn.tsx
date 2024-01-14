@@ -17,6 +17,7 @@ export const SignIn = () => {
     isAdmin: false,
     createdAt: new Date(),
     updatedAt: new Date(),
+    photo: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
   });
 
   
@@ -53,7 +54,7 @@ export const SignIn = () => {
       console.log('data from the handle submit form to check what info I have', data);
 
       if (res.ok) {
-        const { id, username, password , email, isAdmin, createdAt, updatedAt } =
+        const { id, username, password , email, isAdmin, createdAt, updatedAt , photo} =
           data as UserInterface;
           console.log(' email from the singin function' , email)
         dispatch(
@@ -65,6 +66,7 @@ export const SignIn = () => {
             isAdmin,
             createdAt,
             updatedAt,
+            photo,
           })
         );
      
