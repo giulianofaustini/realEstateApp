@@ -27,6 +27,7 @@ export const HouseForSaleForm = () => {
     bedrooms: 0,
     bathrooms: 0,
     addedBy: currentUser?.username,
+    userEmail: currentUser?.email,
   });
 
   console.log("data from the form", formDataForSale);
@@ -266,8 +267,8 @@ export const HouseForSaleForm = () => {
         { formDataForSale.imageUrl.length > 0 ? (
           <div className="flex flex-col gap-2">
             {formDataForSale.imageUrl.map((url, index) => (
-                <div className="flex justify-between">
-                    <img key={index} src={url} alt="listing image" className="w-20 h-20 object-contain rounded-lg" />
+                <div key={index} className="flex justify-between">
+                    <img  src={url} alt="listing image" className="w-20 h-20 object-contain rounded-lg" />
                     <button onClick={() =>  handleImageDelete(index)} className="text-red-700 uppercase hover:opacity-75 pr-5" >delete</button>
                 </div>
             ))}

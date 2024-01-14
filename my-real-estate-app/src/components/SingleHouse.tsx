@@ -12,7 +12,6 @@ export const SingleHouse = ({ houses }: SingleHouseProps) => {
 
   console.log('this is the id from the URL:', id); 
 
-  // Find the selected house based on the id
   const selectedHouse = houses.find((house) => house._id === id);
 
   if (!selectedHouse) {
@@ -31,11 +30,14 @@ export const SingleHouse = ({ houses }: SingleHouseProps) => {
       <p>Number of bathrooms: {selectedHouse.bathrooms}</p>
       <p>Number of bedrooms: {selectedHouse.bedrooms}</p>
       <p>Call our agent {selectedHouse.agent} at this number: 0409380895</p>
+      <div className=' grid grid-cols-2 gap-3 '>
       { selectedHouse.imageUrl.map((image) => (
-        <img src={image} alt="all pictures in the listing" />
+       
+        <img className='max-w-80 justify-self-center' src={image} alt="all pictures in the listing" />
+        
       ))}
 
-     
+</div>
     </div>
     </div>
   );

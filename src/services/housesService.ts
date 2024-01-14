@@ -23,7 +23,8 @@ const getHouses = async (): Promise<HouseInterface[]> => {
             bathrooms: house.bathrooms,
             bedrooms: house.bedrooms,
             agent: house.agent,
-            addedBy: house.addedBy?.toString()
+            addedBy: house.addedBy?.toString(),
+            userEmail: house.userEmail?.toString()
         }));
         console.log('houses from house service when fetching with all houses', convertedHouses);
         return convertedHouses as HouseInterface[];
@@ -48,7 +49,8 @@ const getHousesForRent = async ( ): Promise<housesForRentInterface[]> => {
         bathrooms: house.bathrooms,
         bedrooms: house.bedrooms,
         agent: house.agent,
-        addedBy: house.addedBy?.toString()
+        addedBy: house.addedBy?.toString(),
+        userEmail: house.userEmail?.toString()
     }));
     console.log('houses from house service when fetching with all houses for RENT', convertedHousesForRent);
     return convertedHousesForRent as housesForRentInterface[];
@@ -75,7 +77,7 @@ const createHouseForSale = async (
     res: Response,
     next: NextFunction
     ): Promise<void> => {
-    const { _id, title, description, address, location , price, imageUrl, bathrooms, bedrooms, agent , addedBy } = houseForSaleData;
+    const { _id, title, description, address, location , price, imageUrl, bathrooms, bedrooms, agent , addedBy, userEmail } = houseForSaleData;
     try {
         const newHouseForSale = new HouseForSale({
             _id,
@@ -88,7 +90,8 @@ const createHouseForSale = async (
             bathrooms,
             bedrooms,
             agent,
-            addedBy
+            addedBy,
+            userEmail
         });
         await newHouseForSale.save();
         res.status(201).json({ message: 'House created successfully' });
@@ -104,7 +107,7 @@ const createHouseForRent = async (
     res: Response,
     next: NextFunction
     ): Promise<void> => {
-    const { _id, title, description, address, location , monthlyRent, rentalDeposit, imageUrl, bathrooms, bedrooms, agent, addedBy } = houseForRentData;
+    const { _id, title, description, address, location , monthlyRent, rentalDeposit, imageUrl, bathrooms, bedrooms, agent, addedBy , userEmail } = houseForRentData;
     try {
         const newHouseForRent = new HouseForRent({
             _id,
@@ -118,7 +121,8 @@ const createHouseForRent = async (
             bathrooms,
             bedrooms,
             agent,
-            addedBy
+            addedBy,
+            userEmail
         });
         await newHouseForRent.save();
         res.status(201).json({ message: 'House created successfully' });

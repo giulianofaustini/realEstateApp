@@ -13,4 +13,5 @@ export interface housesForRentInterface {
   bedrooms: number;
   bathrooms: number;
   addedBy?: string;
+  userEmail?: string;
 }

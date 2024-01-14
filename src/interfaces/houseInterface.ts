@@ -10,6 +10,7 @@ export interface HouseInterface {
   bedrooms: number;
   bathrooms: number;
   addedBy?: string;
+  userEmail?: string;
 }
 
 

@@ -32,6 +32,7 @@ export const HouseForRentForm = () => {
       bedrooms: 0,
       bathrooms: 0,
       addedBy: currentUser?.username,
+      userEmail: currentUser?.email,
     });
   console.log("data from the form", formDataForRent);
 

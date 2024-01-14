@@ -41,7 +41,10 @@ export const ListOfHouses = ({ housesToPass , setHouses }: ListOfHousesProps) =>
                     <div>{house.description}</div>
                     <div>{house.price} € </div>
                     { house &&  house.addedBy ? (
-                    <div className="capitalize">Added by: {house.addedBy}</div> 
+                      <>
+                    <div className="capitalize">Added by: {house.addedBy}. </div> 
+                    <div> Contact info: {house.userEmail}. </div> 
+                    </>
                     ) : null }
                   </div>
                 </Link>

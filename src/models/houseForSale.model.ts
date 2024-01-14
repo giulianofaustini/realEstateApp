@@ -48,6 +48,10 @@ addedBy: {
     type: String,
     required: false,
 },
+userEmail : {
+    type: String,
+    required: false,
+},
 }, { timestamps: true });
 
 
