@@ -13,6 +13,7 @@ import { ActionPage } from "./pages/ActionPage";
 import { HouseForSaleForm } from "../src/pages/HouseForSaleForm";
 import { HouseForRentForm } from "../src/pages/HouseForRentForm";
 import { PrivateComponent } from "./components/PrivateComponent";
+import { UserHouses } from "../src/pages/UserHouses"
 
 
 export interface HouseProps {
@@ -102,6 +103,7 @@ function App() {
           </Route>
           <Route path="/api/create-house-for-sale" element={<HouseForSaleForm />} />
           <Route path="/api/create-house-for-rent" element={<HouseForRentForm />} />
+          <Route path="/api/userHouses/:email" element={<UserHouses />} />
           
         </Routes>
       </Router>

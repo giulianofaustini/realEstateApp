@@ -18,10 +18,22 @@ const getUsers = async (): Promise<UserInterface[]> => {
 }
 
 
+const getUser = async (email: string): Promise<UserInterface | null> => {
+  try {
+    const user = await User.findOne( { email});
+    return user;
+  } catch (err) {
+   console.log(err);
+   throw new Error('Error while fetching user');
+  } 
+
+}
+
 
 
 export const userService = {
     getUsers,
+    getUser
     
 }
 

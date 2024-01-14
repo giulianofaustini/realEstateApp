@@ -16,6 +16,7 @@ import allHousesForRentRouter from "../src/routes/allHousesForRent";
 import allUsersRouter from "../src/routes/allUsers"
 import signInRoute from "../src/routes/signInRoute"
 import signinWithGoogleRoute from "../src/routes/signInWithGoogleRoute"
+import userRouter from "../src/routes/userRouter"
 
 mongoose.connect(process.env.MONGO ?? "").then(() => {
   console.log("Connected to MongoDB");
@@ -46,6 +47,8 @@ app.use("/api/housesForSale", allHousesRouter);
 app.use("/api/housesForRent", allHousesForRentRouter);
 
 app.use("/api/users", allUsersRouter);
+
+app.use("/api/userHouses", userRouter )
 
 app.use("/api/sign-up", authRouter );
 

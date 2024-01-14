@@ -20,6 +20,7 @@ export interface UserState {
     reducers: {
       setCurrentUser(state, action: PayloadAction<UserInterface | null>) {
         state.currentUser = action.payload;
+        console.log("Current user from userslice:", state.currentUser);
       },
       setLoading(state, action: PayloadAction<boolean>) {
         state.loading = action.payload;
