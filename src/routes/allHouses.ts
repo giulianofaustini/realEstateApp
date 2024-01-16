@@ -3,6 +3,8 @@ import express from "express";
 import { housesService } from "../services/housesService";
 
 
+
+
 const router = express.Router();
 
 router.get("/", async (req, res) => {
@@ -29,6 +31,21 @@ router.post("/", (req, res, next) => {
     housesService.createHouseForSale(houseForSaleData, req, res, next);
 }
 );
+
+router.delete("/:id", async (req, res, next) => {
+    const _id = req.params.id;
+    console.log('id from route', _id)
+    try {
+        const deletedHouse = await housesService.deleteHouseForSale(_id);
+        if (deletedHouse) {
+            res.json(deletedHouse);
+        } else {
+            res.status(404).send("House not found");
+        }
+    } catch (error) {
+        next(error);
+    }
+});
 
 export default router;
 

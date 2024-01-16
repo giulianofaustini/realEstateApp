@@ -29,5 +29,23 @@ router.post("/", (req, res, next) => {
 }
 );
 
+router.delete("/:id", (req, res, next) => {
+    const _id = req.params.id;
+    
+    try {
+
+        const deletedHouse = housesService.deleteHouseForRent(_id);
+        if (deletedHouse) {
+            res.json(deletedHouse);
+        } else {
+            res.status(404).send("House not found");
+        }
+
+        
+    } catch (error) {
+        next(error);
+    }
+});
+
 
 export default router;
