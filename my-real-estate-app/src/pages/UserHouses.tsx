@@ -5,7 +5,11 @@ import { HousesForRentProps } from "../App";
 import { useSelector } from "react-redux";
 import { UserState } from "../redux/user/userSlice";
 
+
+
 export const UserHouses = () => {
+
+ 
   const { userId } = useParams();
   const [houses, setHouses] = useState<HouseProps[]>([]);
   const [housesForRent, setHousesForRent] = useState<HousesForRentProps[]>([]);
