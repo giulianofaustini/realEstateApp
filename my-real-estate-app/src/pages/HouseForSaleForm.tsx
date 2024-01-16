@@ -28,6 +28,7 @@ export const HouseForSaleForm = () => {
     bathrooms: 0,
     addedBy: currentUser?.username,
     userEmail: currentUser?.email,
+    userId: currentUser?._id || "",
   });
 
   console.log("data from the form", formDataForSale);
@@ -81,6 +82,7 @@ export const HouseForSaleForm = () => {
           agent: "",
           bedrooms: 0,
           bathrooms: 0,
+          userId: currentUser?._id || "",
         });
         setLoading(false);
         console.log(data.message);

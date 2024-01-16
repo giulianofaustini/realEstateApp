@@ -30,8 +30,8 @@ export const UserHouses = () => {
     fetchData();
   }, []);
 
-  console.log("houses SALE from the user houses component", houses);
-  console.log("houses RENT from the user houses component", housesForRent);
+  // console.log("houses SALE from the user houses component", houses);
+  // console.log("houses RENT from the user houses component", housesForRent);
 
   const selectedUserHousesForSale =
     houses &&

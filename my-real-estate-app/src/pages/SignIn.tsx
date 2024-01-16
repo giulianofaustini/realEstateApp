@@ -54,12 +54,12 @@ export const SignIn = () => {
       console.log('data from the handle submit form to check what info I have', data);
 
       if (res.ok) {
-        const { id, username, password , email, isAdmin, createdAt, updatedAt , photo} =
+        const { _id, username, password , email, isAdmin, createdAt, updatedAt , photo} =
           data as UserInterface;
           console.log(' email from the singin function' , email)
         dispatch(
           setCurrentUser({
-            id,
+            _id,
             username,
             password, 
             email,

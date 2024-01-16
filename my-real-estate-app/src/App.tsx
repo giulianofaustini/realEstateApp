@@ -28,6 +28,7 @@ export interface HouseProps {
   bathrooms: number;
   addedBy: string;
   userEmail?: string;
+  userId?: string;
 }
 
 export interface HousesForRentProps {
@@ -44,6 +45,7 @@ bedrooms: number;
 bathrooms: number;
 addedBy: string;
 userEmail?: string;
+userId?: string;
 }
 
 

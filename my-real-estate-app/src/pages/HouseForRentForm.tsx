@@ -18,6 +18,7 @@ export const HouseForRentForm = () => {
   }));
 
   console.log("current user from the form", currentUser);
+  console.log("current user from the form", currentUser?._id);
 
   const [formDataForRent, setFormDataForRent] =
     useState<housesForRentInterface>({
@@ -33,6 +34,7 @@ export const HouseForRentForm = () => {
       bathrooms: 0,
       addedBy: currentUser?.username,
       userEmail: currentUser?.email,
+      userId: currentUser?._id || "",
     });
   console.log("data from the form", formDataForRent);
 
@@ -100,6 +102,7 @@ export const HouseForRentForm = () => {
           agent: "",
           bedrooms: 0,
           bathrooms: 0,
+          userId: currentUser?._id || "",
         });
         setLoading(false);
         console.log(data.message);

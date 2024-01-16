@@ -11,6 +11,7 @@ export interface HouseInterface {
   bathrooms: number;
   addedBy?: string;
   userEmail?: string;
+  userId?: string;
 }
 
 
