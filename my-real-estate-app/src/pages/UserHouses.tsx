@@ -4,11 +4,11 @@ import { HouseProps } from "../App";
 import { HousesForRentProps } from "../App";
 
 export const UserHouses = () => {
-  const { email } = useParams();
+  const { userId } = useParams();
   const [houses, setHouses] = useState<HouseProps[]>([]);
   const [housesForRent, setHousesForRent] = useState<HousesForRentProps[]>([]);
 
-  console.log("email from the user houses USEPARAMS component", email);
+  console.log("ID from the user houses USEPARAMS component", userId );
 
   const fetchHouses = async () => {
     const response = await fetch("http://localhost:3000/api/housesForSale");
@@ -36,9 +36,9 @@ export const UserHouses = () => {
   const selectedUserHousesForSale =
     houses &&
     houses.filter((house) => {
-      console.log("House userEmail", house.userEmail);
-      console.log("Is it a match?", house.userEmail === email);
-      return house.userEmail === email;
+      console.log("House userID", house.userId);
+      console.log("Is it a match?", house.userId === userId);
+      return house.userId === userId;
     });
 
   console.log(
@@ -49,9 +49,9 @@ export const UserHouses = () => {
   const selectedUserHousesForRent =
     housesForRent &&
     housesForRent.filter((house) => {
-      console.log("House userEmail", house.userEmail);
-      console.log("Is it a match?", house.userEmail === email);
-      return house.userEmail === email;
+      console.log("House userID", house.userId);
+      console.log("Is it a match?", house.userEmail === userId);
+      return house.userId === userId;
     });
 
   console.log(

@@ -5,9 +5,9 @@ import { userService } from "../services/userService";
 
 const router = express.Router();
 
-router.get("/:userEmail", async (req, res) => {
+router.get("/:userId", async (req, res) => {
     try {
-      const users = await userService.getUser(req.params.userEmail);
+      const users = await userService.getUser(req.params.userId);
       res.json(users);
       console.log('Users fetched:', users);
     } catch (error) {

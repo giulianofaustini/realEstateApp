@@ -41,8 +41,8 @@ export const ListOfHousesForRent = ({
               <div>{house.description}</div>
               <div>{house.monthlyRent} € </div>
               {house.addedBy ? (
-               <Link to={`/api/userHouses/${house.userEmail}`} >
-                <div className="capitalize">Added by {house.addedBy} </div>
+               <Link to={`/api/userHouses/${house.userId}`} >
+                <div className="capitalize">Added by {house.addedBy} User Id: {house.userId} </div>
                 </Link>
               ) : null}
             </div>

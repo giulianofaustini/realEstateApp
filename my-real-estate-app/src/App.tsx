@@ -105,7 +105,7 @@ function App() {
           </Route>
           <Route path="/api/create-house-for-sale" element={<HouseForSaleForm />} />
           <Route path="/api/create-house-for-rent" element={<HouseForRentForm />} />
-          <Route path="/api/userHouses/:email" element={<UserHouses />} />
+          <Route path="/api/userHouses/:userId" element={<UserHouses />} />
           
         </Routes>
       </Router>

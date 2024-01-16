@@ -42,8 +42,8 @@ export const ListOfHouses = ({ housesToPass , setHouses }: ListOfHousesProps) =>
                     <div>{house.price} € </div>
                     { house &&  house.addedBy ? (
                       <>
-                      <Link to={`/api/userHouses/${house.userEmail}`} >
-                    <div className="capitalize">Added by: {house.addedBy}. </div> 
+                      <Link to={`/api/userHouses/${house.userId}`} >
+                    <div className="capitalize">Added by: {house.addedBy}.UserId: {house.userId}  </div> 
                     </Link>
                     <div> Contact info: {house.userEmail}. </div> 
                     </>
