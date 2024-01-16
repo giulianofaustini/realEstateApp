@@ -4,6 +4,10 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore from "swiper";
 import { Navigation } from "swiper/modules";
 import "swiper/css/bundle";
+import { FaMapMarkerAlt } from "react-icons/fa";
+import { FaBath } from "react-icons/fa6";
+import { MdBedroomChild } from "react-icons/md";
+import { FaEuroSign } from "react-icons/fa";
 
 interface SingleHouseProps {
   houses: HouseProps[];
@@ -31,7 +35,7 @@ export const SingleHouse = ({ houses }: SingleHouseProps) => {
             selectedHouse.imageUrl.map((url) => (
               <SwiperSlide key={url}>
                 <div
-                  className="h-[800px]"
+                  className="h-[850px]"
                   style={{
                     background: `url(${url}) center, no-repeat`,
                     backgroundSize: "cover",
@@ -41,18 +45,33 @@ export const SingleHouse = ({ houses }: SingleHouseProps) => {
             ))}
         </Swiper>
       </div>
+      <div className="w-2/3 mx-10 flex flex-col justify-normal ml-20 p-20 ">
+        <span className="uppercase mb-5 font-bold ">{selectedHouse.title} for sale</span>
   
-      <div className="w-2/3 mx-10">
-        <span className="uppercase">{selectedHouse.title} for sale</span>
-  
-        <p>
-          Buy a {selectedHouse.description} for {selectedHouse.price} €
+        <p className="font-light ">
+           Description:  { ' ' }
+          <span className="font-semibold"  >{selectedHouse.description}  </span>
+          
         </p>
-  
-        <p>Where? {selectedHouse.address}</p>
-        <p>Number of bathrooms: {selectedHouse.bathrooms}</p>
-        <p>Number of bedrooms: {selectedHouse.bedrooms}</p>
-        <p>Call our agent {selectedHouse.agent} at this number: 0409380895</p>
+        <div className="flex items-center  gap-2 mt-2.5"> 
+        <FaMapMarkerAlt className="text-green-600 size-8 " />
+        <span className="pr-10 " >{selectedHouse.address} { ' ' }  </span>
+
+        <FaBath className="text-green-600 size-8 " />
+        <span className="pr-10 " > {selectedHouse.bathrooms} { ' ' } </span>
+        
+        <MdBedroomChild className="text-green-600 size-8 " />
+        <span className="pr-10 " > {selectedHouse.bedrooms} { ' ' } </span> 
+      
+        </div>
+        <div className="flex item-center mt-2">
+        <FaEuroSign className="text-green-600 size-8 " />
+        <span> {selectedHouse.price} </span>
+        </div>
+
+
+        <p className=" mt-2">Call our agent {selectedHouse.agent} at this number: 0409380895</p>
+
       </div>
     </div>
   );
