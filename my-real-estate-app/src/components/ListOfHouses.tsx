@@ -43,7 +43,7 @@ export const ListOfHouses = ({ housesToPass , setHouses }: ListOfHousesProps) =>
                     { house &&  house.addedBy ? (
                       <>
                       <Link to={`/api/userHouses/${house.userId}`} >
-                    <div className="capitalize">Added by: <span className="text-green-600 hover:bg-green-100 ring-rounded-xl p-3 rounded-lg ">{house.addedBy}</span> </div> 
+                    <div className="capitalize">Added by: <span className="text-green-600 hover:bg-green-100 ring-rounded-xl p-2 rounded-lg ">{house.addedBy}</span> </div> 
                     </Link>
                     </>
                     ) : null }
