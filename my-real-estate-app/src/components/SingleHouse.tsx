@@ -29,7 +29,7 @@ export const SingleHouse = ({ houses }: SingleHouseProps) => {
 
   return (
     <div>
-      <div className="">
+      <div >
         <Swiper navigation>
           {selectedHouse &&
             selectedHouse.imageUrl.map((url) => (

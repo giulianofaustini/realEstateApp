@@ -4,6 +4,9 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore from "swiper";
 import { Navigation } from "swiper/modules";
 import "swiper/css/bundle" 
+import { FaMapMarkerAlt } from "react-icons/fa";
+import { FaBath, FaEuroSign } from "react-icons/fa6";
+import { MdBedroomChild } from "react-icons/md";
 
 export interface SingleHouseForRentProps {
   houseToRent: HousesForRentProps[];
@@ -43,22 +46,36 @@ export const SingleHouseForRent = ({
             ))}
         </Swiper>
       </div>
-    <div className=" w-2/3   mx-10 " >
-    
-      <span className="uppercase" > {selectedHouse.title}  FOR RENT</span>
+      <div className="w-2/3 mx-10 flex flex-col justify-normal ml-20 p-20 ">
+        <span className="uppercase mb-5 font-bold ">{selectedHouse.title} for sale</span>
+  
+        <p className="font-light ">
+           Description:  { ' ' }
+          <span className="font-semibold"  >{selectedHouse.description}  </span>
+          
+        </p>
+        <div className="flex items-center  gap-2 mt-2.5"> 
+        <FaMapMarkerAlt className="text-green-600 size-8 " />
+        <span className="pr-10 " >{selectedHouse.address} { ' ' }  </span>
+
+        <FaBath className="text-green-600 size-8 " />
+        <span className="pr-10 " > {selectedHouse.bathrooms} { ' ' } </span>
+        
+        <MdBedroomChild className="text-green-600 size-8 " />
+        <span className="pr-10 " > {selectedHouse.bedrooms} { ' ' } </span> 
       
-      <div>Rent a {selectedHouse.description} for {selectedHouse.monthlyRent} € per month</div>
-      <div></div>
-      <div>Where? {selectedHouse.address}</div>
-      <div>City of {selectedHouse.location}</div>
-    
-      
-      <div>Number of bedrooms: {selectedHouse.bedrooms} </div>
-      <div>Number of bathrooms: {selectedHouse.bathrooms}</div>
-      <div>The rental deposit for this house is {selectedHouse.rentalDeposit} €</div>
-      <div>Call our agent {selectedHouse.agent} at this number: 0409380895</div>
-    
+        </div>
+        <div className="flex item-center mt-2">
+        <FaEuroSign className="text-green-600 size-8 " />
+        <span className="uppercase"> {selectedHouse.monthlyRent}/month + { selectedHouse.rentalDeposit}/deposit </span>
+        </div>
+
+
+        <p className=" mt-2">Call our agent {selectedHouse.agent} at this number: 0409380895</p>
+
+      </div>
     </div>
-    </div>  
   );
-};
+
+}
+  
