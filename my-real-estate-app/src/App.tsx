@@ -14,6 +14,8 @@ import { HouseForSaleForm } from "../src/pages/HouseForSaleForm";
 import { HouseForRentForm } from "../src/pages/HouseForRentForm";
 import { PrivateComponent } from "./components/PrivateComponent";
 import { UserHouses } from "../src/pages/UserHouses"
+import { UpdateHouseForRentForm } from "./pages/UpdateHouseForRentForm";
+import { UpdateHouseForSaleForm } from "./pages/UpdateHouseForSaleForm";
 
 
 export interface HouseProps {
@@ -106,6 +108,8 @@ function App() {
           <Route path="/api/create-house-for-sale" element={<HouseForSaleForm />} />
           <Route path="/api/create-house-for-rent" element={<HouseForRentForm />} />
           <Route path="/api/userHouses/:userId" element={<UserHouses />} />
+          <Route path="/api/update-house-for-sale/:id" element={<UpdateHouseForSaleForm />} />
+          <Route path="/api/update-house-for-rent/:id" element={<UpdateHouseForRentForm />} />
           
         </Routes>
       </Router>

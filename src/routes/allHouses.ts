@@ -47,5 +47,20 @@ router.delete("/:id", async (req, res, next) => {
     }
 });
 
+router.put("/:id", async (req, res, next) => {
+    const _id = req.params.id;
+    const houseForSaleData = req.body;
+    try {
+        const updatedHouse = await housesService.updateHouseForSale(_id, houseForSaleData);
+        if (updatedHouse) {
+            res.json(updatedHouse);
+        } else {
+            res.status(404).send("House not found");
+        }
+    } catch (error) {
+        next(error);
+    }
+});
+
 export default router;
 

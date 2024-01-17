@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { HouseProps } from "../App";
 import { HousesForRentProps } from "../App";
@@ -133,7 +133,9 @@ export const UserHouses = () => {
             <div>{house.description}</div>
             {house.userId === currentUser?._id ? (
               <div className="flex justify-between mt-5 px-5">
+                <Link to={`/api/update-house-for-sale/${house._id}`} >
                 <button className="uppercase text-yellow-500">edit</button>
+                </Link>
                 <button
                   onClick={() =>
                     handleDeleteHouseForSaleFromUsersList(house._id)
@@ -158,7 +160,9 @@ export const UserHouses = () => {
               <div>{house.description}</div>
               {house.userId === currentUser?._id ? (
                 <div className="flex justify-between mt-5 px-5">
+                  <Link to={`/api/update-house-for-rent/${house._id}`} > 
                   <button className="uppercase text-yellow-500">edit</button>
+                  </Link>
                   <button onClick={() => handleDeleteHouseForRentFromUsersList(house._id)} className="uppercase text-red-600 ">delete</button>
                 </div>
               ) : null}
