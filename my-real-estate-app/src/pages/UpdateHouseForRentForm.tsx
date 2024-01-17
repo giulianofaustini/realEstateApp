@@ -54,14 +54,22 @@ export const UpdateHouseForRentForm = () => {
 
   useEffect(() => {
     const fetchHousesForRent = async () => {
-        const id = params.id;
-
+      const id = params.id;
+  
+      try {
+        const response = await fetch(`http://localhost:3000/api/housesForRent/rent/${id}`);
+        const data = await response.json();
+  
+        console.log("UPDATE data from the fetch", data);
         console.log("id from the params", id);
 
-    }
+      } catch (error) {
+        console.error("Error fetching house for rent:", error);
+      }
+    };
+  
     fetchHousesForRent();
-  }, []);
-
+  }, [params.id]);
 
   useEffect(() => {
     if (imageUploadError) {

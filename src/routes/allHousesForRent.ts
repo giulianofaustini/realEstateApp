@@ -12,9 +12,10 @@ router.get("/", async (req, res) => {
 } 
 );
 
-router.get("/rent/:id", (req, res) => {
+router.get("/rent/:id", async (req, res) => {
     const id = req.params.id;
-    const housesForRent = housesService.getHouseForRentById(id);
+    const housesForRent = await housesService.getHouseForRentById(id);
+    console.log('houses for rent in GET RENT WITH ID set up', housesForRent);
     if (housesForRent) {
         res.json(housesForRent);
     } else {
