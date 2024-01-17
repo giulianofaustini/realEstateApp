@@ -47,5 +47,22 @@ router.delete("/:id", (req, res, next) => {
     }
 });
 
+router.put("/:id", (req, res, next) => {
+    const _id = req.params.id;
+    const houseForRentData = req.body;
+    try {
+        const updatedHouse = housesService.updateHouseForRent(_id, houseForRentData);
+        if (updatedHouse) {
+            res.json(updatedHouse);
+        } else {
+            res.status(404).send("House not found");
+        }
+    } catch (error) {
+        next(error);
+    }
+}
+);
+
+
 
 export default router;

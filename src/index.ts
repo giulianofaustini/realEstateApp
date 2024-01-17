@@ -66,6 +66,8 @@ app.use("/api/delete-house-for-rent", allHousesForRentRouter);
 
 app.use("/api/update-house-for-sale", allHousesRouter);
 
+app.use("/api/update-house-for-rent", allHousesForRentRouter);
+
 app.use((err: { statusCode?: number, message?: string }, req: Request, res: Response, next: NextFunction) => {
   const statusCode = err.statusCode || 500;
   const message = err.message || "Internal Server Error";

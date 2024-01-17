@@ -266,6 +266,40 @@ const updateHouseForSale = async (_id: string, houseForSaleData: HouseInterface)
 
 }
 
+
+const updateHouseForRent = async (_id: string, houseForRentData: housesForRentInterface): Promise<housesForRentInterface | null> => {
+    try {
+        const houseToUpdate = await HouseForRent.findById(_id);
+
+        if (houseToUpdate) {
+            const convertedHouse: housesForRentInterface = {
+                _id: houseToUpdate._id.toString(),
+                title: houseToUpdate.title,
+                description: houseToUpdate.description,
+                address: houseToUpdate.address,
+                location: houseToUpdate.location,
+                monthlyRent: houseToUpdate.monthlyRent,
+                rentalDeposit: houseToUpdate.rentalDeposit,
+                imageUrl: houseToUpdate.imageUrl,
+                bathrooms: houseToUpdate.bathrooms,
+                bedrooms: houseToUpdate.bedrooms,
+                agent: houseToUpdate.agent,
+                addedBy: houseToUpdate.addedBy?.toString(),
+                userEmail: houseToUpdate.userEmail?.toString(),
+                userId: houseToUpdate.userId?.toString(),
+            };
+
+            await HouseForRent.findByIdAndUpdate(_id, houseForRentData);
+            return convertedHouse;
+        } else {
+            return null;
+        }
+    } catch (error) {
+        throw new Error("Error while updating house");
+    }
+
+}
+
 export const housesService = {
   getHouses,
   getHouseById,
@@ -275,5 +309,6 @@ export const housesService = {
   createHouseForRent,
   deleteHouseForSale,
   deleteHouseForRent,
-  updateHouseForSale
+  updateHouseForSale,
+  updateHouseForRent
 };
