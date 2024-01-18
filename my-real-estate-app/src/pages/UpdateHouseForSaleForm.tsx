@@ -1,9 +1,9 @@
-import React, { useState , useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { HouseInterface } from "../../../src/interfaces/houseInterface";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { UserState } from "../redux/user/userSlice";
-import { getStorage , uploadBytesResumable , getDownloadURL , ref} from "firebase/storage";
+import { getStorage, uploadBytesResumable, getDownloadURL, ref } from "firebase/storage";
 import { app } from "../firebase";
 
 export const UpdateHouseForSaleForm = () => {
@@ -32,24 +32,38 @@ export const UpdateHouseForSaleForm = () => {
     userId: currentUser?._id || "",
   });
 
-//   console.log("data from the form", formDataForSale);
-
   const [files, setFiles] = useState<File[] | null>([]);
-//   console.log("files form HouseForSaleForm at state level ", files);
-
   const [imageUploadError, setImageUploadError] = useState<string | null>("");
   const [uploading, setUpLoading] = useState<boolean>(false);
 
+  const updateFormData = (data: HouseInterface) => {
+    setFormDataForSale((prev) => ({
+      ...prev,
+      ...data,
+    }));
+  };
 
   useEffect(() => {
     const fetchHousesForSale = async () => {
-        const id = params.id;
+      const id = params.id;
+      console.log("id from the params", id);
 
-        console.log("id from the params", id);
-
-    }
+      try {
+        setLoading(true);
+        const res = await fetch(`http://localhost:3000/api/housesForSale/sale/${id}`);
+        const data = await res.json();
+        console.log("UPDATE data from the fetch", data);
+        if (data) {
+          updateFormData(data);
+        }
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    };
     fetchHousesForSale();
-  }, []);
+  }, [params.id]);
 
   useEffect(() => {
     if (imageUploadError) {
@@ -75,51 +89,51 @@ export const UpdateHouseForSaleForm = () => {
 
     try {
       const res = await fetch(
-        "http://localhost:3000/api/create-house-for-sale",
+        `http://localhost:3000/api/update-house-for-sale/${params.id}`,
         {
-          method: "POST",
+          method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
           credentials: "include",
-          body: JSON.stringify(formDataForSale),
+          body: JSON.stringify({
+            _id: params.id,
+            ...formDataForSale
+            }),
         }
       );
 
-      const data = await res.json();
-      console.log(
-        "data from the handle submit form to check what info I have",
-        data
-      );
-
-      if (data.ok) {
-        setFormDataForSale({
-          title: "",
-          description: "",
-          price: 0,
-          address: "",
-          location: "",
-          imageUrl: [],
-          agent: "",
-          bedrooms: 0,
-          bathrooms: 0,
-          userId: currentUser?._id || "",
-        });
+      if (res.ok) {
+        const updatedData = await res.json();
+        console.log(
+          "DATA from the handle submit form to check what info SALE HOUSES I have",
+          updatedData
+        );
+        updateFormData(updatedData);
         setLoading(false);
-        console.log(data.message);
-      } else {
+        console.log("Update successful:", updatedData.message);
+      }  else {
         setLoading(false);
-        alert(data.message);
+        const errorData = await res.json();
+        console.error("Update failed. Server response:", errorData);
+        alert(
+          "Failed to update the house. Please check the console for details."
+        );
       }
     } catch (error) {
-      console.log(error);
       setLoading(false);
+      console.error("Error during house update:", error);
+      alert(
+        "An unexpected error occurred. Please check the console for details."
+      );
     } finally {
       navigate("/api/housesForSale");
     }
   };
 
-  const handleUploadImagesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleUploadImagesChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const files = e.target.files;
     setFiles(files ? Array.from(files) : []);
 
@@ -160,7 +174,7 @@ export const UpdateHouseForSaleForm = () => {
   };
 
   const handleImageSubmit = () => {
-    if (!files ) return;
+    if (!files) return;
     try {
       if (
         files.length > 0 &&
@@ -173,18 +187,18 @@ export const UpdateHouseForSaleForm = () => {
           promises.push(storeImage(files[i]));
         }
         Promise.all(promises).then((urls) => {
-            setFormDataForSale({
+          setFormDataForSale({
             ...formDataForSale,
             imageUrl: formDataForSale.imageUrl.concat(urls as string[]),
           });
-         setImageUploadError(null);
-            setUpLoading(false);
+          setImageUploadError(null);
+          setUpLoading(false);
         });
       } else {
         setImageUploadError("You can only upload 6 images");
       }
     } catch (error) {
-       setImageUploadError("Something went wrong, please try again");
+      setImageUploadError("Something went wrong, please try again");
     }
   };
 
@@ -195,15 +209,11 @@ export const UpdateHouseForSaleForm = () => {
         (_url, i) => i !== index
       ),
     });
-  }
-
-  
-
-
+  };
 
   return (
-    <div className="max-w-lg  mx-auto mt-10">
-        <div className="text-center uppercase  ">update the property for sale</div>
+    <div className="max-w-lg mx-auto mt-10">
+      <div className="text-center uppercase  ">update the property for sale</div>
       <form
         className="flex flex-col gap-3 m-5"
         onSubmit={handleFormForSaleChange}
@@ -213,6 +223,7 @@ export const UpdateHouseForSaleForm = () => {
           type="text"
           placeholder="title"
           id="title"
+          value={formDataForSale.title}
           onChange={handleFormChange}
         />
         <input
@@ -220,6 +231,7 @@ export const UpdateHouseForSaleForm = () => {
           type="text"
           placeholder="description"
           id="description"
+          value={formDataForSale.description}
           onChange={handleFormChange}
         />
         <input
@@ -227,6 +239,7 @@ export const UpdateHouseForSaleForm = () => {
           type="number"
           placeholder="price"
           id="price"
+          value={formDataForSale.price}
           onChange={handleFormChange}
         />
         <input
@@ -234,6 +247,7 @@ export const UpdateHouseForSaleForm = () => {
           type="text"
           placeholder="address"
           id="address"
+          value={formDataForSale.address}
           onChange={handleFormChange}
         />
         <input
@@ -241,6 +255,7 @@ export const UpdateHouseForSaleForm = () => {
           type="text"
           placeholder="location"
           id="location"
+          value={formDataForSale.location}
           onChange={handleFormChange}
         />
 
@@ -258,7 +273,7 @@ export const UpdateHouseForSaleForm = () => {
             type="button"
             className="p-3 border rounded-full max-h-20 uppercase"
           >
-           { uploading ? 'uploading' :  'upload' }
+            {uploading ? "uploading" : "upload"}
           </button>
         </div>
 
@@ -267,6 +282,7 @@ export const UpdateHouseForSaleForm = () => {
           type="text"
           placeholder="agent"
           id="agent"
+          value={formDataForSale.agent}
           onChange={handleFormChange}
         />
         <input
@@ -274,6 +290,7 @@ export const UpdateHouseForSaleForm = () => {
           type="text"
           placeholder="bedrooms"
           id="bedrooms"
+          value={formDataForSale.bedrooms}
           onChange={handleFormChange}
         />
         <input
@@ -281,23 +298,33 @@ export const UpdateHouseForSaleForm = () => {
           type="text"
           placeholder="bathrooms"
           id="bathrooms"
+          value={formDataForSale.bathrooms}
           onChange={handleFormChange}
         />
         <p>
-        { imageUploadError ? (
+          {imageUploadError ? (
             <div className="text-red-500 ">{imageUploadError}</div>
-        ) : null }
+          ) : null}
         </p>
-        { formDataForSale.imageUrl.length > 0 ? (
+        {formDataForSale.imageUrl.length > 0 ? (
           <div className="flex flex-col gap-2">
             {formDataForSale.imageUrl.map((url, index) => (
-                <div key={index} className="flex justify-between">
-                    <img  src={url} alt="listing image" className="w-20 h-20 object-contain rounded-lg" />
-                    <button onClick={() =>  handleImageDelete(index)} className="text-red-700 uppercase hover:opacity-75 pr-5" >delete</button>
-                </div>
+              <div key={index} className="flex justify-between">
+                <img
+                  src={url}
+                  alt="listing image"
+                  className="w-20 h-20 object-contain rounded-lg"
+                />
+                <button
+                  onClick={() => handleImageDelete(index)}
+                  className="text-red-700 uppercase hover:opacity-75 pr-5"
+                >
+                  delete
+                </button>
+              </div>
             ))}
           </div>
-            ) :  null}
+        ) : null}
         <button className="p-5 border rounded-lg uppercase" disabled={loading}>
           update
         </button>

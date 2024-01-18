@@ -18,6 +18,7 @@ router.get("/", async (req, res) => {
 router.get("/sale/:id", async (req, res) => {
     const id = req.params.id;
     const house = await housesService.getHouseById(id);
+    console.log('house from  route BACKeND FOR SALE', house);
     if (house) {
         res.json(house);
     } else {

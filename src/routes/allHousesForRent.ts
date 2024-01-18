@@ -54,14 +54,14 @@ router.delete("/:id", (req, res, next) => {
 router.put("/:id", async (req, res, next) => {
     const _id = req.params.id;
     const houseForRentData = req.body;
-    console.log('BACKEND before updated house for rent data in put', houseForRentData);
+    // console.log('BACKEND before updated house for rent data in put', houseForRentData);
 
     try {
         const updatedHouse = await housesService.updateHouseForRent(_id, houseForRentData);
 
         if (updatedHouse) {
             res.json(updatedHouse);
-            console.log('BACKEND updated house in put', updatedHouse);
+            // console.log('BACKEND updated house in put', updatedHouse);
         } else {
             res.status(404).send("House not found");
         }

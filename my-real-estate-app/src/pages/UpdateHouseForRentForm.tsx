@@ -5,91 +5,85 @@ import { useSelector } from "react-redux";
 import { UserState } from "../redux/user/userSlice";
 import { app } from "../firebase";
 import {
-    getDownloadURL,
-    getStorage,
-    ref,
-    uploadBytesResumable,
+  getDownloadURL,
+  getStorage,
+  ref,
+  uploadBytesResumable,
 } from "firebase/storage";
 
-
 export const UpdateHouseForRentForm = () => {
-    const { currentUser } = useSelector((state: { user: UserState }) => ({
-        currentUser: state.user.currentUser,
-    }));
+  const { currentUser } = useSelector((state: { user: UserState }) => ({
+    currentUser: state.user.currentUser,
+  }));
 
-    const params = useParams();
+  const params = useParams();
 
-    const [formDataForRent, setFormDataForRent] = useState<housesForRentInterface>({
-        title: "",
-        description: "",
-        monthlyRent: 0,
-        rentalDeposit: 0,
-        address: "",
-        location: "",
-        imageUrl: [],
-        agent: "",
-        bedrooms: 0,
-        bathrooms: 0,
-        addedBy: currentUser?.username,
-        userEmail: currentUser?.email,
-        userId: currentUser?._id || "",
+  const [formDataForRent, setFormDataForRent] =
+    useState<housesForRentInterface>({
+      title: "",
+      description: "",
+      monthlyRent: 0,
+      rentalDeposit: 0,
+      address: "",
+      location: "",
+      imageUrl: [],
+      agent: "",
+      bedrooms: 0,
+      bathrooms: 0,
+      addedBy: currentUser?.username,
+      userEmail: currentUser?.email,
+      userId: currentUser?._id || "",
     });
 
-    const [files, setFiles] = useState<File[]>([]);
-    const [imageUploadError, setImageUploadError] = useState<string | null>("");
-    const [loading, setLoading] = useState<boolean>(false);
-    const [uploading, setUpLoading] = useState<boolean>(false);
+  const [files, setFiles] = useState<File[]>([]);
+  const [imageUploadError, setImageUploadError] = useState<string | null>("");
+  const [loading, setLoading] = useState<boolean>(false);
+  const [uploading, setUpLoading] = useState<boolean>(false);
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    const updateFormData = (data: housesForRentInterface) => {
-      console.log("Updating form data with:", data);
-      setFormDataForRent((prevData) => ({
-        ...prevData,
-        ...data,
-      }));
-    };
+  const updateFormData = (data: housesForRentInterface) => {
+    console.log("Updating form data with:", data);
+    setFormDataForRent((prevData) => ({
+      ...prevData,
+      ...data,
+    }));
+  };
 
   useEffect(() => {
-    console.log('the use effect is running')
-      const fetchHousesForRent = async () => {
-          const id = params.id;
-          console.log("id from the params", id);
+    console.log("the use effect is running");
+    const fetchHousesForRent = async () => {
+      const id = params.id;
+      console.log("id from the params", id);
+      try {
+        setLoading(true);
+        // console.log('the try block is running and set loading to true')
 
-          try {
-              setLoading(true);
-              console.log('the try block is running and set loading to true')
+        const response = await fetch(
+          `http://localhost:3000/api/housesForRent/rent/${id}`
+        );
 
-              const response = await fetch(`http://localhost:3000/api/housesForRent/rent/${id}`);
+        const data = await response.json();
 
-              const data = await response.json();
+        // console.log("UPDATE data from the fetch", data);
 
-              console.log("UPDATE data from the fetch", data);
-
-              console.log('the data from house for rent with the id is fetched and returned')
-
-              
-             
-
-              if (data) {
-                console.log('in the if statement with data.title set to if data .title update form data is called')
-                  updateFormData(data);
-              }
-              return data;
-
-          } catch (error) {
-              console.error("Error fetching house for rent:", error);
-          } finally {
-              setLoading(false);
-          }
-      };
-
-      fetchHousesForRent();
+        // console.log('the data from house for rent with the id is fetched and returned')
+        if (data) {
+          console.log(
+            "in the if statement with data.title set to if data .title update form data is called"
+          );
+          updateFormData(data);
+        }
+        setLoading(false);
+        return data;
+      } catch (error) {
+        console.error("Error fetching house for rent:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchHousesForRent();
   }, [params.id]);
-
-
-
-
 
   useEffect(() => {
     if (imageUploadError) {
@@ -107,16 +101,14 @@ export const UpdateHouseForRentForm = () => {
     });
   };
 
-  const handleFormForSaleChange = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleFormForSaleChange = async (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
     e.preventDefault();
     setLoading(true);
-  
+
     try {
-      console.log("Updating with data from UPDATE form component:", {
-        _id: params.id,
-        ...formDataForRent,
-      });
-  
+     
       const res = await fetch(
         `http://localhost:3000/api/update-house-for-rent/${params.id}`,
         {
@@ -133,13 +125,13 @@ export const UpdateHouseForRentForm = () => {
       );
       if (res.ok) {
         const updatedData = await res.json();
-        console.log(
-          "data from the handle submit form to check what info RENT HOUSES I have",
-          updatedData
-        );
-      
+        // console.log(
+        //   "data from the handle submit form to check what info RENT HOUSES I have",
+        //   updatedData
+        // );
+
         updateFormData(updatedData);
-      
+
         setLoading(false);
         console.log("Update successful:", updatedData.message);
       } else {
@@ -147,20 +139,19 @@ export const UpdateHouseForRentForm = () => {
         const errorData = await res.json();
         console.error("Update failed. Server response:", errorData);
         alert(
-          'Failed to update the house. Please check the console for details.'
-        ) 
+          "Failed to update the house. Please check the console for details."
+        );
       }
     } catch (error) {
       setLoading(false);
       console.error("Error during house update:", error);
       alert(
-        'An unexpected error occurred. Please check the console for details.'
+        "An unexpected error occurred. Please check the console for details."
       );
     } finally {
       navigate("/api/housesForRent");
     }
   };
-  
 
   const handleUploadImagesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -203,7 +194,7 @@ export const UpdateHouseForRentForm = () => {
   };
 
   const handleImageSubmit = () => {
-    if (!files ) return;
+    if (!files) return;
     try {
       if (
         files.length > 0 &&
@@ -236,14 +227,13 @@ export const UpdateHouseForRentForm = () => {
       ...formDataForRent,
       imageUrl: formDataForRent.imageUrl.filter((_url, i) => i !== index),
     });
-
-  }
-
-
+  };
 
   return (
     <div className="max-w-lg  mx-auto mt-10">
-         <div className="text-center uppercase  ">update the property for rent</div>
+      <div className="text-center uppercase  ">
+        update the property for rent
+      </div>
       <form
         className="flex flex-col gap-3 m-5"
         onSubmit={handleFormForSaleChange}
@@ -304,17 +294,16 @@ export const UpdateHouseForRentForm = () => {
             type="file"
             placeholder="imageUrl"
             id="imageUrl"
-          
             multiple
             onChange={handleUploadImagesChange}
           />
           <button
-          disabled={uploading}
+            disabled={uploading}
             onClick={handleImageSubmit}
             type="button"
             className="p-5 border rounded-full"
           >
-           { uploading ? 'uploading' :  'Upload' }
+            {uploading ? "uploading" : "Upload"}
           </button>
         </div>
 
@@ -343,24 +332,32 @@ export const UpdateHouseForRentForm = () => {
           onChange={handleFormChange}
         />
         <p>
-        {imageUploadError ? (
-          <div className="text-red-500 ">{imageUploadError}</div>
-        ) : null}
+          {imageUploadError ? (
+            <div className="text-red-500 ">{imageUploadError}</div>
+          ) : null}
         </p>
-        { formDataForRent.imageUrl.length > 0 ? (
+        {formDataForRent.imageUrl.length > 0 ? (
           <div className="flex flex-col gap-2">
             {formDataForRent.imageUrl.map((url, index) => (
-              <div  key={index} className="flex justify-between">
-                <img src={url} alt="listing images"  className="w-20 h-20 object-contain rounded-lg"/>
-                <button onClick={() => handleRemoveImages(index)} className="text-red-700 uppercase hover:opacity-75 pr-5">delete</button>
+              <div key={index} className="flex justify-between">
+                <img
+                  src={url}
+                  alt="listing images"
+                  className="w-20 h-20 object-contain rounded-lg"
+                />
+                <button
+                  onClick={() => handleRemoveImages(index)}
+                  className="text-red-700 uppercase hover:opacity-75 pr-5"
+                >
+                  delete
+                </button>
               </div>
             ))}
           </div>
-        ) : null} 
+        ) : null}
         <button className="p-5 border rounded-lg uppercase" disabled={loading}>
           update
         </button>
-    
       </form>
     </div>
   );
