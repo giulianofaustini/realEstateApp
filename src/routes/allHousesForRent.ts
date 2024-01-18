@@ -3,7 +3,7 @@ import express from "express";
 import { housesService } from "../services/housesService";
 
 
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 
 router.get("/", async (req, res) => {
     const housesForRent = await housesService.getHousesForRent();
@@ -11,6 +11,8 @@ router.get("/", async (req, res) => {
     console.log('houses for rent in all houses set up', housesForRent);
 } 
 );
+
+
 
 router.get("/rent/:id", async (req, res) => {
     const id = req.params.id;
@@ -48,21 +50,26 @@ router.delete("/:id", (req, res, next) => {
     }
 });
 
-router.put("/:id", (req, res, next) => {
+
+router.put("/:id", async (req, res, next) => {
     const _id = req.params.id;
     const houseForRentData = req.body;
+    console.log('BACKEND before updated house for rent data in put', houseForRentData);
+
     try {
-        const updatedHouse = housesService.updateHouseForRent(_id, houseForRentData);
+        const updatedHouse = await housesService.updateHouseForRent(_id, houseForRentData);
+
         if (updatedHouse) {
             res.json(updatedHouse);
+            console.log('BACKEND updated house in put', updatedHouse);
         } else {
             res.status(404).send("House not found");
         }
     } catch (error) {
         next(error);
     }
-}
-);
+});
+
 
 
 
