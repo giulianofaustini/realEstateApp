@@ -122,13 +122,19 @@ export const UserHouses = () => {
   }
   
   return (
-    <div className="grid grid-cols-3 justify-center ">
+    <div className=" max-w-full  ">
+     
+      <div className="text-center uppercase mt-20 mb-8 "> all on sale </div>
+    <div className="grid grid-cols-2 justify-center max-w-85 ">
+      
       {selectedUserHousesForSale &&
         selectedUserHousesForSale.map((house) => (
+          
           <div
             className=" bg-slate-100 p-6 border-2 rounded-xl border-slate-200  m-2 "
             key={house._id}
           >
+            
             <div>{house.title}</div>
             <div>{house.description}</div>
             {house.userId === currentUser?._id ? (
@@ -148,8 +154,9 @@ export const UserHouses = () => {
             ) : null}
           </div>
         ))}
-
-      <div className="grid grid-cols-3 justify-center ">
+        </div>
+        <div className="text-center uppercase mt-20 mb-8"> all for rent </div>
+      <div className="grid grid-cols-2 justify-center  ">
         {selectedUserHousesForRent &&
           selectedUserHousesForRent.map((house) => (
             <div
@@ -169,6 +176,7 @@ export const UserHouses = () => {
             </div>
           ))}
       </div>
+    
     </div>
   );
 };

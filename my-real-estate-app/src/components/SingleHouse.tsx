@@ -35,7 +35,7 @@ export const SingleHouse = ({ houses }: SingleHouseProps) => {
             selectedHouse.imageUrl.map((url) => (
               <SwiperSlide key={url}>
                 <div
-                  className="h-[850px]"
+                  className="h-[750px]"
                   style={{
                     background: `url(${url}) center, no-repeat`,
                     backgroundSize: "cover",

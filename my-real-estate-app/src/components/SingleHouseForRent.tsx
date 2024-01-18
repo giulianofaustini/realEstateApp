@@ -36,7 +36,7 @@ export const SingleHouseForRent = ({
             selectedHouse.imageUrl.map((url) => (
               <SwiperSlide key={url}>
                 <div
-                  className="h-[800px]"
+                  className="h-[750px]"
                   style={{
                     background: `url(${url}) center, no-repeat`,
                     backgroundSize: "cover",
