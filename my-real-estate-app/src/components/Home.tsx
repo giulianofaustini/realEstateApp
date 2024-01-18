@@ -1,13 +1,13 @@
 export const Home = () => {
   const backgroundImageStyle = {
     backgroundImage: "url(/images/couch-447484_1280.jpg)",
-    backgroundSize: "cover",
+    backgroundSize: "cover ",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center",
     borderRadius: "12px",
     opacity: "0.90",
     width: "100%",
-    height: "90vh",
+    height: "92vh",
   };
 
   return (
@@ -33,11 +33,7 @@ export const Home = () => {
               placeholder="buy in your area"
               className="mr-5 h-10 pl-4 border rounded-lg bg-sky-100 hover:bg-sky-200 active:bg-sky-300 focus:outline-none focus:ring focus:ring-violet-100"
             />
-            <input
-              type="text"
-              placeholder="our agents"
-              className="mr-5 pl-4  h-10 border rounded-lg bg-sky-100 hover:bg-sky-200 active:bg-sky-300 focus:outline-none focus:ring focus:ring-violet-100"
-            />
+           
           </form>
         </div>
       </div>
