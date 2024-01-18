@@ -1,7 +1,7 @@
 export const Home = () => {
   const backgroundImageStyle = {
     backgroundImage: "url(/images/couch-447484_1280.jpg)",
-    backgroundSize: "65%",
+    backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center",
     borderRadius: "12px",
