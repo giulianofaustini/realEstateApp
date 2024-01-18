@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export const Home = () => {
   const backgroundImageStyle = {
     backgroundImage: "url(/images/couch-447484_1280.jpg)",
@@ -23,11 +25,13 @@ export const Home = () => {
           </h1>
 
           <form className="flex flex-row items-center">
+            <Link to={"/api/rentInYourArea"} >
             <input
               type="text"
               placeholder="rent in your area"
               className="mr-5 h-10 pl-4 border rounded-lg bg-sky-100 hover:bg-sky-200 active:bg-sky-300 focus:outline-none focus:ring focus:ring-violet-100"
             />
+            </Link>
             <input
               type="text"
               placeholder="buy in your area"
