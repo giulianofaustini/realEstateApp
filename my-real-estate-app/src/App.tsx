@@ -17,6 +17,7 @@ import { UserHouses } from "../src/pages/UserHouses"
 import { UpdateHouseForRentForm } from "./pages/UpdateHouseForRentForm";
 import { UpdateHouseForSaleForm } from "./pages/UpdateHouseForSaleForm";
 import { Map } from "../src/components/Map"
+import { MapSale } from "./components/MapSale";
 
 
 export interface HouseProps {
@@ -25,6 +26,7 @@ export interface HouseProps {
   description: string;
   price: number;
   address: string;
+  location: string;
   imageUrl: string[];
   agent: string;
   bedrooms: number;
@@ -97,6 +99,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/api/rentInYourArea" element={<Map houseToRentInMap={housesForRent} />} />
+          <Route path="/api/buyInYourArea" element={<MapSale houseToBuyInMap={houses} />} />
           <Route path="/api/houses/sale/:id" element={<SingleHouse houses={houses} />} />
           <Route path="/api/housesForSale" element={<ListOfHouses housesToPass={houses}  setHouses={setHouses}/>} />
           <Route path="/api/housesForRent" element={<ListOfHousesForRent housesToRent={housesForRent} setHousesForRent={setHousesForRent} />} />

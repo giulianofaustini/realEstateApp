@@ -32,11 +32,13 @@ export const Home = () => {
               className="mr-5 h-10 pl-4 border rounded-lg bg-sky-100 hover:bg-sky-200 active:bg-sky-300 focus:outline-none focus:ring focus:ring-violet-100"
             />
             </Link>
+            <Link to={"/api/buyInYourArea"} >
             <input
               type="text"
               placeholder="buy in your area"
               className="mr-5 h-10 pl-4 border rounded-lg bg-sky-100 hover:bg-sky-200 active:bg-sky-300 focus:outline-none focus:ring focus:ring-violet-100"
             />
+            </Link>
            
           </form>
         </div>
