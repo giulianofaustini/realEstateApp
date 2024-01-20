@@ -184,7 +184,7 @@ export const Map: React.FC<HousesForRentInTheMapProps> = ({
   return (
     <div className="flex">
       <div className="flex flex-col w-3/12 h-screen text-black items-center  ">
-        <div className="uppercase text-center m-5 font-bold text-2xl hover:font-extrabold ">
+        <div className="uppercase text-center m-5  text-amber-950 font-bold text-5xl hover:font-extrabold ">
           House for rent
         </div>
         {houseToRentInMap &&
@@ -205,7 +205,7 @@ export const Map: React.FC<HousesForRentInTheMapProps> = ({
       </div>
 
       <div className="flex-1 h-screen w-9/12 ">
-        <div className="map-wrapper w-4/6 h-5/6 fixed border-4 border-slate-200">
+        <div className="map-wrapper w-4/6 h-5/6 fixed border-8 border-cyan-700">
           <GoogleMap
             center={center}
             zoom={11}
