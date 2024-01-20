@@ -205,7 +205,7 @@ export const MapSale: React.FC<HousesToBuyInTheMapProps> = ({
       </div>
 
       <div className="flex-1 h-screen w-9/12 ">
-        <div className="map-wrapper w-4/6 h-5/6 fixed border-8 border-cyan-700">
+        <div className="map-wrapper w-4/6 h-5/6 fixed border-8 border-cyan-900">
           <GoogleMap
             center={center}
             zoom={11}

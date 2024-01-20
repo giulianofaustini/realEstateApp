@@ -62,7 +62,7 @@ export const Home = () => {
             connecting individuals and families with their ideal properties..
           </p>
           <PiWarehouseLight className="text-red-600 size-20 font-bold justify-self-center" />
-          <p>Our Approach</p>
+          <p className=" opacity-80">Our Approach: </p>
           <p>
             1 - Personalized Service: Our dedicated team of real estate
             professionals is here to guide you through every step of the
@@ -75,7 +75,7 @@ export const Home = () => {
             cozy apartment, a family-friendly house, or an investment
             opportunity, we have a property to suit every lifestyle and budget.
           </p>
-          <p>Our Services</p>
+          <p className=" opacity-80" >Our Services: </p>
           <p>
             1 - Buying and Selling: Whether you're buying your dream home or
             selling a property, we streamline the process for you. Our
