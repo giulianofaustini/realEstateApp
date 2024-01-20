@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
+import { GoogleMap, useLoadScript, Marker, InfoWindow } from "@react-google-maps/api";
 import { HousesForRentProps } from "../App";
+import { Link } from "react-router-dom";
 
 export interface HousesForRentInTheMapProps {
   houseToRentInMap: HousesForRentProps[];
@@ -21,6 +22,8 @@ export const Map: React.FC<HousesForRentInTheMapProps> = ({
   const [markers, setMarkers] = useState<LatLongLiteral[]>([]);
   const [userMarker, setUserMarker] = useState<LatLongLiteral | null>(null);
   const [userLocation, setUserLocation] = useState<LatLongLiteral | null>(null);
+  const [selectedHouse, setSelectedHouse] = useState<HousesForRentProps | null>(null);
+  const [infoWindowPosition, setInfoWindowPosition] = useState<LatLongLiteral | null>(null);
 
   const renderMarkers = () => (
     <>
@@ -37,11 +40,36 @@ export const Map: React.FC<HousesForRentInTheMapProps> = ({
           }}
         />
       )}
+  
       {markers.map((marker, index) => (
-        <Marker key={index} position={marker} />
+        <Marker
+          key={index}
+          position={marker}
+          onClick={() => handleMarkerClick(houseToRentInMap[index], marker)}
+        />
       ))}
+  
+      {selectedHouse && selectedHouse.location && (
+        <InfoWindow
+            position={infoWindowPosition || undefined}
+          onCloseClick={() => setSelectedHouse(null)}
+        >
+          <Link to={`/api/housesForRent/rent/${selectedHouse._id}`} >
+          <div>
+            <h2>{selectedHouse.address}</h2>
+            <p>{`${selectedHouse.monthlyRent} €`}</p>
+          </div>
+          </Link>
+        </InfoWindow>
+      )}
     </>
   );
+  
+
+  const handleMarkerClick = (clickedHouse: React.SetStateAction<HousesForRentProps | null>, markerPosition: React.SetStateAction<google.maps.LatLngLiteral | null>) => {
+    setSelectedHouse(clickedHouse);
+    setInfoWindowPosition(markerPosition);
+  };
 
   useEffect(() => {
     console.log("Fetching user location...");
