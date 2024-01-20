@@ -1,5 +1,10 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { GoogleMap, useLoadScript, Marker, InfoWindow } from "@react-google-maps/api";
+import {
+  GoogleMap,
+  useLoadScript,
+  Marker,
+  InfoWindow,
+} from "@react-google-maps/api";
 import { HousesForRentProps } from "../App";
 import { Link } from "react-router-dom";
 
@@ -22,8 +27,11 @@ export const Map: React.FC<HousesForRentInTheMapProps> = ({
   const [markers, setMarkers] = useState<LatLongLiteral[]>([]);
   const [userMarker, setUserMarker] = useState<LatLongLiteral | null>(null);
   const [userLocation, setUserLocation] = useState<LatLongLiteral | null>(null);
-  const [selectedHouse, setSelectedHouse] = useState<HousesForRentProps | null>(null);
-  const [infoWindowPosition, setInfoWindowPosition] = useState<LatLongLiteral | null>(null);
+  const [selectedHouse, setSelectedHouse] = useState<HousesForRentProps | null>(
+    null
+  );
+  const [infoWindowPosition, setInfoWindowPosition] =
+    useState<LatLongLiteral | null>(null);
 
   const renderMarkers = () => (
     <>
@@ -40,7 +48,7 @@ export const Map: React.FC<HousesForRentInTheMapProps> = ({
           }}
         />
       )}
-  
+
       {markers.map((marker, index) => (
         <Marker
           key={index}
@@ -48,25 +56,27 @@ export const Map: React.FC<HousesForRentInTheMapProps> = ({
           onClick={() => handleMarkerClick(houseToRentInMap[index], marker)}
         />
       ))}
-  
+
       {selectedHouse && selectedHouse.location && (
         <InfoWindow
-            position={infoWindowPosition || undefined}
+          position={infoWindowPosition || undefined}
           onCloseClick={() => setSelectedHouse(null)}
         >
-          <Link to={`/api/housesForRent/rent/${selectedHouse._id}`} >
-          <div>
-            <h2>{selectedHouse.address}</h2>
-            <p>{`${selectedHouse.monthlyRent} €`}</p>
-          </div>
+          <Link to={`/api/housesForRent/rent/${selectedHouse._id}`}>
+            <div>
+              <h2>{selectedHouse.address}</h2>
+              <p>{`${selectedHouse.monthlyRent} €`}</p>
+            </div>
           </Link>
         </InfoWindow>
       )}
     </>
   );
-  
 
-  const handleMarkerClick = (clickedHouse: React.SetStateAction<HousesForRentProps | null>, markerPosition: React.SetStateAction<google.maps.LatLngLiteral | null>) => {
+  const handleMarkerClick = (
+    clickedHouse: React.SetStateAction<HousesForRentProps | null>,
+    markerPosition: React.SetStateAction<google.maps.LatLngLiteral | null>
+  ) => {
     setSelectedHouse(clickedHouse);
     setInfoWindowPosition(markerPosition);
   };
@@ -174,7 +184,9 @@ export const Map: React.FC<HousesForRentInTheMapProps> = ({
   return (
     <div className="flex">
       <div className="flex flex-col w-3/12 h-screen text-black items-center  ">
-        <div className="uppercase text-center m-5 font-bold text-2xl hover:font-extrabold ">House for rent</div>
+        <div className="uppercase text-center m-5 font-bold text-2xl hover:font-extrabold ">
+          House for rent
+        </div>
         {houseToRentInMap &&
           houseToRentInMap.map((house) => (
             <div
@@ -186,18 +198,14 @@ export const Map: React.FC<HousesForRentInTheMapProps> = ({
                 src={house.imageUrl[0]}
                 alt="house image"
               />
-              <div className="uppercase">
-               {house.address}
-              </div>
-              <div className="uppercase mb-4">
-               {house.monthlyRent} €
-              </div>
+              <div className="uppercase">{house.address}</div>
+              <div className="uppercase mb-4">{house.monthlyRent} €</div>
             </div>
           ))}
       </div>
 
-      <div className="flex-1 h-screen w-9/12">
-        <div className="map-wrapper w-full h-full fixed">
+      <div className="flex-1 h-screen w-9/12 ">
+        <div className="map-wrapper w-4/6 h-5/6 fixed border-4 border-slate-200">
           <GoogleMap
             center={center}
             zoom={11}
