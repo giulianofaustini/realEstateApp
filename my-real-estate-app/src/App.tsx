@@ -93,10 +93,10 @@ function App() {
     <>
     <div  >
       <Router >
-        <NavBar />
+        <NavBar />  
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/api/rentInYourArea" element={<Map />} />
+          <Route path="/api/rentInYourArea" element={<Map houseToRentInMap={housesForRent} />} />
           <Route path="/api/houses/sale/:id" element={<SingleHouse houses={houses} />} />
           <Route path="/api/housesForSale" element={<ListOfHouses housesToPass={houses}  setHouses={setHouses}/>} />
           <Route path="/api/housesForRent" element={<ListOfHousesForRent housesToRent={housesForRent} setHousesForRent={setHousesForRent} />} />

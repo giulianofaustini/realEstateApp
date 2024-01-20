@@ -12,9 +12,7 @@ export interface SingleHouseForRentProps {
   houseToRent: HousesForRentProps[];
 }
 
-export const SingleHouseForRent = ({
-  houseToRent,
-}: SingleHouseForRentProps) => {
+export const SingleHouseForRent = ({houseToRent}: SingleHouseForRentProps) => {
 
   SwiperCore.use([Navigation]);
   
