@@ -29,12 +29,11 @@ export const ListOfHouses = ({ housesToPass , setHouses }: ListOfHousesProps) =>
   return (
     <>
       <div className="grid grid-cols-3 justify-center ">
-        {housesToPass.map(
-          (house) => (
-            console.log("in the map the id:", house._id),
+        {housesToPass.map((house) => (
+            // console.log("in the map the id:", house._id),
             (
               <div  key={house._id}>
-                <Link to={`/api/houses/sale/${house._id}`}>
+                <Link key={house._id} to={`/api/houses/sale/${house._id}`}>
                   <div className=" bg-slate-100 p-6 border-2 rounded-xl border-slate-200  m-2 ">
                     <img className="w-full h-40 object-cover" src={house.imageUrl[0]} alt="listing first image" />
                     <div className="font-bold ">{house.title}</div>

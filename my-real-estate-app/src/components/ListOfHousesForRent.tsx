@@ -28,15 +28,15 @@ export const ListOfHousesForRent = ({
       {housesToRent.map((house) => (
         <div key={house._id}>
           <Link key={house._id} to={`/api/housesForRent/rent/${house._id}`}>
-            { house.imageUrl.length === 0 ? null : (
+          <div className=" bg-slate-100 p-6 border-2 border-slate-200  m-2 rounded-xl">
               <img
                 className="w-full h-40 object-cover"
                 src={house.imageUrl[0]}
                 alt="house for rent"
               />
-            )}
 
-            <div className=" bg-slate-100 p-6 border-2 border-slate-200  m-2 rounded-xl">
+
+            
               <div className="font-bold ">{house.title}</div>
               <div>{house.description}</div>
               <div>{house.monthlyRent} € </div>
