@@ -67,8 +67,8 @@ export const HouseForRentForm = () => {
           key: import.meta.env.VITE_GOOGLE_MAPS_API_KEY || "",
           libraries: ['places'],
         });
-        console.log('LET US SEE ', googleMaps)
         setMapsLoaded(true);
+        console.log('RENT STATUS in GoogleMaps', googleMaps)
       } catch (error) {
         console.error('Error loading Google Maps API:', error);
       }

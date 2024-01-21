@@ -1,14 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { HouseInterface } from "../../../src/interfaces/houseInterface";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { UserState } from "../redux/user/userSlice";
 import { getStorage , uploadBytesResumable , getDownloadURL , ref} from "firebase/storage";
 import { app } from "../firebase";
+import PlacesAutocomplete, {
+  geocodeByAddress,
+  getLatLng,
+} from "react-places-autocomplete";
+
+import loadGoogleMapsApi from "load-google-maps-api";
+
 
 export const HouseForSaleForm = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
+
+
 
   const { currentUser } = useSelector((state: { user: UserState }) => ({
     currentUser: state.user.currentUser,
@@ -38,6 +47,30 @@ export const HouseForSaleForm = () => {
 
   const [imageUploadError, setImageUploadError] = useState<string | null>("");
   const [uploading, setUpLoading] = useState<boolean>(false);
+
+
+// set address and map state 
+
+const [address, setAddress] = useState<string>("");
+const [ mapsLoaded, setMapsLoaded ] = useState<boolean>(false);
+
+ // load google maps api
+
+useEffect(() => {
+  const loadGoogleMaps = async () => {
+    try {
+      const googleMaps = await loadGoogleMapsApi({
+        key: import.meta.env.VITE_GOOGLE_MAPS_API_KEY || "",  
+        libraries: ["places"],
+      });
+      setMapsLoaded(true);
+      console.log('RENT STATUS in GoogleMaps', googleMaps)
+    } catch (error) {
+      console.log('Error loading Google Maps API', error);
+    }
+  }
+  loadGoogleMaps();
+}, [])
 
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormDataForSale({
@@ -176,8 +209,28 @@ export const HouseForSaleForm = () => {
     });
   }
 
-  
+  const handleSelect = async (selectedAddress: string) => {
 
+    try {
+      const results = await geocodeByAddress(selectedAddress);
+      const latLng = await getLatLng(results[0]);
+  
+      setFormDataForSale({
+        ...formDataForSale,
+        address: selectedAddress,
+        location:`${latLng.lat}, ${latLng.lng}`,
+      });
+    } catch (error) {
+      console.error("Error fetching coordinates:", error);
+    }
+  }
+
+
+
+  
+const handleAddressChange = (value: string) => {
+  setAddress(value);
+}
 
 
   return (
@@ -207,13 +260,58 @@ export const HouseForSaleForm = () => {
           id="price"
           onChange={handleFormChange}
         />
-        <input
+
+        { mapsLoaded && (
+          <PlacesAutocomplete
+          value={address}
+          onChange={handleAddressChange}
+          onSelect={handleSelect}
+          >
+            {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                <div>
+                  <input
+                {...getInputProps({
+                  placeholder: "Type and Select The Address",
+                  className: "p-5 border rounded-lg w-full",
+                })}
+              />
+              <div>
+              { loading ? <div> choose the address</div> : null }
+              {suggestions.map((suggestion) => {
+                const style = {
+                  backgroundColor: suggestion.active ? "#e6e6e6" : "#fff",
+                };
+                return (
+                  <div {...getSuggestionItemProps(suggestion, { style })}
+                  key={suggestion.placeId}
+                  >
+                    {suggestion.description}
+                  </div>
+                );
+              })}
+              </div>
+              </div>
+            )}
+          </PlacesAutocomplete>
+
+
+
+
+        )}
+
+
+
+
+
+
+
+        {/* <input
           className="p-5 border rounded-lg"
           type="text"
           placeholder="address"
           id="address"
           onChange={handleFormChange}
-        />
+        /> */}
         <input
           className="p-5 border rounded-lg"
           type="text"
