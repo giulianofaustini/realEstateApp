@@ -279,7 +279,7 @@ const handleAddressChange = (value: string) => {
               { loading ? <div> choose the address</div> : null }
               {suggestions.map((suggestion) => {
                 const style = {
-                  backgroundColor: suggestion.active ? "#e6e6e6" : "#fff",
+                  backgroundColor: suggestion.active ? "##22d3ee" : "#fff",
                 };
                 return (
                   <div {...getSuggestionItemProps(suggestion, { style })}
@@ -312,13 +312,7 @@ const handleAddressChange = (value: string) => {
           id="address"
           onChange={handleFormChange}
         /> */}
-        <input
-          className="p-5 border rounded-lg"
-          type="text"
-          placeholder="location"
-          id="location"
-          onChange={handleFormChange}
-        />
+      
 
         <div className="flex items-center gap-2 ">
           <input
