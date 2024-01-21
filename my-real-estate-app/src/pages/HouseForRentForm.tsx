@@ -12,6 +12,14 @@ import {
   uploadBytesResumable,
 } from "firebase/storage";
 
+
+import PlacesAutocomplete, {
+  geocodeByAddress,
+  getLatLng,
+} from "react-places-autocomplete";
+
+import loadGoogleMapsApi from 'load-google-maps-api';
+
 export const HouseForRentForm = () => {
   const { currentUser } = useSelector((state: { user: UserState }) => ({
     currentUser: state.user.currentUser,
@@ -37,7 +45,8 @@ export const HouseForRentForm = () => {
       userId: currentUser?._id || "",
     });
   console.log("data from the form", formDataForRent);
-
+  const [address, setAddress] = useState<string>("");
+  const [mapsLoaded, setMapsLoaded] = useState(false);
   const [files, setFiles] = useState<File[]>([]);
   console.log("files form HouseForRentForm at state level ", files);
 
@@ -47,6 +56,26 @@ export const HouseForRentForm = () => {
   const [uploading, setUpLoading] = useState<boolean>(false);
 
   const navigate = useNavigate();
+
+  // load google maps api
+
+  useEffect(() => {
+    const loadGoogleMaps = async () => {
+      try {
+        const googleMaps = await loadGoogleMapsApi({
+          
+          key: import.meta.env.VITE_GOOGLE_MAPS_API_KEY || "",
+          libraries: ['places'],
+        });
+        console.log('LET US SEE ', googleMaps)
+        setMapsLoaded(true);
+      } catch (error) {
+        console.error('Error loading Google Maps API:', error);
+      }
+      
+    };
+    loadGoogleMaps();
+  }, []);
 
 
   useEffect(() => {
@@ -197,6 +226,25 @@ export const HouseForRentForm = () => {
   }
 
 
+  const handleSelect = async (selectedAddress: string) => {
+    try {
+      const results = await geocodeByAddress(selectedAddress);
+      const latLng = await getLatLng(results[0]);
+
+      setFormDataForRent({
+        ...formDataForRent,
+        address: selectedAddress,
+        location: `${latLng.lat}, ${latLng.lng}`,
+      });
+    } catch (error) {
+      console.error("Error fetching coordinates:", error);
+    }
+  };
+
+  const handleAddressChange = (newAddress: string) => {
+    setAddress(newAddress);
+  };
+
 
   return (
     <div className="max-w-lg  mx-auto mt-10">
@@ -232,14 +280,48 @@ export const HouseForRentForm = () => {
           id="rentalDeposit"
           onChange={handleFormChange}
         />
+{mapsLoaded && (
+<PlacesAutocomplete
+          value={address}
+          onChange={handleAddressChange}
+          onSelect={handleSelect}
+        >
+          {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+            <div>
+              <input
+                {...getInputProps({
+                  placeholder: "Type and Select The Address",
+                  className: "p-5 border rounded-lg w-full",
+                })}
+              />
+              <div>
+                {loading ? <div>choose the address </div> : null}
+                {suggestions.map((suggestion) => {
+                  const style = {
+                    backgroundColor: suggestion.active ? "#e6e6e6" : "#fff",
+                  };
+                  return (
+                    <div
+                      {...getSuggestionItemProps(suggestion, { style })}
+                      key={suggestion.placeId}
+                    >
+                      {suggestion.description}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+        </PlacesAutocomplete>
+)}
 
-        <input
+        {/* <input
           className="p-5 border rounded-lg"
           type="text"
           placeholder="address"
           id="address"
           onChange={handleFormChange}
-        />
+        /> */}
         <input
           className="p-5 border rounded-lg"
           type="text"
