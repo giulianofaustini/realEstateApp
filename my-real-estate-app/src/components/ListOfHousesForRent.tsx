@@ -24,7 +24,7 @@ export const ListOfHousesForRent = ({
 
   console.log("from List Of Houses For Rent component", housesToRent);
   return (
-    <div className="grid grid-cols-3 justify-center">
+    <div className="grid grid-cols-2 w-4/5 mx-auto justify-center">
       {housesToRent.map((house) => (
         <div key={house._id}>
           <Link key={house._id} to={`/api/housesForRent/rent/${house._id}`}>

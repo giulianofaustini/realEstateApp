@@ -86,7 +86,7 @@ export const NavBar: React.FC = () => {
 
           {showTooltip ? (
             <div className="absolute right-1/2 top-full text-amber-950 p-2 rounded-lg text-xs">
-              Sign out !
+              Click to sign out!
             </div>
           ) : null}
         </div>

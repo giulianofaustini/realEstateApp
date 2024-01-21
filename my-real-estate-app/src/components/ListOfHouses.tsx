@@ -27,14 +27,15 @@ export const ListOfHouses = ({ housesToPass , setHouses }: ListOfHousesProps) =>
   const navigate = useNavigate();
 
   return (
-    <>
-      <div className="grid grid-cols-3 justify-center ">
+    <div className= " h-full  ">
+    
+      <div className="grid grid-cols-2 mx-auto w-4/5 justify-self-center">
         {housesToPass.map((house) => (
             // console.log("in the map the id:", house._id),
             (
-              <div  key={house._id}>
+              <div className="   " key={house._id}>
                 <Link key={house._id} to={`/api/houses/sale/${house._id}`}>
-                  <div className=" bg-slate-100 p-6 border-2 rounded-xl border-slate-200  m-2 ">
+                  <div className=" bg-slate-100 p-6 border-2 rounded-xl border-slate-200  m-2  ">
                     <img className="w-full h-40 object-cover" src={house.imageUrl[0]} alt="listing first image" />
                     <div className="font-bold ">{house.title}</div>
                     <div>{house.description}</div>
@@ -55,6 +56,6 @@ export const ListOfHouses = ({ housesToPass , setHouses }: ListOfHousesProps) =>
         )}
       </div>
       <button onClick={() => navigate("/")}>home</button>
-    </>
+    </div>
   );
 };

@@ -122,9 +122,9 @@ export const UserHouses = () => {
   }
   
   return (
-    <div className=" max-w-full  ">
+    <div className=" w-4/5 mx-auto ">
      
-      <div className="text-center uppercase mt-20 mb-8 "> all on sale </div>
+      <div className="text-center uppercase mt-20 mb-8 "> on sale </div>
     <div className="grid grid-cols-2 justify-center max-w-85 ">
       
       {selectedUserHousesForSale &&
@@ -155,7 +155,7 @@ export const UserHouses = () => {
           </div>
         ))}
         </div>
-        <div className="text-center uppercase mt-20 mb-8"> all for rent </div>
+        <div className="text-center uppercase mt-20 mb-8"> for rent </div>
       <div className="grid grid-cols-2 justify-center  ">
         {selectedUserHousesForRent &&
           selectedUserHousesForRent.map((house) => (
