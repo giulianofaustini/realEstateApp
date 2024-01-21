@@ -85,8 +85,8 @@ export const NavBar: React.FC = () => {
           </button>
 
           {showTooltip ? (
-            <div className="absolute right-1/2 top-full text-amber-950 p-2 rounded-lg text-xs">
-              Click to sign out!
+            <div className="absolute right-1/2 top-full text-amber-950 p-1 rounded-lg text-xs  ">
+              click/sign out!
             </div>
           ) : null}
         </div>
