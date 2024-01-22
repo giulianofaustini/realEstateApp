@@ -36,8 +36,8 @@ imageUrl: [{
     type: String,
     required: true,
   }],
-agent: {
-    type: String,
+  year: {
+    type: Number,
     required: true,
 },
 bedrooms: {

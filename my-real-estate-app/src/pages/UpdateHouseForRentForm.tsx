@@ -28,7 +28,7 @@ export const UpdateHouseForRentForm = () => {
       address: "",
       location: "",
       imageUrl: [],
-      agent: "",
+      year: 0,
       bedrooms: 0,
       bathrooms: 0,
       addedBy: currentUser?.username,
@@ -309,10 +309,10 @@ export const UpdateHouseForRentForm = () => {
 
         <input
           className="p-5 border rounded-lg"
-          type="text"
-          placeholder="agent"
-          id="agent"
-          value={formDataForRent.agent}
+          type="number"
+          placeholder="built year"
+          id="year"
+          value={formDataForRent.year}
           onChange={handleFormChange}
         />
         <input

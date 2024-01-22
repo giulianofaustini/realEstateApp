@@ -39,7 +39,7 @@ export const HouseForRentForm = ({ onSubmitForm}: {onSubmitForm:(status: string 
       address: "",
       location: "",
       imageUrl: [],
-      agent: "",
+      year: 0,
       bedrooms: 0,
       bathrooms: 0,
       addedBy: currentUser?.username,
@@ -144,7 +144,7 @@ export const HouseForRentForm = ({ onSubmitForm}: {onSubmitForm:(status: string 
           address: "",
           location: "",
           imageUrl: [],
-          agent: "",
+          year: 0,
           bedrooms: 0,
           bathrooms: 0,
           userId: currentUser?._id || "",
@@ -335,13 +335,7 @@ export const HouseForRentForm = ({ onSubmitForm}: {onSubmitForm:(status: string 
         </PlacesAutocomplete>
 )}
 
-        {/* <input
-          className="p-5 border rounded-lg"
-          type="text"
-          placeholder="address"
-          id="address"
-          onChange={handleFormChange}
-        /> */}
+      
 
         <div className="flex items-center gap-2 h-auto">
           <input
@@ -364,9 +358,9 @@ export const HouseForRentForm = ({ onSubmitForm}: {onSubmitForm:(status: string 
 
         <input
           className="p-5 border rounded-lg"
-          type="text"
-          placeholder="agent"
-          id="agent"
+          type="number"
+          placeholder="built year"
+          id="year"
           onChange={handleFormChange}
         />
         <input

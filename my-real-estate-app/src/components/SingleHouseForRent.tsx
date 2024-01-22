@@ -7,6 +7,7 @@ import "swiper/css/bundle"
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { FaBath, FaEuroSign } from "react-icons/fa6";
 import { MdBedroomChild } from "react-icons/md";
+import { GiBrickWall } from "react-icons/gi";
 
 export interface SingleHouseForRentProps {
   houseToRent: HousesForRentProps[];
@@ -61,6 +62,8 @@ export const SingleHouseForRent = ({houseToRent}: SingleHouseForRentProps) => {
         
         <MdBedroomChild className="text-green-600 size-8 " />
         <span className="pr-10 " > {selectedHouse.bedrooms} { ' ' } </span> 
+        <GiBrickWall className="text-green-600 size-8 "/>
+        <span className="pr-10 " > {selectedHouse.year} { ' ' } </span> 
       
         </div>
         <div className="flex item-center mt-2">
@@ -69,7 +72,7 @@ export const SingleHouseForRent = ({houseToRent}: SingleHouseForRentProps) => {
         </div>
 
 
-        <p className=" mt-2">Call our agent {selectedHouse.agent} at this number: 0409380895</p>
+        <p className=" mt-2">Contact the owner {selectedHouse.addedBy} at this email address: {selectedHouse.userEmail}</p>
 
       </div>
     </div>
