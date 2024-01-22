@@ -208,6 +208,7 @@ export const MapSale: React.FC<HousesToBuyInTheMapProps> = ({
         </div>
         {houseToBuyInMap &&
           houseToBuyInMap.map((house) => (
+            <Link to={`/api/houses/sale/${house._id}`}>
             <div
             className={`p-4 border-l-8 rounded-xl m-2 ${house.status === "onHold"
                 ? "border-yellow-200"
@@ -230,6 +231,7 @@ export const MapSale: React.FC<HousesToBuyInTheMapProps> = ({
               <div className="uppercase mb-4">{house.price} €</div>
             </div>
           </div>
+          </Link>
           ))}
 
       </div>
