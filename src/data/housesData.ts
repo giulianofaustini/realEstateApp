@@ -12,6 +12,7 @@ export const housesForSale: HouseInterface[] = [
     agent: 'Matti Virtanen',
     bedrooms: 4,
     bathrooms: 3,
+    status: "",
   },
 
 ];

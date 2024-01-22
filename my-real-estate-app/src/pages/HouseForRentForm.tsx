@@ -122,7 +122,10 @@ export const HouseForRentForm = ({ onSubmitForm}: {onSubmitForm:(status: string 
             "Content-Type": "application/json",
           },
           credentials: "include",
-          body: JSON.stringify(formDataForRent),
+          body: JSON.stringify({
+            ...formDataForRent,
+            status: selectedStatusRent?.value,
+          }),
         }
       );
 

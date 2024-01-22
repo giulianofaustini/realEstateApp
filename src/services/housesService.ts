@@ -1,12 +1,10 @@
-import { housesForSale } from "../data/housesData";
-import { housesForRent } from "../data/housesForRentData";
+
 import { NextFunction } from "express";
 import { HouseInterface } from "../interfaces/houseInterface";
 import { Request, Response } from "express";
 import HouseForSale from "../models/houseForSale.model";
 import { housesForRentInterface } from "../interfaces/housesForRentInterface";
 import HouseForRent from "../models/HouseForRentModel";
-import User from "../models/user.model";
 
 const getHouses = async (): Promise<HouseInterface[]> => {
   try {

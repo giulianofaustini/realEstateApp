@@ -111,7 +111,11 @@ export const HouseForSaleForm = ({
             "Content-Type": "application/json",
           },
           credentials: "include",
-          body: JSON.stringify(formDataForSale),
+          body: JSON.stringify({
+            ...formDataForSale,
+            status: selectedStatus ? selectedStatus.value : null,
+          }),
+          
         }
       );
 
@@ -393,7 +397,7 @@ export const HouseForSaleForm = ({
             { value: "onSale", label: "Set the state of the house to ONSALE" },
           ]}
           value={selectedStatus}
-          onChange={(option) => setSelectedStatus(option)}
+          onChange={(selectedStatus) => setSelectedStatus(selectedStatus)}
           placeholder="Set the status of the house"
         />
 
