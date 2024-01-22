@@ -3,8 +3,15 @@ import { HouseInterface } from "../../../src/interfaces/houseInterface";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { UserState } from "../redux/user/userSlice";
-import { getStorage, uploadBytesResumable, getDownloadURL, ref } from "firebase/storage";
+import {
+  getStorage,
+  uploadBytesResumable,
+  getDownloadURL,
+  ref,
+} from "firebase/storage";
 import { app } from "../firebase";
+import Select from "react-select";
+
 
 export const UpdateHouseForSaleForm = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -30,17 +37,25 @@ export const UpdateHouseForSaleForm = () => {
     addedBy: currentUser?.username,
     userEmail: currentUser?.email,
     userId: currentUser?._id || "",
+    status: "",
   });
 
   const [files, setFiles] = useState<File[] | null>([]);
   const [imageUploadError, setImageUploadError] = useState<string | null>("");
   const [uploading, setUpLoading] = useState<boolean>(false);
+  const [selectedStatus, setSelectedStatus] = useState<{
+    value: string;
+    label: string;
+  } | null>(null);
 
   const updateFormData = (data: HouseInterface) => {
     setFormDataForSale((prev) => ({
       ...prev,
       ...data,
     }));
+    setSelectedStatus(
+      data.status ? { value: data.status, label: data.status } : null
+    );
   };
 
   useEffect(() => {
@@ -50,7 +65,9 @@ export const UpdateHouseForSaleForm = () => {
 
       try {
         setLoading(true);
-        const res = await fetch(`http://localhost:3000/api/housesForSale/sale/${id}`);
+        const res = await fetch(
+          `http://localhost:3000/api/housesForSale/sale/${id}`
+        );
         const data = await res.json();
         console.log("UPDATE data from the fetch", data);
         if (data) {
@@ -98,21 +115,18 @@ export const UpdateHouseForSaleForm = () => {
           credentials: "include",
           body: JSON.stringify({
             _id: params.id,
-            ...formDataForSale
-            }),
+            ...formDataForSale,
+            status: selectedStatus?.value || "", // Include the selected status in the request
+          }),
         }
       );
 
       if (res.ok) {
         const updatedData = await res.json();
-        console.log(
-          "DATA from the handle submit form to check what info SALE HOUSES I have",
-          updatedData
-        );
         updateFormData(updatedData);
         setLoading(false);
         console.log("Update successful:", updatedData.message);
-      }  else {
+      } else {
         setLoading(false);
         const errorData = await res.json();
         console.error("Update failed. Server response:", errorData);
@@ -131,9 +145,7 @@ export const UpdateHouseForSaleForm = () => {
     }
   };
 
-  const handleUploadImagesChange = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleUploadImagesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     setFiles(files ? Array.from(files) : []);
 
@@ -205,15 +217,15 @@ export const UpdateHouseForSaleForm = () => {
   const handleImageDelete = (index: number) => {
     setFormDataForSale({
       ...formDataForSale,
-      imageUrl: formDataForSale.imageUrl.filter(
-        (_url, i) => i !== index
-      ),
+      imageUrl: formDataForSale.imageUrl.filter((_url, i) => i !== index),
     });
   };
 
   return (
     <div className="max-w-lg mx-auto mt-10">
-      <div className="text-center uppercase  ">update the property for sale</div>
+      <div className="text-center uppercase  ">
+        update the property for sale
+      </div>
       <form
         className="flex flex-col gap-3 m-5"
         onSubmit={handleFormForSaleChange}
@@ -325,6 +337,24 @@ export const UpdateHouseForSaleForm = () => {
             ))}
           </div>
         ) : null}
+        <Select
+          options={[
+            {
+              value: "onHold",
+              label:
+                "Set the state of the house to ON HOLD to temporarily reserve it",
+            },
+            {
+              value: "sold",
+              label:
+                "Set the state of the house to SOLD / The house should be deleted from the list",
+            },
+            { value: "onSale", label: "Set the state of the house to ON-SALE" },
+          ]}
+          value={selectedStatus}
+          onChange={(option) => setSelectedStatus(option)}
+          placeholder="Set the status of the house"
+        />
         <button className="p-5 border rounded-lg uppercase" disabled={loading}>
           update
         </button>

@@ -3,7 +3,12 @@ import { HouseInterface } from "../../../src/interfaces/houseInterface";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { UserState } from "../redux/user/userSlice";
-import { getStorage , uploadBytesResumable , getDownloadURL , ref} from "firebase/storage";
+import {
+  getStorage,
+  uploadBytesResumable,
+  getDownloadURL,
+  ref,
+} from "firebase/storage";
 import { app } from "../firebase";
 import PlacesAutocomplete, {
   geocodeByAddress,
@@ -12,12 +17,15 @@ import PlacesAutocomplete, {
 
 import loadGoogleMapsApi from "load-google-maps-api";
 
+import Select from "react-select";
 
-export const HouseForSaleForm = () => {
+export const HouseForSaleForm = ({
+  onSubmitForm,
+}: {
+  onSubmitForm: (status: string | null) => void;
+}) => {
   const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
-
-
 
   const { currentUser } = useSelector((state: { user: UserState }) => ({
     currentUser: state.user.currentUser,
@@ -38,9 +46,17 @@ export const HouseForSaleForm = () => {
     addedBy: currentUser?.username,
     userEmail: currentUser?.email,
     userId: currentUser?._id || "",
+    status: "",
   });
 
   console.log("data from the form", formDataForSale);
+
+  // setState for status of the house
+
+  const [selectedStatus, setSelectedStatus] = useState<{
+    value: string;
+    label: string;
+  } | null>(null);
 
   const [files, setFiles] = useState<File[] | null>([]);
   console.log("files form HouseForSaleForm at state level ", files);
@@ -48,31 +64,32 @@ export const HouseForSaleForm = () => {
   const [imageUploadError, setImageUploadError] = useState<string | null>("");
   const [uploading, setUpLoading] = useState<boolean>(false);
 
+  // set address and map state
 
-// set address and map state 
+  const [address, setAddress] = useState<string>("");
+  const [mapsLoaded, setMapsLoaded] = useState<boolean>(false);
 
-const [address, setAddress] = useState<string>("");
-const [ mapsLoaded, setMapsLoaded ] = useState<boolean>(false);
+  // load google maps api
 
- // load google maps api
+  useEffect(() => {
+    const loadGoogleMaps = async () => {
+      try {
+        const googleMaps = await loadGoogleMapsApi({
+          key: import.meta.env.VITE_GOOGLE_MAPS_API_KEY || "",
+          libraries: ["places"],
+        });
+        setMapsLoaded(true);
+        console.log("RENT STATUS in GoogleMaps", googleMaps);
+      } catch (error) {
+        console.log("Error loading Google Maps API", error);
+      }
+    };
+    loadGoogleMaps();
+  }, []);
 
-useEffect(() => {
-  const loadGoogleMaps = async () => {
-    try {
-      const googleMaps = await loadGoogleMapsApi({
-        key: import.meta.env.VITE_GOOGLE_MAPS_API_KEY || "",  
-        libraries: ["places"],
-      });
-      setMapsLoaded(true);
-      console.log('RENT STATUS in GoogleMaps', googleMaps)
-    } catch (error) {
-      console.log('Error loading Google Maps API', error);
-    }
-  }
-  loadGoogleMaps();
-}, [])
-
-  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement >) => {
+  const handleFormChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setFormDataForSale({
       ...formDataForSale,
       [e.target.id]: e.target.value,
@@ -116,8 +133,12 @@ useEffect(() => {
           bedrooms: 0,
           bathrooms: 0,
           userId: currentUser?._id || "",
+          status: "",
         });
         setLoading(false);
+        if (selectedStatus) {
+          onSubmitForm(selectedStatus.value);
+        }
         console.log(data.message);
       } else {
         setLoading(false);
@@ -172,7 +193,7 @@ useEffect(() => {
   };
 
   const handleImageSubmit = () => {
-    if (!files ) return;
+    if (!files) return;
     try {
       if (
         files.length > 0 &&
@@ -185,53 +206,46 @@ useEffect(() => {
           promises.push(storeImage(files[i]));
         }
         Promise.all(promises).then((urls) => {
-            setFormDataForSale({
+          setFormDataForSale({
             ...formDataForSale,
             imageUrl: formDataForSale.imageUrl.concat(urls as string[]),
           });
-         setImageUploadError(null);
-            setUpLoading(false);
+          setImageUploadError(null);
+          setUpLoading(false);
         });
       } else {
         setImageUploadError("You can only upload 6 images");
       }
     } catch (error) {
-       setImageUploadError("Something went wrong, please try again");
+      setImageUploadError("Something went wrong, please try again");
     }
   };
 
   const handleImageDelete = (index: number) => {
     setFormDataForSale({
       ...formDataForSale,
-      imageUrl: formDataForSale.imageUrl.filter(
-        (_url, i) => i !== index
-      ),
+      imageUrl: formDataForSale.imageUrl.filter((_url, i) => i !== index),
     });
-  }
+  };
 
   const handleSelect = async (selectedAddress: string) => {
-
     try {
       const results = await geocodeByAddress(selectedAddress);
       const latLng = await getLatLng(results[0]);
-  
+
       setFormDataForSale({
         ...formDataForSale,
         address: selectedAddress,
-        location:`${latLng.lat}, ${latLng.lng}`,
+        location: `${latLng.lat}, ${latLng.lng}`,
       });
     } catch (error) {
       console.error("Error fetching coordinates:", error);
     }
-  }
+  };
 
-
-
-  
-const handleAddressChange = (value: string) => {
-  setAddress(value);
-}
-
+  const handleAddressChange = (value: string) => {
+    setAddress(value);
+  };
 
   return (
     <div className="max-w-lg  mx-auto mt-10">
@@ -248,7 +262,6 @@ const handleAddressChange = (value: string) => {
         />
         <textarea
           className="p-5 border rounded-lg"
-          
           placeholder="description"
           id="description"
           onChange={handleFormChange}
@@ -262,59 +275,45 @@ const handleAddressChange = (value: string) => {
           onChange={handleFormChange}
         />
 
-        { mapsLoaded && (
+        {mapsLoaded && (
           <PlacesAutocomplete
-          value={address}
-          onChange={handleAddressChange}
-          onSelect={handleSelect}
+            value={address}
+            onChange={handleAddressChange}
+            onSelect={handleSelect}
           >
-            {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-                <div>
-                  <input
-                {...getInputProps({
-                  placeholder: "Type and Select The Address",
-                  className: "p-5 border rounded-lg w-full",
-                })}
-              />
+            {({
+              getInputProps,
+              suggestions,
+              getSuggestionItemProps,
+              loading,
+            }) => (
               <div>
-              { loading ? <div> choose the address</div> : null }
-              {suggestions.map((suggestion) => {
-                const style = {
-                  backgroundColor: suggestion.active ? "##22d3ee" : "#fff",
-                };
-                return (
-                  <div {...getSuggestionItemProps(suggestion, { style })}
-                  key={suggestion.placeId}
-                  >
-                    {suggestion.description}
-                  </div>
-                );
-              })}
-              </div>
+                <input
+                  {...getInputProps({
+                    placeholder: "Type and Select The Address",
+                    className: "p-5 border rounded-lg w-full",
+                  })}
+                />
+                <div>
+                  {loading ? <div> choose the address</div> : null}
+                  {suggestions.map((suggestion) => {
+                    const style = {
+                      backgroundColor: suggestion.active ? "##22d3ee" : "#fff",
+                    };
+                    return (
+                      <div
+                        {...getSuggestionItemProps(suggestion, { style })}
+                        key={suggestion.placeId}
+                      >
+                        {suggestion.description}
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             )}
           </PlacesAutocomplete>
-
-
-
-
         )}
-
-
-
-
-
-
-
-        {/* <input
-          className="p-5 border rounded-lg"
-          type="text"
-          placeholder="address"
-          id="address"
-          onChange={handleFormChange}
-        /> */}
-      
-
         <div className="flex items-center gap-2 ">
           <input
             className="p-5 border rounded-lg max-h-20"
@@ -329,10 +328,9 @@ const handleAddressChange = (value: string) => {
             type="button"
             className="p-3 border rounded-full max-h-20 uppercase"
           >
-           { uploading ? 'uploading' :  'upload' }
+            {uploading ? "uploading" : "upload"}
           </button>
         </div>
-
         <input
           className="p-5 border rounded-lg"
           type="text"
@@ -355,20 +353,50 @@ const handleAddressChange = (value: string) => {
           onChange={handleFormChange}
         />
         <p>
-        { imageUploadError ? (
+          {imageUploadError ? (
             <div className="text-red-500 ">{imageUploadError}</div>
-        ) : null }
+          ) : null}
         </p>
-        { formDataForSale.imageUrl.length > 0 ? (
+        {formDataForSale.imageUrl.length > 0 ? (
           <div className="flex flex-col gap-2">
             {formDataForSale.imageUrl.map((url, index) => (
-                <div key={index} className="flex justify-between">
-                    <img  src={url} alt="listing image" className="w-20 h-20 object-contain rounded-lg" />
-                    <button onClick={() =>  handleImageDelete(index)} className="text-red-700 uppercase hover:opacity-75 pr-5" >delete</button>
-                </div>
+              <div key={index} className="flex justify-between">
+                <img
+                  src={url}
+                  alt="listing image"
+                  className="w-20 h-20 object-contain rounded-lg"
+                />
+                <button
+                  onClick={() => handleImageDelete(index)}
+                  className="text-red-700 uppercase hover:opacity-75 pr-5"
+                >
+                  delete
+                </button>
+              </div>
             ))}
           </div>
-            ) :  null}
+        ) : null}
+        {/* select options for selctedSTate */}
+
+        <Select
+          options={[
+            {
+              value: "onHold",
+              label:
+                "Set the state of the house to ON HOLD to temporarily reserve it",
+            },
+            {
+              value: "sold",
+              label:
+                "Set the state of the house to SOLD / The house should be deleted from the list",
+            },
+            { value: "onSale", label: "Set the state of the house to ON SALE" },
+          ]}
+          value={selectedStatus}
+          onChange={(option) => setSelectedStatus(option)}
+          placeholder="Set the status of the house"
+        />
+
         <button className="p-5 border rounded-lg" disabled={loading}>
           Submit
         </button>

@@ -25,6 +25,7 @@ const getHouses = async (): Promise<HouseInterface[]> => {
       addedBy: house.addedBy?.toString(),
       userEmail: house.userEmail?.toString(),
       userId: house.userId?.toString(),
+      status: house.status,
     }));
     console.log(
       "houses from house service when fetching with all houses",
@@ -84,6 +85,7 @@ const getHouseById =  async (id: string) => {
       addedBy: house?.addedBy?.toString(),
       userEmail: house?.userEmail?.toString(),
       userId: house?.userId?.toString(),
+      status: house?.status || "",
     };
     return convertedHouse;
   } catch (error) {
@@ -231,6 +233,7 @@ const deleteHouseForSale = async (_id: string): Promise<HouseInterface | null> =
               addedBy: houseToDelete.addedBy?.toString(),
               userEmail: houseToDelete.userEmail?.toString(),
               userId: houseToDelete.userId?.toString(),
+              status: houseToDelete.status,
             };
 
         await HouseForSale.findByIdAndDelete(_id);
@@ -297,6 +300,7 @@ const updateHouseForSale = async (_id: string, houseForSaleData: HouseInterface)
                 addedBy: houseToUpdate.addedBy?.toString(),
                 userEmail: houseToUpdate.userEmail?.toString(),
                 userId: houseToUpdate.userId?.toString(),
+                status: houseToUpdate.status,
             };
 
             await HouseForSale.findByIdAndUpdate(_id, houseForSaleData);

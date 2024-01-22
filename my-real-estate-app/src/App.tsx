@@ -34,6 +34,7 @@ export interface HouseProps {
   addedBy: string;
   userEmail?: string;
   userId?: string;
+  status: string;
 }
 
 export interface HousesForRentProps {
@@ -59,7 +60,11 @@ function App() {
   const [housesForRent , setHousesForRent] = useState<HousesForRentProps[]>([]);
   const [loading, setLoading] = useState(true);
 
-  
+  const [selectedStatus, setSelectedStatus] = useState<string | null>(null);
+
+  const handleFormSubmission = (status: string) => {
+    setSelectedStatus(status);
+  };
 
  
     const fetchHouses = async () => {
@@ -101,7 +106,7 @@ function App() {
           <Route path="/api/rentInYourArea" element={<Map houseToRentInMap={housesForRent} />} />
           <Route path="/api/buyInYourArea" element={<MapSale houseToBuyInMap={houses} />} />
           <Route path="/api/houses/sale/:id" element={<SingleHouse houses={houses} />} />
-          <Route path="/api/housesForSale" element={<ListOfHouses housesToPass={houses}  setHouses={setHouses}/>} />
+          <Route path="/api/housesForSale" element={<ListOfHouses housesToPass={houses} setHouses={setHouses} selectedStatus={selectedStatus ? { value: selectedStatus, label: selectedStatus } : null} />} />
           <Route path="/api/housesForRent" element={<ListOfHousesForRent housesToRent={housesForRent} setHousesForRent={setHousesForRent} />} />
           <Route path="/api/housesForRent/rent/:id" element={<SingleHouseForRent houseToRent={housesForRent} />} />
           <Route path="/api/sign-in" element={<SignIn />} />
@@ -110,7 +115,7 @@ function App() {
           <Route  element={<PrivateComponent />}>
           <Route path="/api/action" element={<ActionPage />} />
           </Route>
-          <Route path="/api/create-house-for-sale" element={<HouseForSaleForm />} />
+          <Route path="/api/create-house-for-sale" element={<HouseForSaleForm onSubmitForm={(status) => handleFormSubmission(status || "")} />} />
           <Route path="/api/create-house-for-rent" element={<HouseForRentForm />} />
           <Route path="/api/userHouses/:userId" element={<UserHouses />} />
           <Route path="/api/update-house-for-sale/:id" element={<UpdateHouseForSaleForm />} />
