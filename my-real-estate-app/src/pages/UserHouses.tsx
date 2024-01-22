@@ -124,7 +124,9 @@ export const UserHouses = () => {
   return (
     <div className=" w-4/5 mx-auto ">
      
-      <div className="text-center uppercase mt-20 mb-8 "> on sale </div>
+     <div className="text-center uppercase mt-20 mb-8 ">
+      on sale - Added by: {selectedUserHousesForSale.length > 0 && selectedUserHousesForSale[0].addedBy}
+    </div>
     <div className="grid grid-cols-2 justify-center max-w-85 ">
       
       {selectedUserHousesForSale &&
@@ -155,7 +157,7 @@ export const UserHouses = () => {
           </div>
         ))}
         </div>
-        <div className="text-center uppercase mt-20 mb-8"> for rent </div>
+        <div className="text-center uppercase mt-20 mb-8"> for rent - Added by: { selectedUserHousesForRent.length > 0 && selectedUserHousesForRent[0].addedBy } </div>
       <div className="grid grid-cols-2 justify-center  ">
         {selectedUserHousesForRent &&
           selectedUserHousesForRent.map((house) => (
