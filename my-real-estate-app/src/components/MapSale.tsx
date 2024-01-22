@@ -62,7 +62,7 @@ export const MapSale: React.FC<HousesToBuyInTheMapProps> = ({
           position={infoWindowPosition || undefined}
           onCloseClick={() => setSelectedHouse(null)}
         >
-          <Link to={`/api/housesForSale/sale/${selectedHouse._id}`}>
+          <Link to={`/api/houses/sale/${selectedHouse._id}`}>
             <div>
               <h2>{selectedHouse.address}</h2>
               <p>{`${selectedHouse.price} €`}</p>

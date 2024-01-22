@@ -61,7 +61,7 @@ export const ListOfHouses = ({ housesToPass , setHouses , selectedStatus }: List
             (
               <div className="   " key={house._id}>
                 <Link key={house._id} to={`/api/houses/sale/${house._id}`}>
-                  <div className=" bg-cyan-50 p-1 border-2 rounded-xl border-slate-200  m-2  ">
+                  <div className=" bg-cyan-900 p-1 border-2 rounded-xl border-slate-200  m-2  text-white ">
                   <div
                 className={`p-4 border-4 rounded-xl m-2 ${
                   house.status === "onHold"
@@ -84,6 +84,7 @@ export const ListOfHouses = ({ housesToPass , setHouses , selectedStatus }: List
                     </Link>
                     </>
                     ) : null }
+                    <div className="text-center"> {house.address}</div>
                   </div>
                   </div>
                 </Link>

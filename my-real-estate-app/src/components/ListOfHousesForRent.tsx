@@ -57,7 +57,7 @@ export const ListOfHousesForRent = ({
       {housesToRent.map((house) => (
         <div key={house._id}>
           <Link key={house._id} to={`/api/housesForRent/rent/${house._id}`}>
-            <div className=" bg-cyan-50 p-1 border-2 border-slate-200  m-2 rounded-xl">
+            <div className=" bg-cyan-900 p-1 border-2 border-slate-200  m-2 rounded-xl text-white">
               <div
                 className={`p-4 border-4 rounded-xl m-2 ${house.status === "onHold"
                     ? "border-yellow-200"
