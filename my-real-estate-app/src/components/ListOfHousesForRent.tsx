@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { HousesForRentProps } from "../App";
 import { useEffect } from "react";
 import { useState } from "react";
+import { IoMdSquareOutline } from "react-icons/io";
 
 export interface ListOfHousesForRentProps {
   housesToRent: HousesForRentProps[];
@@ -42,27 +43,34 @@ export const ListOfHousesForRent = ({
 
   console.log("from List Of Houses For Rent component", housesToRent);
   return (
+
+    <>
+    <div className="flex items-center gap-2 flex-wrap w-4/5 mx-auto uppercase mb-4">
+    <IoMdSquareOutline  className="text-green-500 h-4 bg-green-500" />
+      <span className="mr-6 text-green-500 "> the house is available for rent</span>
+    <IoMdSquareOutline className="text-yellow-200 h-4 bg-yellow-200" />
+      <span className="mr-6 text-yellow-300"> the house is reserved. Check back for status changes</span>
+    <IoMdSquareOutline className="text-red-500 h-4 bg-red-500" />
+      <span className="text-red-500"> the house has been rented out/ to be removed</span>
+    </div>
     <div className="grid grid-cols-2 w-4/5 mx-auto justify-center">
       {housesToRent.map((house) => (
         <div key={house._id}>
           <Link key={house._id} to={`/api/housesForRent/rent/${house._id}`}>
-            <div className=" bg-slate-100 p-6 border-2 border-slate-200  m-2 rounded-xl">
+            <div className=" bg-cyan-50 p-1 border-2 border-slate-200  m-2 rounded-xl">
               <div
-                className={`p-4 border-4 rounded-xl m-2 ${
-                  house.status === "onHold"
-                    ? "border-yellow-500"
+                className={`p-4 border-4 rounded-xl m-2 ${house.status === "onHold"
+                    ? "border-yellow-200"
                     : house.status === "sold"
-                    ? "border-red-500"
-                    : house.status === "onSale"
-                    ? "border-green-500"
-                    : ""
-                }`}
+                      ? "border-red-500"
+                      : house.status === "onSale"
+                        ? "border-green-500"
+                        : ""}`}
               >
                 <img
                   className="w-full h-40 object-cover"
                   src={house.imageUrl[0]}
-                  alt="house for rent"
-                />
+                  alt="house for rent" />
 
                 <div className="font-bold ">{house.title}</div>
                 <div>{house.description}</div>
@@ -82,6 +90,6 @@ export const ListOfHousesForRent = ({
           </Link>
         </div>
       ))}
-    </div>
+    </div></>
   );
 };

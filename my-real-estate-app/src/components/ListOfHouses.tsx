@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { HouseProps } from "../App";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { IoMdSquareOutline } from "react-icons/io";
 
 export interface ListOfHousesProps {
   housesToPass: HouseProps[];
@@ -43,6 +44,15 @@ export const ListOfHouses = ({ housesToPass , setHouses , selectedStatus }: List
   const navigate = useNavigate();
 
   return (
+    <>
+    <div className="flex items-center gap-2 flex-wrap w-4/5 mx-auto uppercase mb-4">
+    <IoMdSquareOutline  className="text-green-500 h-4 bg-green-500" />
+      <span className="mr-6 text-green-500 "> the house is available </span>
+    <IoMdSquareOutline className="text-yellow-200 h-4 bg-yellow-200" />
+      <span className="mr-6 text-yellow-300"> the house is reserved. Check back for status changes</span>
+    <IoMdSquareOutline className="text-red-500 h-4 bg-red-500" />
+      <span className="text-red-500"> the house has been sold / to be removed</span>
+    </div>
     <div className= " h-full  ">
     
       <div className="grid grid-cols-2 mx-auto w-4/5 justify-self-center">
@@ -51,11 +61,11 @@ export const ListOfHouses = ({ housesToPass , setHouses , selectedStatus }: List
             (
               <div className="   " key={house._id}>
                 <Link key={house._id} to={`/api/houses/sale/${house._id}`}>
-                  <div className=" bg-slate-100 p-1 border-2 rounded-xl border-slate-200  m-2  ">
+                  <div className=" bg-cyan-50 p-1 border-2 rounded-xl border-slate-200  m-2  ">
                   <div
                 className={`p-4 border-4 rounded-xl m-2 ${
                   house.status === "onHold"
-                    ? "border-yellow-500"
+                    ? "border-yellow-200"
                     : house.status === "sold"
                     ? "border-red-500"
                     : house.status === "onSale"
@@ -87,5 +97,6 @@ export const ListOfHouses = ({ housesToPass , setHouses , selectedStatus }: List
       
       <button onClick={() => navigate("/")}>home</button>
     </div>
+    </>
   );
 };
