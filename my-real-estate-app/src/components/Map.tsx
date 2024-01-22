@@ -10,18 +10,27 @@ import { Link } from "react-router-dom";
 
 export interface HousesForRentInTheMapProps {
   houseToRentInMap: HousesForRentProps[];
+  selectedStatusRent: { value: string; label: string } | null;
 }
 
 type LatLongLiteral = google.maps.LatLngLiteral;
 type mapOptions = google.maps.MapOptions;
 
 export const Map: React.FC<HousesForRentInTheMapProps> = ({
-  houseToRentInMap,
+  houseToRentInMap,  selectedStatusRent
 }) => {
+
+
+  console.log("houseToRentInMap BIIIIIIIIIIGGGGGGG", houseToRentInMap);
+
+
+
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY || "",
     libraries: ["places"],
   });
+
+
 
   const mapRef = useRef<GoogleMap>();
   const [markers, setMarkers] = useState<LatLongLiteral[]>([]);
@@ -30,6 +39,24 @@ export const Map: React.FC<HousesForRentInTheMapProps> = ({
   const [selectedHouse, setSelectedHouse] = useState<HousesForRentProps | null>(
     null
   );
+
+  const [filteredHouses, setFilteredHouses] = useState<HousesForRentProps[]>([]);
+
+  console.log("filteredHouses FOR RENT", filteredHouses);
+
+
+
+  useEffect(() => {
+    
+    if (selectedStatusRent && selectedStatusRent.value) {
+      const filtered = houseToRentInMap.filter((house) => house.status === selectedStatusRent.value);
+      setFilteredHouses(filtered);
+    } else {
+      setFilteredHouses(houseToRentInMap);
+    }
+  }, [houseToRentInMap, selectedStatusRent]);
+
+
   const [infoWindowPosition, setInfoWindowPosition] =
     useState<LatLongLiteral | null>(null);
 
@@ -183,12 +210,23 @@ export const Map: React.FC<HousesForRentInTheMapProps> = ({
 
   return (
     <div className="flex">
-      <div className="flex flex-col w-3/12 h-screen text-black items-center  ">
+      <div className="flex flex-col w-3/12 h-screen text-black items-center gap-2 ">
         <div className="uppercase text-center m-5  text-amber-950 font-bold text-5xl hover:font-extrabold ">
-          House for rent
+          Houses for rent
         </div>
+        
         {houseToRentInMap &&
           houseToRentInMap.map((house) => (
+            <Link to={`/api/housesForRent/rent/${house._id}`} >
+            <div
+            className={`p-2 border-l-8 rounded-xl m-2 mb-4 ${house.status === "onHold"
+                ? "border-yellow-200"
+                : house.status === "sold"
+                  ? "border-red-500"
+                  : house.status === "onSale"
+                    ? "border-green-500"
+                    : ""}`}
+          >
             <div
               className=" flex flex-col items-center justify-center gap-2"
               key={house._id}
@@ -199,9 +237,13 @@ export const Map: React.FC<HousesForRentInTheMapProps> = ({
                 alt="house image"
               />
               <div className="uppercase">{house.address}</div>
-              <div className="uppercase mb-4">{house.monthlyRent} €</div>
+              <div className="uppercase ">{house.monthlyRent} €</div>
             </div>
+          </div>
+          </Link>
           ))}
+          
+
       </div>
 
       <div className="flex-1 h-screen w-9/12 ">

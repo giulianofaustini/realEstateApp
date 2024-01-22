@@ -112,8 +112,8 @@ function App() {
         <NavBar />  
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/api/rentInYourArea" element={<Map houseToRentInMap={housesForRent} />} />
-          <Route path="/api/buyInYourArea" element={<MapSale houseToBuyInMap={houses} />} />
+          <Route path="/api/rentInYourArea" element={<Map houseToRentInMap={housesForRent}  selectedStatusRent={selectedStatusRent ? { value: selectedStatusRent, label: selectedStatusRent} : { value: "", label: "" } } />} />
+          <Route path="/api/buyInYourArea" element={<MapSale houseToBuyInMap={houses} selectedStatus={selectedStatus ? { value: selectedStatus, label: selectedStatus } : null} />} />
           <Route path="/api/houses/sale/:id" element={<SingleHouse houses={houses} />} />
           <Route path="/api/housesForSale" element={<ListOfHouses housesToPass={houses} setHouses={setHouses} selectedStatus={selectedStatus ? { value: selectedStatus, label: selectedStatus } : null} />} />
           <Route path="/api/housesForRent" element={<ListOfHousesForRent housesToRent={housesForRent} setHousesForRent={setHousesForRent} selectedStatusRent={selectedStatusRent ? { value: selectedStatusRent, label: selectedStatusRent} : { value: "", label: "" } } />} />

@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 
 export interface HousesToBuyInTheMapProps {
     houseToBuyInMap: HouseProps[];
+    selectedStatus: { value: string; label: string } | null;
 }
 
 type LatLongLiteral = google.maps.LatLngLiteral;
@@ -17,11 +18,29 @@ type mapOptions = google.maps.MapOptions;
 
 export const MapSale: React.FC<HousesToBuyInTheMapProps> = ({
     houseToBuyInMap,
+    selectedStatus
 }) => {
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY || "",
     libraries: ["places"],
   });
+
+
+  const [filteredHouses, setFilteredHouses] = useState<HouseProps[]>([]);
+
+  console.log("filteredHouses FOR SALE", filteredHouses);
+
+
+
+  useEffect(() => {
+    
+    if (selectedStatus && selectedStatus.value) {
+      const filtered = houseToBuyInMap.filter((house) => house.status === selectedStatus.value);
+      setFilteredHouses(filtered);
+    } else {
+      setFilteredHouses(houseToBuyInMap);
+    }
+  }, [houseToBuyInMap, selectedStatus]);
 
   const mapRef = useRef<GoogleMap>();
   const [markers, setMarkers] = useState<LatLongLiteral[]>([]);
@@ -185,10 +204,19 @@ export const MapSale: React.FC<HousesToBuyInTheMapProps> = ({
     <div className="flex">
       <div className="flex flex-col w-3/12 h-screen items-center  ">
         <div className="uppercase text-center m-5  text-amber-950 font-bold text-5xl hover:font-extrabold ">
-          House for rent
+          Houses to buy
         </div>
         {houseToBuyInMap &&
           houseToBuyInMap.map((house) => (
+            <div
+            className={`p-4 border-l-8 rounded-xl m-2 ${house.status === "onHold"
+                ? "border-yellow-200"
+                : house.status === "sold"
+                  ? "border-red-500"
+                  : house.status === "onSale"
+                    ? "border-green-500"
+                    : ""}`}
+          >
             <div
               className=" flex flex-col items-center justify-center gap-2"
               key={house._id}
@@ -201,7 +229,9 @@ export const MapSale: React.FC<HousesToBuyInTheMapProps> = ({
               <div className="uppercase">{house.address}</div>
               <div className="uppercase mb-4">{house.price} €</div>
             </div>
+          </div>
           ))}
+
       </div>
 
       <div className="flex-1 h-screen w-9/12 ">
