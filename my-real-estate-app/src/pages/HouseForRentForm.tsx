@@ -87,7 +87,7 @@ export const HouseForRentForm = () => {
     }
   }, [imageUploadError]);
 
-  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormDataForRent({
       ...formDataForRent,
       [e.target.id]: e.target.value,
@@ -259,12 +259,12 @@ export const HouseForRentForm = () => {
           id="title"
           onChange={handleFormChange}
         />
-        <input
+        <textarea
           className="p-5 border rounded-lg"
-          type="text"
           placeholder="description"
           id="description"
           onChange={handleFormChange}
+          style={{ height: "150px", width: "100%" }}
         />
         <input
           className="p-5 border rounded-lg"
