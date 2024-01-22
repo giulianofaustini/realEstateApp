@@ -8,6 +8,7 @@ import { FaMapMarkerAlt } from "react-icons/fa";
 import { FaBath } from "react-icons/fa6";
 import { MdBedroomChild } from "react-icons/md";
 import { FaEuroSign } from "react-icons/fa";
+import { GiBrickWall } from "react-icons/gi";
 
 interface SingleHouseProps {
   houses: HouseProps[];
@@ -62,6 +63,9 @@ export const SingleHouse = ({ houses }: SingleHouseProps) => {
         
         <MdBedroomChild className="text-green-600 size-8 " />
         <span className="pr-10 " > {selectedHouse.bedrooms} { ' ' } </span> 
+
+        <GiBrickWall className="text-green-600 size-8 "/>
+        <span className="pr-10 " > {selectedHouse.year} { ' ' } </span> 
       
         </div>
         <div className="flex item-center mt-2">
@@ -70,7 +74,7 @@ export const SingleHouse = ({ houses }: SingleHouseProps) => {
         </div>
 
 
-        <p className=" mt-2">Call our agent {selectedHouse.agent} at this number: 0409380895</p>
+        <p className=" mt-2">Contact the owner {selectedHouse.addedBy} at this email address: {selectedHouse.userEmail}</p>
 
       </div>
     </div>

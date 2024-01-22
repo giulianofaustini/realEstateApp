@@ -40,7 +40,7 @@ export const HouseForSaleForm = ({
     address: "",
     location: "",
     imageUrl: [],
-    agent: "",
+    year: 0,
     bedrooms: 0,
     bathrooms: 0,
     addedBy: currentUser?.username,
@@ -133,7 +133,7 @@ export const HouseForSaleForm = ({
           address: "",
           location: "",
           imageUrl: [],
-          agent: "",
+          year: 0,
           bedrooms: 0,
           bathrooms: 0,
           userId: currentUser?._id || "",
@@ -337,9 +337,9 @@ export const HouseForSaleForm = ({
         </div>
         <input
           className="p-5 border rounded-lg"
-          type="text"
-          placeholder="agent"
-          id="agent"
+          type="number"
+          placeholder="built year ... ex: 1990"
+          id="year"
           onChange={handleFormChange}
         />
         <input

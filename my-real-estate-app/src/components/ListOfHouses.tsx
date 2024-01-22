@@ -48,7 +48,7 @@ export const ListOfHouses = ({ housesToPass , setHouses , selectedStatus }: List
     <div className="flex items-center gap-2 flex-wrap w-4/5 mx-auto uppercase mb-4">
     <IoMdSquareOutline  className="text-green-500 h-4 bg-green-500" />
       <span className="mr-6 text-green-500 "> the house is available </span>
-    <IoMdSquareOutline className="text-yellow-200 h-4 bg-yellow-200" />
+    <IoMdSquareOutline className="text-yellow-300 h-4 bg-yellow-300" />
       <span className="mr-6 text-yellow-300"> the house is reserved. Check back for status changes</span>
     <IoMdSquareOutline className="text-red-500 h-4 bg-red-500" />
       <span className="text-red-500"> the house has been sold / to be removed</span>
@@ -65,7 +65,7 @@ export const ListOfHouses = ({ housesToPass , setHouses , selectedStatus }: List
                   <div
                 className={`p-4 border-4 rounded-xl m-2 ${
                   house.status === "onHold"
-                    ? "border-yellow-200"
+                    ? "border-yellow-300"
                     : house.status === "sold"
                     ? "border-red-500"
                     : house.status === "onSale"
@@ -74,7 +74,7 @@ export const ListOfHouses = ({ housesToPass , setHouses , selectedStatus }: List
                 }`}
               >
                     <img className="w-full h-40 object-cover" src={house.imageUrl[0]} alt="listing first image" />
-                    <div className="font-bold ">{house.title}</div>
+                    <div className="font-bold pb-1 ">{house.title}</div>
                     <div>{house.description}</div>
                     <div>{house.price} € </div>
                     { house &&  house.addedBy ? (

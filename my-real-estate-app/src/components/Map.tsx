@@ -8,6 +8,8 @@ import {
 import { HousesForRentProps } from "../App";
 import { Link } from "react-router-dom";
 
+import { IoMdSquareOutline } from "react-icons/io";
+
 export interface HousesForRentInTheMapProps {
   houseToRentInMap: HousesForRentProps[];
   selectedStatusRent: { value: string; label: string } | null;
@@ -219,8 +221,8 @@ export const Map: React.FC<HousesForRentInTheMapProps> = ({
           houseToRentInMap.map((house) => (
             <Link to={`/api/housesForRent/rent/${house._id}`} >
             <div
-            className={`p-2 border-l-8 rounded-xl m-2 mb-4 ${house.status === "onHold"
-                ? "border-yellow-200"
+            className={`p-2 hover:border-l-8 rounded-xl m-2 mb-4 ${house.status === "onHold"
+                ? "border-yellow-300"
                 : house.status === "sold"
                   ? "border-red-500"
                   : house.status === "onSale"
@@ -236,7 +238,7 @@ export const Map: React.FC<HousesForRentInTheMapProps> = ({
                 src={house.imageUrl[0]}
                 alt="house image"
               />
-              <div className="uppercase">{house.address}</div>
+              <div className="uppercase max-w-4/5">{house.address}</div>
               <div className="uppercase ">{house.monthlyRent} €</div>
             </div>
           </div>
@@ -247,7 +249,7 @@ export const Map: React.FC<HousesForRentInTheMapProps> = ({
       </div>
 
       <div className="flex-1 h-screen w-9/12 ">
-        <div className="map-wrapper w-4/6 h-5/6 fixed border-8 border-cyan-900">
+        <div className="map-wrapper w-4/6 h-5/6 fixed border-8 border-amber-600">
           <GoogleMap
             center={center}
             zoom={11}
@@ -264,6 +266,14 @@ export const Map: React.FC<HousesForRentInTheMapProps> = ({
             ))}
             {renderMarkers()}
           </GoogleMap>
+          <div className="flex items-center gap-2 flex-wrap w-4/5 mx-auto uppercase mt-3 mb-4">
+    <IoMdSquareOutline  className="text-green-500 h-4 bg-green-500" />
+      <span className="mr-6 text-green-500 ">  available for rent</span>
+    <IoMdSquareOutline className="text-yellow-400 h-4 bg-yellow-400" />
+      <span className="mr-6 text-yellow-300">  reserved. Check back for status changes</span>
+    <IoMdSquareOutline className="text-red-500 h-4 bg-red-500" />
+      <span className="text-red-500"> rented out/ to be removed</span>
+    </div>
         </div>
       </div>
     </div>

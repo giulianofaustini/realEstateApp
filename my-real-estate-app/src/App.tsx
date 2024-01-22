@@ -28,7 +28,7 @@ export interface HouseProps {
   address: string;
   location?: string;
   imageUrl: string[];
-  agent: string;
+  year: number;
   bedrooms: number;
   bathrooms: number;
   addedBy: string;

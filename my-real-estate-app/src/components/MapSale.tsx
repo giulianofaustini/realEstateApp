@@ -7,6 +7,7 @@ import {
 } from "@react-google-maps/api";
 import { HouseProps } from "../App";
 import { Link } from "react-router-dom";
+import { IoMdSquareOutline } from "react-icons/io";
 
 export interface HousesToBuyInTheMapProps {
     houseToBuyInMap: HouseProps[];
@@ -210,7 +211,7 @@ export const MapSale: React.FC<HousesToBuyInTheMapProps> = ({
           houseToBuyInMap.map((house) => (
             <Link to={`/api/houses/sale/${house._id}`}>
             <div
-            className={`p-4 border-l-8 rounded-xl m-2 ${house.status === "onHold"
+            className={`p-4 hover:border-l-8 rounded-xl m-2 ${house.status === "onHold"
                 ? "border-yellow-200"
                 : house.status === "sold"
                   ? "border-red-500"
@@ -227,7 +228,7 @@ export const MapSale: React.FC<HousesToBuyInTheMapProps> = ({
                 src={house.imageUrl[0]}
                 alt="house image"
               />
-              <div className="uppercase">{house.address}</div>
+              <div className="uppercase max-w-2/3 text-wrap">{house.address}</div>
               <div className="uppercase mb-4">{house.price} €</div>
             </div>
           </div>
@@ -237,7 +238,7 @@ export const MapSale: React.FC<HousesToBuyInTheMapProps> = ({
       </div>
 
       <div className="flex-1 h-screen w-9/12 ">
-        <div className="map-wrapper w-4/6 h-5/6 fixed border-8 border-cyan-900">
+        <div className="map-wrapper w-4/6 h-5/6 fixed border-4 border-amber-600">
           <GoogleMap
             center={center}
             zoom={11}
@@ -254,6 +255,14 @@ export const MapSale: React.FC<HousesToBuyInTheMapProps> = ({
             ))}
             {renderMarkers()}
           </GoogleMap>
+          <div className="flex items-center gap-2 flex-wrap w-4/5 mx-auto uppercase mt-3 mb-4">
+    <IoMdSquareOutline  className="text-green-500 h-4 bg-green-500" />
+      <span className="mr-6 text-green-500 ">  available </span>
+    <IoMdSquareOutline className="text-yellow-400 h-4 bg-yellow-400" />
+      <span className="mr-6 text-yellow-300">  reserved. Check back for status changes</span>
+    <IoMdSquareOutline className="text-red-500 h-4 bg-red-500" />
+      <span className="text-red-500">  sold / to be removed</span>
+    </div>
         </div>
       </div>
     </div>

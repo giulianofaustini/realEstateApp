@@ -48,7 +48,7 @@ export const ListOfHousesForRent = ({
     <div className="flex items-center gap-2 flex-wrap w-4/5 mx-auto uppercase mb-4">
     <IoMdSquareOutline  className="text-green-500 h-4 bg-green-500" />
       <span className="mr-6 text-green-500 "> the house is available for rent</span>
-    <IoMdSquareOutline className="text-yellow-200 h-4 bg-yellow-200" />
+    <IoMdSquareOutline className="text-yellow-300 h-4 bg-yellow-300" />
       <span className="mr-6 text-yellow-300"> the house is reserved. Check back for status changes</span>
     <IoMdSquareOutline className="text-red-500 h-4 bg-red-500" />
       <span className="text-red-500"> the house has been rented out/ to be removed</span>
@@ -60,7 +60,7 @@ export const ListOfHousesForRent = ({
             <div className=" bg-cyan-900 p-1 border-2 border-slate-200  m-2 rounded-xl text-white">
               <div
                 className={`p-4 border-4 rounded-xl m-2 ${house.status === "onHold"
-                    ? "border-yellow-200"
+                    ? "border-yellow-300"
                     : house.status === "sold"
                       ? "border-red-500"
                       : house.status === "onSale"
@@ -72,7 +72,7 @@ export const ListOfHousesForRent = ({
                   src={house.imageUrl[0]}
                   alt="house for rent" />
 
-                <div className="font-bold ">{house.title}</div>
+                <div className="font-bold pb-1 ">{house.title}</div>
                 <div>{house.description}</div>
                 <div>{house.monthlyRent} € </div>
                 {house.addedBy ? (
@@ -82,6 +82,7 @@ export const ListOfHousesForRent = ({
                       <span className="text-green-600 hover:bg-green-100 ring-rounded-xl p-3 rounded-lg">
                         {house.addedBy}{" "}
                       </span>{" "}
+                      <div className="text-center"> {house.address}</div>
                     </div>
                   </Link>
                 ) : null}

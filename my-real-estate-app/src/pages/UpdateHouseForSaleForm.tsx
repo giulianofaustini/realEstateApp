@@ -31,7 +31,7 @@ export const UpdateHouseForSaleForm = () => {
     address: "",
     location: "",
     imageUrl: [],
-    agent: "",
+    year: 0,
     bedrooms: 0,
     bathrooms: 0,
     addedBy: currentUser?.username,
@@ -283,10 +283,10 @@ export const UpdateHouseForSaleForm = () => {
 
         <input
           className="p-5 border rounded-lg"
-          type="text"
-          placeholder="agent"
-          id="agent"
-          value={formDataForSale.agent}
+          type="number"
+          placeholder="year"
+          id="year"
+          value={formDataForSale.year}
           onChange={handleFormChange}
         />
         <input
