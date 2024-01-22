@@ -10,6 +10,7 @@ import {
   ref,
   uploadBytesResumable,
 } from "firebase/storage";
+import Select from "react-select";
 
 export const UpdateHouseForRentForm = () => {
   const { currentUser } = useSelector((state: { user: UserState }) => ({
@@ -39,6 +40,8 @@ export const UpdateHouseForRentForm = () => {
   const [imageUploadError, setImageUploadError] = useState<string | null>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [uploading, setUpLoading] = useState<boolean>(false);
+  const [selectedStatusRent, setSelectedStatusRent] =
+    useState<{ value: string; label: string } | null>(null);
 
   const navigate = useNavigate();
 
@@ -48,6 +51,9 @@ export const UpdateHouseForRentForm = () => {
       ...prevData,
       ...data,
     }));
+    setSelectedStatusRent(
+      data.status ? { value: data.status, label: data.status } : null,
+    );
   };
 
   useEffect(() => {
@@ -120,6 +126,7 @@ export const UpdateHouseForRentForm = () => {
           body: JSON.stringify({
             _id: params.id,
             ...formDataForRent,
+            status: selectedStatusRent?.value || "",
           }),
         }
       );
@@ -279,14 +286,7 @@ export const UpdateHouseForRentForm = () => {
           value={formDataForRent.address}
           onChange={handleFormChange}
         />
-        <input
-          className="p-5 border rounded-lg"
-          type="text"
-          placeholder="location"
-          id="location"
-          value={formDataForRent.location}
-          onChange={handleFormChange}
-        />
+    
 
         <div className="flex items-center gap-2 h-auto">
           <input
@@ -355,6 +355,24 @@ export const UpdateHouseForRentForm = () => {
             ))}
           </div>
         ) : null}
+         <Select
+          options={[
+            {
+              value: "onHold",
+              label:
+                "Set the state of the house to ON HOLD to temporarily reserve it",
+            },
+            {
+              value: "sold",
+              label:
+                "Set the state of the house to SOLD / The house should be deleted from the list",
+            },
+            { value: "onSale", label: "Set the state of the house to ON-SALE" },
+          ]}
+          value={selectedStatusRent}
+          onChange={(option) => setSelectedStatusRent(option)}
+          placeholder="Set the status of the house"
+        />
         <button className="p-5 border rounded-lg uppercase" disabled={loading}>
           update
         </button>

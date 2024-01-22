@@ -60,6 +60,10 @@ userId: {
     type: String,
     required: false,
 },
+status: {
+    type: String,
+    required: true,
+},
 }, { timestamps: true });
 
 

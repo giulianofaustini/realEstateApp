@@ -56,6 +56,7 @@ const getHousesForRent = async (): Promise<housesForRentInterface[]> => {
       addedBy: house.addedBy?.toString(),
       userEmail: house.userEmail?.toString(),
       userId: house.userId?.toString(),
+      status: house.status,
     }));
     console.log(
       "houses from house service when fetching with all houses for RENT",
@@ -112,6 +113,7 @@ const getHouseForRentById = async (id: string) => {
       addedBy: house?.addedBy?.toString(),
       userEmail: house?.userEmail?.toString(),
       userId: house?.userId?.toString(),
+      status: house?.status || "",
     };
     return convertedHouse;
 
@@ -143,6 +145,7 @@ const createHouseForSale = async (
     addedBy,
     userEmail,
     userId,
+    status
   } = houseForSaleData;
   try {
     const newHouseForSale = new HouseForSale({
@@ -159,6 +162,7 @@ const createHouseForSale = async (
       addedBy,
       userEmail,
       userId,
+      status
     });
     await newHouseForSale.save();
     res.status(201).json({ message: "House created successfully" });
@@ -188,6 +192,7 @@ const createHouseForRent = async (
     addedBy,
     userEmail,
     userId,
+    status
   } = houseForRentData;
   try {
     const newHouseForRent = new HouseForRent({
@@ -205,6 +210,7 @@ const createHouseForRent = async (
       addedBy,
       userEmail,
       userId,
+      status
     });
     await newHouseForRent.save();
     res.status(201).json({ message: "House created successfully" });
@@ -267,6 +273,7 @@ const deleteHouseForRent = async (_id: string): Promise<housesForRentInterface |
                 addedBy: houseToDelete.addedBy?.toString(),
                 userEmail: houseToDelete.userEmail?.toString(),
                 userId: houseToDelete.userId?.toString(),
+                status: houseToDelete.status,
             };
 
         await HouseForRent.findByIdAndDelete(_id);
@@ -335,6 +342,7 @@ const updateHouseForRent = async (_id: string, houseForRentData: housesForRentIn
                 addedBy: houseToUpdate.addedBy?.toString(),
                 userEmail: houseToUpdate.userEmail?.toString(),
                 userId: houseToUpdate.userId?.toString(),
+                status: houseToUpdate.status,
             };
 
             await HouseForRent.findByIdAndUpdate(_id, houseForRentData);

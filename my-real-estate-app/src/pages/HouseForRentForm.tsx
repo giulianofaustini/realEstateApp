@@ -20,7 +20,9 @@ import PlacesAutocomplete, {
 
 import loadGoogleMapsApi from 'load-google-maps-api';
 
-export const HouseForRentForm = () => {
+import Select from "react-select";
+
+export const HouseForRentForm = ({ onSubmitForm}: {onSubmitForm:(status: string | null) => void}) => {
   const { currentUser } = useSelector((state: { user: UserState }) => ({
     currentUser: state.user.currentUser,
   }));
@@ -43,8 +45,19 @@ export const HouseForRentForm = () => {
       addedBy: currentUser?.username,
       userEmail: currentUser?.email,
       userId: currentUser?._id || "",
+      status: "",
     });
   console.log("data from the form", formDataForRent);
+
+ // setState for status of the house
+
+ const [selectedStatusRent, setSelectedStatusRent] = useState<{
+  value: string;
+  label: string;
+} | null>(null);
+
+
+
   const [address, setAddress] = useState<string>("");
   const [mapsLoaded, setMapsLoaded] = useState(false);
   const [files, setFiles] = useState<File[]>([]);
@@ -134,6 +147,10 @@ export const HouseForRentForm = () => {
           userId: currentUser?._id || "",
         });
         setLoading(false);
+        if (selectedStatusRent) {
+          onSubmitForm(selectedStatusRent.value);
+        }
+  
         console.log(data.message);
       } else {
         setLoading(false);
@@ -378,6 +395,30 @@ export const HouseForRentForm = () => {
             ))}
           </div>
         ) : null} 
+
+        {/* select options for selctedSTate */}
+
+        <Select
+          options={[
+            {
+              value: "onHold",
+              label:
+                "Set the state of the house to ON HOLD to temporarily reserve it",
+            },
+            {
+              value: "sold",
+              label:
+                "Set the state of the house to SOLD / The house should be deleted from the list",
+            },
+            { value: "onSale", label: "Set the state of the house to ONSALE" },
+          ]}
+          value={selectedStatusRent}
+          onChange={(option) => setSelectedStatusRent(option)}
+          placeholder="Set the status of the house"
+        />
+
+
+
         <button className="p-5 border rounded-lg" disabled={loading}>
           Submit
         </button>

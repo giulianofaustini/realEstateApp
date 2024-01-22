@@ -15,4 +15,5 @@ export interface housesForRentInterface {
   addedBy?: string;
   userEmail?: string;
   userId?: string;
+  status?: string;
 }

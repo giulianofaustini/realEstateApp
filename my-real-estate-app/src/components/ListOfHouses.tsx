@@ -14,7 +14,7 @@ export const ListOfHouses = ({ housesToPass , setHouses , selectedStatus }: List
 
   const [filteredHouses, setFilteredHouses] = useState<HouseProps[]>([]);
 
-  console.log("filteredHouses", filteredHouses);
+  console.log("filteredHouses ONSALE", filteredHouses);
 
 
   useEffect(() => {

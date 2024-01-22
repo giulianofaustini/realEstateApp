@@ -22,7 +22,7 @@ export const UpdateHouseForSaleForm = () => {
     currentUser: state.user.currentUser,
   }));
 
-  console.log("currentUser from the house for sale form", currentUser);
+  // console.log("currentUser from the house for sale form", currentUser);
 
   const [formDataForSale, setFormDataForSale] = useState<HouseInterface>({
     title: "",
@@ -61,7 +61,7 @@ export const UpdateHouseForSaleForm = () => {
   useEffect(() => {
     const fetchHousesForSale = async () => {
       const id = params.id;
-      console.log("id from the params", id);
+      // console.log("id from the params", id);
 
       try {
         setLoading(true);
@@ -116,7 +116,7 @@ export const UpdateHouseForSaleForm = () => {
           body: JSON.stringify({
             _id: params.id,
             ...formDataForSale,
-            status: selectedStatus?.value || "", // Include the selected status in the request
+            status: selectedStatus?.value || "", 
           }),
         }
       );
@@ -262,15 +262,7 @@ export const UpdateHouseForSaleForm = () => {
           value={formDataForSale.address}
           onChange={handleFormChange}
         />
-        <input
-          className="p-5 border rounded-lg"
-          type="text"
-          placeholder="location"
-          id="location"
-          value={formDataForSale.location}
-          onChange={handleFormChange}
-        />
-
+  
         <div className="flex items-center gap-2 ">
           <input
             className="p-5 border rounded-lg max-h-20"

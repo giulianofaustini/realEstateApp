@@ -52,6 +52,7 @@ bathrooms: number;
 addedBy: string;
 userEmail?: string;
 userId?: string;
+status: string;
 }
 
 
@@ -61,10 +62,18 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   const [selectedStatus, setSelectedStatus] = useState<string | null>(null);
+  const [selectedStatusRent, setSelectedStatusRent] = useState<string | null>(null);
 
   const handleFormSubmission = (status: string) => {
     setSelectedStatus(status);
   };
+
+  const handleFormSubmissionRent = (status: string) => {
+    setSelectedStatusRent(status);
+  };
+
+
+
 
  
     const fetchHouses = async () => {
@@ -107,7 +116,7 @@ function App() {
           <Route path="/api/buyInYourArea" element={<MapSale houseToBuyInMap={houses} />} />
           <Route path="/api/houses/sale/:id" element={<SingleHouse houses={houses} />} />
           <Route path="/api/housesForSale" element={<ListOfHouses housesToPass={houses} setHouses={setHouses} selectedStatus={selectedStatus ? { value: selectedStatus, label: selectedStatus } : null} />} />
-          <Route path="/api/housesForRent" element={<ListOfHousesForRent housesToRent={housesForRent} setHousesForRent={setHousesForRent} />} />
+          <Route path="/api/housesForRent" element={<ListOfHousesForRent housesToRent={housesForRent} setHousesForRent={setHousesForRent} selectedStatusRent={selectedStatusRent ? { value: selectedStatusRent, label: selectedStatusRent} : { value: "", label: "" } } />} />
           <Route path="/api/housesForRent/rent/:id" element={<SingleHouseForRent houseToRent={housesForRent} />} />
           <Route path="/api/sign-in" element={<SignIn />} />
           <Route path="/api/sign-up" element={<SignUp />} />
@@ -116,7 +125,7 @@ function App() {
           <Route path="/api/action" element={<ActionPage />} />
           </Route>
           <Route path="/api/create-house-for-sale" element={<HouseForSaleForm onSubmitForm={(status) => handleFormSubmission(status || "")} />} />
-          <Route path="/api/create-house-for-rent" element={<HouseForRentForm />} />
+          <Route path="/api/create-house-for-rent" element={<HouseForRentForm onSubmitForm={ (status) => handleFormSubmissionRent(status || "")} />} />
           <Route path="/api/userHouses/:userId" element={<UserHouses />} />
           <Route path="/api/update-house-for-sale/:id" element={<UpdateHouseForSaleForm />} />
           <Route path="/api/update-house-for-rent/:id" element={<UpdateHouseForRentForm />} />

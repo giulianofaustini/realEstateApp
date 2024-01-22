@@ -1,17 +1,35 @@
 import { Link } from "react-router-dom";
 import { HousesForRentProps } from "../App";
 import { useEffect } from "react";
+import { useState } from "react";
 
 export interface ListOfHousesForRentProps {
   housesToRent: HousesForRentProps[];
-
   setHousesForRent: React.Dispatch<React.SetStateAction<HousesForRentProps[]>>;
+  selectedStatusRent: { value: string; label: string };
 }
 
 export const ListOfHousesForRent = ({
   housesToRent,
   setHousesForRent,
+  selectedStatusRent,
 }: ListOfHousesForRentProps) => {
+  const [filteredHouses, setFilteredHouses] = useState<HousesForRentProps[]>(
+    housesToRent
+  );
+
+  console.log("filteredHouses FOR RENT", filteredHouses);
+
+  useEffect(() => {
+    
+    if (selectedStatusRent && selectedStatusRent.value) {
+      const filtered = housesToRent.filter((house) => house.status === selectedStatusRent.value);
+      setFilteredHouses(filtered);
+    } else {
+      setFilteredHouses(housesToRent);
+    }
+  }, [housesToRent, selectedStatusRent]);
+
   useEffect(() => {
     const fetchHousesForRent = async () => {
       const response = await fetch("http://localhost:3000/api/housesForRent");
@@ -28,23 +46,38 @@ export const ListOfHousesForRent = ({
       {housesToRent.map((house) => (
         <div key={house._id}>
           <Link key={house._id} to={`/api/housesForRent/rent/${house._id}`}>
-          <div className=" bg-slate-100 p-6 border-2 border-slate-200  m-2 rounded-xl">
-              <img
-                className="w-full h-40 object-cover"
-                src={house.imageUrl[0]}
-                alt="house for rent"
-              />
+            <div className=" bg-slate-100 p-6 border-2 border-slate-200  m-2 rounded-xl">
+              <div
+                className={`p-4 border-4 rounded-xl m-2 ${
+                  house.status === "onHold"
+                    ? "border-yellow-500"
+                    : house.status === "sold"
+                    ? "border-red-500"
+                    : house.status === "onSale"
+                    ? "border-green-500"
+                    : ""
+                }`}
+              >
+                <img
+                  className="w-full h-40 object-cover"
+                  src={house.imageUrl[0]}
+                  alt="house for rent"
+                />
 
-
-            
-              <div className="font-bold ">{house.title}</div>
-              <div>{house.description}</div>
-              <div>{house.monthlyRent} € </div>
-              {house.addedBy ? (
-               <Link to={`/api/userHouses/${house.userId}`} >
-                <div className="capitalize">Added by  <span className="text-green-600 hover:bg-green-100 ring-rounded-xl p-3 rounded-lg" >{house.addedBy} </span>  </div>
-                </Link>
-              ) : null}
+                <div className="font-bold ">{house.title}</div>
+                <div>{house.description}</div>
+                <div>{house.monthlyRent} € </div>
+                {house.addedBy ? (
+                  <Link to={`/api/userHouses/${house.userId}`}>
+                    <div className="capitalize">
+                      Added by{" "}
+                      <span className="text-green-600 hover:bg-green-100 ring-rounded-xl p-3 rounded-lg">
+                        {house.addedBy}{" "}
+                      </span>{" "}
+                    </div>
+                  </Link>
+                ) : null}
+              </div>
             </div>
           </Link>
         </div>

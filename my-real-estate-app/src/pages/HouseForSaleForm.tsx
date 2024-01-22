@@ -390,7 +390,7 @@ export const HouseForSaleForm = ({
               label:
                 "Set the state of the house to SOLD / The house should be deleted from the list",
             },
-            { value: "onSale", label: "Set the state of the house to ON SALE" },
+            { value: "onSale", label: "Set the state of the house to ONSALE" },
           ]}
           value={selectedStatus}
           onChange={(option) => setSelectedStatus(option)}
