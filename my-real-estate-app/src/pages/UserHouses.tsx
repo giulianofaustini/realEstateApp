@@ -122,9 +122,9 @@ export const UserHouses = () => {
   }
   
   return (
-    <div className=" w-4/5 mx-auto ">
+    <div className=" w-3/5 mx-auto ">
      
-     <div className="text-center uppercase mt-20 mb-8 ">
+     <div className="text-center uppercase mt-20 mb-8 font-bold hover:font-extrabold text-2xl ">
       on sale - Added by: {selectedUserHousesForSale.length > 0 && selectedUserHousesForSale[0].addedBy}
     </div>
     <div className="grid grid-cols-2 justify-center max-w-85 ">
@@ -133,11 +133,11 @@ export const UserHouses = () => {
         selectedUserHousesForSale.map((house) => (
           
           <div
-            className=" bg-slate-100 p-6 border-2 rounded-xl border-slate-200  m-2 "
+            className=" bg-cyan-900 text-white p-6 border-2 rounded-xl border-white  m-2 "
             key={house._id}
           >
             
-            <div>{house.title}</div>
+            <div className="font-bold pb-1" >{house.title}</div>
             <div>{house.description}</div>
             {house.userId === currentUser?._id ? (
               <div className="flex justify-between mt-5 px-5">
@@ -157,15 +157,15 @@ export const UserHouses = () => {
           </div>
         ))}
         </div>
-        <div className="text-center uppercase mt-20 mb-8"> for rent - Added by: { selectedUserHousesForRent.length > 0 && selectedUserHousesForRent[0].addedBy } </div>
+        <div className="text-center uppercase mt-10 mb-8 font-bold hover:font-extrabold text-2xl "> for rent - Added by: { selectedUserHousesForRent.length > 0 && selectedUserHousesForRent[0].addedBy } </div>
       <div className="grid grid-cols-2 justify-center  ">
         {selectedUserHousesForRent &&
           selectedUserHousesForRent.map((house) => (
             <div
-              className=" bg-slate-100 p-6 border-2 rounded-xl border-slate-200  m-2 "
+              className=" bg-cyan-900 text-white p-6 border-2 rounded-xl border-white  m-2 "
               key={house._id}
             >
-              <div>{house.title}</div>
+              <div className="font-bold pb-1 ">{house.title}</div>
               <div>{house.description}</div>
               {house.userId === currentUser?._id ? (
                 <div className="flex justify-between mt-5 px-5">

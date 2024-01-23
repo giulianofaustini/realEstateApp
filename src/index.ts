@@ -85,3 +85,10 @@ app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
 
+
+
+// // // all api s 
+// // http://localhost:3000/api/users
+
+// // http://localhost:3000/api/housesForRent
+// http://localhost:3000/api/housesForSale
