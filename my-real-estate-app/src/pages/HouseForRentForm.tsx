@@ -22,6 +22,7 @@ import loadGoogleMapsApi from 'load-google-maps-api';
 
 import Select from "react-select";
 
+
 export const HouseForRentForm = ({ onSubmitForm}: {onSubmitForm:(status: string | null) => void}) => {
   const { currentUser } = useSelector((state: { user: UserState }) => ({
     currentUser: state.user.currentUser,
@@ -268,6 +269,7 @@ export const HouseForRentForm = ({ onSubmitForm}: {onSubmitForm:(status: string 
 
   return (
     <div className="max-w-lg  mx-auto mt-10">
+      <div className="text-start pl-6 text-cyan-950 uppercase" >add a property <span className="font-bold"> for rent </span> to the listing</div>
       <form
         className="flex flex-col gap-3 m-5"
         onSubmit={handleFormForSaleChange}
@@ -275,13 +277,13 @@ export const HouseForRentForm = ({ onSubmitForm}: {onSubmitForm:(status: string 
         <input
           className="p-5 border rounded-lg"
           type="text"
-          placeholder="title"
+          placeholder="Insert the title of your listing"
           id="title"
           onChange={handleFormChange}
         />
         <textarea
           className="p-5 border rounded-lg"
-          placeholder="description"
+          placeholder="Insert a detailed description of the house"
           id="description"
           onChange={handleFormChange}
           style={{ height: "150px", width: "100%" }}
@@ -289,14 +291,14 @@ export const HouseForRentForm = ({ onSubmitForm}: {onSubmitForm:(status: string 
         <input
           className="p-5 border rounded-lg"
           type="number"
-          placeholder="monthlyRent"
+          placeholder="MonthlyRent"
           id="monthlyRent"
           onChange={handleFormChange}
         />
         <input
           className="p-5 border rounded-lg"
           type="number"
-          placeholder="rentalDeposit"
+          placeholder="RentalDeposit"
           id="rentalDeposit"
           onChange={handleFormChange}
         />
@@ -350,30 +352,30 @@ export const HouseForRentForm = ({ onSubmitForm}: {onSubmitForm:(status: string 
           disabled={uploading}
             onClick={handleImageSubmit}
             type="button"
-            className="p-5 border rounded-full"
+            className="p-5 border rounded-full bg-red-600 text-white uppercase"
           >
-           { uploading ? 'uploading' :  'Upload' }
+           { uploading ? <span className=" text-cyan-950 ">'uploading'</span>  :  'Upload' }
           </button>
         </div>
 
         <input
           className="p-5 border rounded-lg"
           type="number"
-          placeholder="built year"
+          placeholder="Built year ... ex: 1990"
           id="year"
           onChange={handleFormChange}
         />
         <input
           className="p-5 border rounded-lg"
           type="text"
-          placeholder="bedrooms"
+          placeholder="How many bedrooms?"
           id="bedrooms"
           onChange={handleFormChange}
         />
         <input
           className="p-5 border rounded-lg"
           type="text"
-          placeholder="bathrooms"
+          placeholder="How many bathrooms?"
           id="bathrooms"
           onChange={handleFormChange}
         />
@@ -416,7 +418,7 @@ export const HouseForRentForm = ({ onSubmitForm}: {onSubmitForm:(status: string 
 
 
 
-        <button className="p-5 border rounded-lg" disabled={loading}>
+        <button className="p-5 border rounded-lg uppercase bg-cyan-900 text-white hover:opacity-85 " disabled={loading}>
           Submit
         </button>
     

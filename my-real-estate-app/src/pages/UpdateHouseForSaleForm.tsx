@@ -347,7 +347,7 @@ export const UpdateHouseForSaleForm = () => {
           onChange={(option) => setSelectedStatus(option)}
           placeholder="Set the status of the house"
         />
-        <button className="p-5 border rounded-lg uppercase" disabled={loading}>
+        <button className="p-5 border rounded-lg uppercase bg-cyan-900 text-white hover:opacity-85 " disabled={loading}>
           update
         </button>
       </form>

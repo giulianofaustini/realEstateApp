@@ -198,8 +198,11 @@ export const HouseForSaleForm = ({
 
   const handleImageSubmit = () => {
     if (!files) return;
+    if (!currentUser) return;
+    console.log( ' CURRENT USER FROM SALE FORM' , currentUser)
     try {
       if (
+        
         files.length > 0 &&
         files.length + formDataForSale.imageUrl.length < 7
       ) {
@@ -252,7 +255,9 @@ export const HouseForSaleForm = ({
   };
 
   return (
+    
     <div className="max-w-lg  mx-auto mt-10">
+       <div className="text-start pl-6 text-cyan-950 uppercase" >add a property <span className="font-bold"> for sale </span>  to the listing</div>
       <form
         className="flex flex-col gap-3 m-5"
         onSubmit={handleFormForSaleChange}
@@ -260,13 +265,13 @@ export const HouseForSaleForm = ({
         <input
           className="p-5 border rounded-lg"
           type="text"
-          placeholder="title"
+          placeholder="Insert the title of your listing"
           id="title"
           onChange={handleFormChange}
         />
         <textarea
           className="p-5 border rounded-lg"
-          placeholder="description"
+          placeholder="Insert a detailed description of the house"
           id="description"
           onChange={handleFormChange}
           style={{ height: "150px", width: "100%" }}
@@ -274,7 +279,7 @@ export const HouseForSaleForm = ({
         <input
           className="p-5 border rounded-lg"
           type="number"
-          placeholder="price"
+          placeholder="How much does it cost?"
           id="price"
           onChange={handleFormChange}
         />
@@ -330,29 +335,29 @@ export const HouseForSaleForm = ({
           <button
             onClick={handleImageSubmit}
             type="button"
-            className="p-3 border rounded-full max-h-20 uppercase"
+            className="p-3 border rounded-full max-h-20 uppercase  bg-red-600 text-white"
           >
-            {uploading ? "uploading" : "upload"}
+            {uploading ? <span className=" text-cyan-950 ">'uploading'</span>  : "upload"}
           </button>
         </div>
         <input
           className="p-5 border rounded-lg"
           type="number"
-          placeholder="built year ... ex: 1990"
+          placeholder="Built year ... ex: 1990"
           id="year"
           onChange={handleFormChange}
         />
         <input
           className="p-5 border rounded-lg"
           type="text"
-          placeholder="bedrooms"
+          placeholder="How many bedrooms?"
           id="bedrooms"
           onChange={handleFormChange}
         />
         <input
           className="p-5 border rounded-lg"
           type="text"
-          placeholder="bathrooms"
+          placeholder="How many bathrooms?"
           id="bathrooms"
           onChange={handleFormChange}
         />
@@ -361,7 +366,7 @@ export const HouseForSaleForm = ({
             <div className="text-red-500 ">{imageUploadError}</div>
           ) : null}
         </p>
-        {formDataForSale.imageUrl.length > 0 ? (
+        { currentUser && formDataForSale.imageUrl.length > 0 ? (
           <div className="flex flex-col gap-2">
             {formDataForSale.imageUrl.map((url, index) => (
               <div key={index} className="flex justify-between">
@@ -401,7 +406,7 @@ export const HouseForSaleForm = ({
           placeholder="Set the status of the house"
         />
 
-        <button className="p-5 border rounded-lg" disabled={loading}>
+        <button className="p-5 border rounded-lg uppercase bg-cyan-900 text-white hover:opacity-85 " disabled={loading}>
           Submit
         </button>
       </form>
