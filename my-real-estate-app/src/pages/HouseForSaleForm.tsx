@@ -302,7 +302,7 @@ export const HouseForSaleForm = ({
                   {loading ? <div> choose the address</div> : null}
                   {suggestions.map((suggestion) => {
                     const style = {
-                      backgroundColor: suggestion.active ? "##22d3ee" : "#fff",
+                      backgroundColor: suggestion.active ? "#22d3ee" : "#fff",
                     };
                     return (
                       <div
