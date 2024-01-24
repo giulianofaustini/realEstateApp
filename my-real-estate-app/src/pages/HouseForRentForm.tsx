@@ -11,6 +11,7 @@ import {
   ref,
   uploadBytesResumable,
 } from "firebase/storage";
+import { getAuth } from "firebase/auth"; 
 
 
 import PlacesAutocomplete, {
@@ -27,6 +28,8 @@ export const HouseForRentForm = ({ onSubmitForm}: {onSubmitForm:(status: string 
   const { currentUser } = useSelector((state: { user: UserState }) => ({
     currentUser: state.user.currentUser,
   }));
+
+  const authInstance = getAuth(app);
 
   console.log("current user from the form", currentUser);
   console.log("current user from the form", currentUser?._id);
@@ -115,6 +118,11 @@ export const HouseForRentForm = ({ onSubmitForm}: {onSubmitForm:(status: string 
     setLoading(true);
 
     try {
+      
+
+
+      if (currentUser) {
+
       const res = await fetch(
         "http://localhost:3000/api/create-house-for-rent",
         {
@@ -159,6 +167,10 @@ export const HouseForRentForm = ({ onSubmitForm}: {onSubmitForm:(status: string 
       } else {
         setLoading(false);
         alert(data.message);
+      } } else {
+      
+        console.log("User is not authenticated");
+        setLoading(false);
       }
     } catch (error) {
       console.log(error);
@@ -170,6 +182,7 @@ export const HouseForRentForm = ({ onSubmitForm}: {onSubmitForm:(status: string 
 
 
   const handleUploadImagesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+   
     const files = e.target.files;
     setFiles(files ? Array.from(files) : []);
 
@@ -177,6 +190,7 @@ export const HouseForRentForm = ({ onSubmitForm}: {onSubmitForm:(status: string 
   };
 
   const storeImage = async (file: File) => {
+   
     return new Promise((resolve, reject) => {
       const storage = getStorage(app);
       const fileName = new Date().getTime() + file.name;
@@ -210,6 +224,8 @@ export const HouseForRentForm = ({ onSubmitForm}: {onSubmitForm:(status: string 
   };
 
   const handleImageSubmit = () => {
+    const userToken = authInstance.currentUser;
+    console.log("TOKEN userToken from the form", userToken);
     if (!files ) return;
     try {
       if (

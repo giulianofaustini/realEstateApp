@@ -9,6 +9,9 @@ import {
   getDownloadURL,
   ref,
 } from "firebase/storage";
+
+import { getAuth } from "firebase/auth"; 
+
 import { app } from "../firebase";
 import PlacesAutocomplete, {
   geocodeByAddress,
@@ -30,6 +33,8 @@ export const HouseForSaleForm = ({
   const { currentUser } = useSelector((state: { user: UserState }) => ({
     currentUser: state.user.currentUser,
   }));
+
+  const authInstance = getAuth(app);
 
   console.log("currentUser from the house for sale form", currentUser);
 
@@ -198,6 +203,12 @@ export const HouseForSaleForm = ({
 
   const handleImageSubmit = () => {
     if (!files) return;
+
+    const userToken = authInstance.currentUser;
+    console.log("TOKEN userToken from the form", userToken);
+
+
+
     if (!currentUser) return;
     console.log( ' CURRENT USER FROM SALE FORM' , currentUser)
     try {
