@@ -300,6 +300,7 @@ export const HouseForSaleForm = ({
             value={address}
             onChange={handleAddressChange}
             onSelect={handleSelect}
+           
           >
             {({
               getInputProps,
@@ -312,6 +313,7 @@ export const HouseForSaleForm = ({
                   {...getInputProps({
                     placeholder: "Type and Select The Address",
                     className: "p-5 border rounded-lg w-full",
+                    id: "address",
                   })}
                 />
                 <div>
@@ -346,7 +348,8 @@ export const HouseForSaleForm = ({
           <button
             onClick={handleImageSubmit}
             type="button"
-            className="p-3 border rounded-full max-h-20 uppercase  bg-red-600 text-white"
+            className=" p-3 border rounded-full max-h-20 uppercase  bg-red-600 text-white"
+            id="imageUploadButton"
           >
             {uploading ? <span className=" text-cyan-950 ">'uploading'</span>  : "upload"}
           </button>
@@ -402,8 +405,10 @@ export const HouseForSaleForm = ({
           options={[
             {
               value: "onHold",
+              
               label:
                 "Set the state of the house to ON HOLD to temporarily reserve it",
+    
             },
             {
               value: "sold",
@@ -415,9 +420,10 @@ export const HouseForSaleForm = ({
           value={selectedStatus}
           onChange={(selectedStatus) => setSelectedStatus(selectedStatus)}
           placeholder="Set the status of the house"
+          id="status"
         />
 
-        <button className="p-5 border rounded-lg uppercase bg-cyan-900 text-white hover:opacity-85 " disabled={loading}>
+        <button id="submit" className="p-5 border rounded-lg uppercase bg-cyan-900 text-white hover:opacity-85 " disabled={loading}>
           Submit
         </button>
       </form>

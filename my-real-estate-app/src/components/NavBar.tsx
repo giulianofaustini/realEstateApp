@@ -44,7 +44,7 @@ export const NavBar: React.FC = () => {
   };
 
   return (
-    <div className="uppercase text-gray h-20 flex justify-between items-center w-9/12 mx-auto">
+    <div id="navBar" className="uppercase text-gray h-20 flex justify-between items-center w-9/12 mx-auto">
       <h1 className="ml-10">
         <Link to="/">
           <span className="text-red-400 pr-2 font-bold uppercase font-mono text-2xl">L&D</span>
@@ -90,7 +90,7 @@ export const NavBar: React.FC = () => {
             </div>
           ) : null}
         </div>
-      ) :  <h1 className="mr-10">
+      ) :  <h1 id="authorizedArea" className="mr-10">
       <Link to="/api/sign-up">Authorized-area</Link>
     </h1>}
     </div>

@@ -27,7 +27,9 @@
     "swiper": "^11.0.5"
   },
   "devDependencies": {
+    "@types/cypress": "^1.1.3",
     "@types/load-google-maps-api": "^2.0.5",
+    "@types/mocha": "^10.0.6",
     "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",
     "@types/react-places-autocomplete": "^7.2.14",
@@ -37,7 +39,9 @@
     "@vitejs/plugin-react": "^4.2.1",
     "autoprefixer": "^10.4.16",
     "cypress": "^13.6.3",
+    "cypress-file-upload": "^5.0.8",
     "eslint": "^8.55.0",
+    "eslint-plugin-cypress": "^2.15.1",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
     "postcss": "^8.4.32",

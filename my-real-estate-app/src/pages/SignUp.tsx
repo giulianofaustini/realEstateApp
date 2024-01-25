@@ -2,6 +2,8 @@ import { useState } from "react";
 import { UserInterface } from "../../../src/interfaces/userInterface";
 import { Link, useNavigate } from "react-router-dom";
 import { OAuth } from "../components/OAuth";
+import React from "react";
+
 
 export const SignUp = () => {
   const [formData, setFormData] = useState<UserInterface>({
@@ -100,6 +102,7 @@ export const SignUp = () => {
         <Link
           className="mt-5 ml-1 text-blue-500 hover:text-blue-600 "
           to="/api/sign-in"
+          id="signInNow"
         >
           Now
         </Link>

@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { PiWarehouseLight } from "react-icons/pi";
 import { FaCheckDouble } from "react-icons/fa";
+import React from "react";
 
 
 export const Home = () => {
@@ -34,7 +35,7 @@ export const Home = () => {
               <input
                 type="text"
                 placeholder="rent in your area . . . "
-               
+                id="rentInYourArea"
                 className="cursor-pointer font-mono text-amber-950 italic mr-5 h-10 pl-4 p-7 first-line:border rounded-lg bg-sky-100 hover:bg-sky-200 active:bg-sky-300 focus:outline-none focus:ring focus:ring-violet-100"
               />
               
@@ -42,6 +43,7 @@ export const Home = () => {
             <Link to={"/api/buyInYourArea"}>
               <input
                 type="text"
+                id="buyInYourArea"
                 placeholder="buy in your area . . ."
                 className="cursor-pointer font-mono text-amber-950 italic mr-5 h-10 pl-4 p-7 border rounded-lg bg-sky-100 hover:bg-sky-200 active:bg-sky-300 focus:outline-none focus:ring focus:ring-violet-100"
               />

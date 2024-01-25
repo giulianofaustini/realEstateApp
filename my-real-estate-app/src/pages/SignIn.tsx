@@ -6,6 +6,7 @@ import { setCurrentUser, setLoading } from "../redux/user/userSlice";
 import { useSelector } from "react-redux";
 import { UserState } from "../redux/user/userSlice"
 import { OAuth } from "../components/OAuth";
+import React from "react";
 
 
 
@@ -118,6 +119,7 @@ export const SignIn = () => {
           disabled={loading}
           className=" bg-sky-200 p-3 rounded-lg text-white hover:opacity-85 hover:text-slate-500 disabled:opacity-50"
           type="submit"
+          id="signInButton"
         >
           {loading ? "Loading..." : "Sign in"}
         </button>
