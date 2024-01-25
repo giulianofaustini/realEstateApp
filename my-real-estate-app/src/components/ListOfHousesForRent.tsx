@@ -3,6 +3,7 @@ import { HousesForRentProps } from "../App";
 import { useEffect } from "react";
 import { useState } from "react";
 import { IoMdSquareOutline } from "react-icons/io";
+import React from "react";
 
 export interface ListOfHousesForRentProps {
   housesToRent: HousesForRentProps[];
@@ -47,13 +48,13 @@ export const ListOfHousesForRent = ({
     <>
     <div className="flex items-center gap-2 flex-wrap w-4/5 mx-auto uppercase mb-4">
     <IoMdSquareOutline  className="text-green-500 h-4 bg-green-500" />
-      <span className="mr-6 text-green-500 "> the house is available for rent</span>
+      <span className="mr-6 text-green-500 ">available</span>
     <IoMdSquareOutline className="text-yellow-300 h-4 bg-yellow-300" />
-      <span className="mr-6 text-yellow-300"> the house is reserved. Check back for status changes</span>
+      <span className="mr-6 text-yellow-300">reserved. Check back for status changes</span>
     <IoMdSquareOutline className="text-red-500 h-4 bg-red-500" />
-      <span className="text-red-500"> the house has been rented out/ to be removed</span>
+      <span className="text-red-500"> rented out/ to be removed</span>
     </div>
-    <div className="grid grid-cols-2 w-4/5 mx-auto justify-center">
+    <div className="grid grid-cols-1 md:grid-cols-2 w-4/5 mx-auto justify-center">
       {housesToRent.map((house) => (
         <div key={house._id}>
           <Link key={house._id} to={`/api/housesForRent/rent/${house._id}`}>

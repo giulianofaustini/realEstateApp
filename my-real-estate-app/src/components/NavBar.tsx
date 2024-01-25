@@ -44,11 +44,12 @@ export const NavBar: React.FC = () => {
   };
 
   return (
-    <div id="navBar" className="uppercase text-gray h-20 flex justify-between items-center w-9/12 mx-auto">
+    <div id="navBar" className=" uppercase text-gray h-20 flex justify-between items-center  mx-auto">
+
       <h1 className="ml-10">
         <Link to="/">
           <span className="text-red-400 pr-2 font-bold uppercase font-mono text-2xl">L&D</span>
-          <span className="text-cyan-500 font-bold uppercase font-mono">ESTATE</span>
+          <span className=" hidden md:inline md:text-cyan-500 font-bold uppercase font-mono">ESTATE</span>
         </Link>
       </h1>
  

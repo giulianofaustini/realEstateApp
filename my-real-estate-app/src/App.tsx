@@ -18,6 +18,7 @@ import { UpdateHouseForRentForm } from "./pages/UpdateHouseForRentForm";
 import { UpdateHouseForSaleForm } from "./pages/UpdateHouseForSaleForm";
 import { Map } from "../src/components/Map"
 import { MapSale } from "./components/MapSale";
+import React from "react";
 
 
 export interface HouseProps {
@@ -107,7 +108,7 @@ function App() {
 
   return (
     <>
-    <div  >
+    <div>
       <Router >
         <NavBar />  
         <Routes>

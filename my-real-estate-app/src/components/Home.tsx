@@ -24,7 +24,7 @@ export const Home = () => {
         className="flex items-center justify-center w-auto"
       >
         <div className="flex flex-col items-center  h-full">
-          <h1 className="mb-4 mt-16 font-extrabold text-5xl text-amber-950 font-mono">
+          <h1 className="text-lg font-bold mb-4 mt-16 md:font-extrabold md:text-5xl text-amber-950 font-mono ">
             {" "}
             MODERN HOUSING SOLUTIONS
           </h1>
