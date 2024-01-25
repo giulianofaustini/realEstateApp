@@ -53,16 +53,16 @@ export const NavBar: React.FC = () => {
         </Link>
       </h1>
  
-      <h1 className="mr-10 text-amber-950 font-serif text-2xl w-1/6 ">
-        <Link className="flex justify-between px-4 " to="/api/housesForSale">
+      <h1 className="mr-10 text-amber-950 font-serif  md:text-2xl ">
+        <Link className="flex justify-between px-4 md:pr-5" to="/api/housesForSale">
           on sale 
-          <BiSolidUpArrow />
+          <BiSolidUpArrow className="md:ml-2" />
           </Link>
       </h1>
-      <h1 className="mr-10 text-amber-950 font-serif text-2xl w-1/6">
-        <Link className="flex justify-between" to="/api/housesForRent">
+      <h1 className="mr-10 text-amber-950 font-serif md:text-2xl ">
+        <Link className="flex justify-between px-4 md:pr-5" to="/api/housesForRent">
           for rent
-          <BiSolidDownArrow />
+          <BiSolidDownArrow className="md:ml-2" />
           </Link>
       </h1>
      
