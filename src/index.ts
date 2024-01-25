@@ -24,7 +24,7 @@ mongoose.connect(process.env.MONGO ?? "").then(() => {
 }
 ).catch(err => console.log("Error connecting to MongoDB", err));
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 app.use(cookieParser());
 
 app.use(cors(
