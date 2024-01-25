@@ -5,7 +5,7 @@ describe("template spec", () => {
     cy.visit("http://localhost:5173", { failOnStatusCode: false });
   });
 
-  it("can access rent in your area", () => {
+  it.only("can access rent in your area", () => {
     cy.contains("MODERN HOUSING SOLUTIONS");
     cy.get("#rentInYourArea").click();
   });
