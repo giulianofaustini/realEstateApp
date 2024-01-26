@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { HouseProps } from "../App";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import { IoMdSquareOutline } from "react-icons/io";
 import React from "react";
@@ -42,7 +42,7 @@ export const ListOfHouses = ({ housesToPass , setHouses , selectedStatus }: List
 
 
 
-  const navigate = useNavigate();
+ 
 
   return (
     <>

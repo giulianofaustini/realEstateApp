@@ -9,6 +9,7 @@ import { FaBath } from "react-icons/fa6";
 import { MdBedroomChild } from "react-icons/md";
 import { FaEuroSign } from "react-icons/fa";
 import { GiBrickWall } from "react-icons/gi";
+import React from "react";
 
 interface SingleHouseProps {
   houses: HouseProps[];
@@ -36,7 +37,7 @@ export const SingleHouse = ({ houses }: SingleHouseProps) => {
             selectedHouse.imageUrl.map((url) => (
               <SwiperSlide key={url}>
                 <div
-                  className="h-[750px]"
+                  className="h-[500px] md:h-[750px]"
                   style={{
                     background: `url(${url}) center, no-repeat`,
                     backgroundSize: "cover",
@@ -46,31 +47,31 @@ export const SingleHouse = ({ houses }: SingleHouseProps) => {
             ))}
         </Swiper>
       </div>
-      <div className="w-2/3 mx-10 flex flex-col justify-normal ml-20 p-20 ">
-        <span className="uppercase mb-5 font-bold ">{selectedHouse.title} for sale</span>
+      <div className="flex flex-col w-screen px-2 justify-evenly md:w-2/3 md:mx-10 md:flex md:flex-col md:justify-normal md:ml-20 md:p-20 ">
+        <span className="uppercase md:mb-5 font-bold ">{selectedHouse.title} for sale</span>
   
         <p className="font-light ">
            Description:  { ' ' }
           <span className="font-semibold"  >{selectedHouse.description}  </span>
           
         </p>
-        <div className="flex items-center  gap-2 mt-2.5"> 
+        <div className="flex items-center size:9 gap-2 mt-2.5 "> 
         <FaMapMarkerAlt className="text-green-600 size-8 " />
-        <span className="pr-10 " >{selectedHouse.address} { ' ' }  </span>
+        <span className="pr-10 text-sm md:text-3xl" >{selectedHouse.address} { ' ' }  </span>
 
         <FaBath className="text-green-600 size-8 " />
-        <span className="pr-10 " > {selectedHouse.bathrooms} { ' ' } </span>
+        <span className="md:pr-10 text-sm md:text-3xl " > {selectedHouse.bathrooms} { ' ' } </span>
         
-        <MdBedroomChild className="text-green-600 size-8 " />
-        <span className="pr-10 " > {selectedHouse.bedrooms} { ' ' } </span> 
+        <MdBedroomChild className="text-green-600 size-8  " />
+        <span className="md:pr-10 text-sm md:text-3xl" > {selectedHouse.bedrooms} { ' ' } </span> 
 
-        <GiBrickWall className="text-green-600 size-8 "/>
-        <span className="pr-10 " > {selectedHouse.year} { ' ' } </span> 
+        <GiBrickWall className="text-green-600 text-lg size-8  "/>
+        <span className="md:pr-10 text-sm md:text-3xl " > {selectedHouse.year} { ' ' } </span> 
       
         </div>
-        <div className="flex item-center mt-2">
-        <FaEuroSign className="text-green-600 size-8 " />
-        <span> {selectedHouse.price} </span>
+        <div className="flex justify-start item-center mt-2">
+        <FaEuroSign className="text-green-600 md:size-8 " />
+        <span className="md:pr-10 text-sm md:text-3xl "> {selectedHouse.price} </span>
         </div>
 
 
