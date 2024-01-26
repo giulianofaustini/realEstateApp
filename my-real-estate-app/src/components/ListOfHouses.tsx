@@ -96,8 +96,6 @@ export const ListOfHouses = ({ housesToPass , setHouses , selectedStatus }: List
           )
         )}
       </div>
-      
-      <button onClick={() => navigate("/")}>home</button>
     </div>
     </>
   );
