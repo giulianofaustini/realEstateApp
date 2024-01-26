@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { PiWarehouseLight } from "react-icons/pi";
 import { FaCheckDouble } from "react-icons/fa";
 import React from "react";
+import { PiCircleFill } from "react-icons/pi";
 
 
 export const Home = () => {
@@ -14,22 +15,23 @@ export const Home = () => {
     borderRadius: "12px",
     opacity: "0.90",
     width: "100%",
-    height: "95vh",
+  
   };
 
   return (
     <div>
       <div
         style={backgroundImageStyle}
-        className="flex items-center justify-center w-auto"
+        className="flex items-center justify-center w-auto h-[60vh] md:h-[96vh]"
       >
         <div className="flex flex-col items-center  h-full">
           <h1 className="text-xl font-bold mb-2 md:mb-4 mt-8 md:mt-16 md:font-extrabold md:text-5xl text-amber-950 font-mono ">
             {" "}
             MODERN HOUSING SOLUTIONS
           </h1>
+        
 
-          <form className="flex flex-col gap-2 items-center justify-center md:flex-row md:items-center">
+          <form className="flex flex-col gap-1 items-center justify-center md:flex-row md:items-center">
             <Link to={"/api/rentInYourArea"}>
            
               <input
@@ -45,12 +47,15 @@ export const Home = () => {
                 type="text"
                 id="buyInYourArea"
                 placeholder="buy in your area . . ."
-                className="cursor-pointer p-2 font-mono text-amber-950 italic md:mr-5 md:h-10 md:pl-4 md:p-7 border rounded-lg bg-sky-100 hover:bg-sky-200 active:bg-sky-300 focus:outline-none focus:ring focus:ring-violet-100"
+                className=" cursor-pointer p-2 font-mono text-amber-950 italic md:mr-5 md:h-10 md:pl-4 md:p-7 border rounded-lg bg-sky-100 hover:bg-sky-200 active:bg-sky-300 focus:outline-none focus:ring focus:ring-violet-100"
               />
             </Link>
           </form>
+          <div className="h-full relative"> <PiCircleFill className="absolute mix-blend-multiply -focus-active:translate-x-5 transition-all text-cyan-100 text-[60px] bottom-6 right-3 lg:hidden " /> <PiCircleFill className="mix-blend-multiply focus-active:translate-x-5 text-fuchsia-100 absolute text-[60px] bottom-6 -right-5 lg:hidden " /> </div>
         </div>
+      
       </div>
+ 
       <div className="w-2/3 text-sm mx-auto md:mt-10 md:mb-10">
         <span className="uppercase font-bold md:font-extrabold md:text-4xl text-cyan-700 font-serif ">
           Welcome to L&D Estate, your Trusted Real Estate Partner
