@@ -44,25 +44,25 @@ export const NavBar: React.FC = () => {
   };
 
   return (
-    <div id="navBar" className=" uppercase text-gray h-20 flex justify-between items-center  mx-auto">
+    <div id="navBar" className=" uppercase text-gray mt-5 h-15 md:h-20 flex justify-between items-center  md:mx-auto">
 
-      <h1 className="ml-10">
+      <h1 className="ml-2 md:ml-10">
         <Link to="/">
           <span className="text-red-400 pr-2 font-bold uppercase font-mono text-2xl">L&D</span>
           <span className=" hidden md:inline md:text-cyan-500 font-bold uppercase font-mono">ESTATE</span>
         </Link>
       </h1>
  
-      <h1 className="mr-10 text-amber-950 font-serif  md:text-2xl ">
-        <Link className="flex justify-between px-4 md:pr-5" to="/api/housesForSale">
+      <h1 className=" md:mr-10 text-amber-950 font-serif text-sm  md:text-2xl ">
+        <Link className="flex justify-between px-2 md:px-4 md:pr-5" to="/api/housesForSale">
           on sale 
-          <BiSolidUpArrow className="md:ml-2" />
+          <BiSolidUpArrow className="md:ml-2 hidden md:inline" />
           </Link>
       </h1>
-      <h1 className="mr-10 text-amber-950 font-serif md:text-2xl ">
-        <Link className="flex justify-between px-4 md:pr-5" to="/api/housesForRent">
+      <h1 className=" md:mr-10 text-amber-950 font-serif text-sm md:text-2xl ">
+        <Link className="flex justify-between px-2 md:px-4 md:pr-5" to="/api/housesForRent">
           for rent
-          <BiSolidDownArrow className="md:ml-2" />
+          <BiSolidDownArrow className="md:ml-2 hidden md:inline" />
           </Link>
       </h1>
      
@@ -80,7 +80,7 @@ export const NavBar: React.FC = () => {
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
             onClick={handleSignOut}
-            className="select-none ml-2 rounded-lg bg-fuchsia-100 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-cyan-400 shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-700/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+            className="select-none ml-1 md:ml-2 rounded-lg bg-fuchsia-100 py-3 md:py-3 md:px-6 text-center align-middle font-sans text-xs font-bold uppercase text-cyan-400 shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-700/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
           >
             Welcome, {currentUser.username}!
           </button>
@@ -91,8 +91,8 @@ export const NavBar: React.FC = () => {
             </div>
           ) : null}
         </div>
-      ) :  <h1 id="authorizedArea" className="mr-10">
-      <Link to="/api/sign-up">Authorized-area</Link>
+      ) :  <h1 id="authorizedArea" className="mr-2 md:mr-10 text-sm">
+      <Link to="/api/sign-up">Sign in</Link>
     </h1>}
     </div>
   );

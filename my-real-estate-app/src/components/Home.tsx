@@ -24,19 +24,19 @@ export const Home = () => {
         className="flex items-center justify-center w-auto"
       >
         <div className="flex flex-col items-center  h-full">
-          <h1 className="text-lg font-bold mb-4 mt-16 md:font-extrabold md:text-5xl text-amber-950 font-mono ">
+          <h1 className="text-xl font-bold mb-2 md:mb-4 mt-8 md:mt-16 md:font-extrabold md:text-5xl text-amber-950 font-mono ">
             {" "}
             MODERN HOUSING SOLUTIONS
           </h1>
 
-          <form className="flex flex-row items-center">
+          <form className="flex flex-col gap-2 items-center justify-center md:flex-row md:items-center">
             <Link to={"/api/rentInYourArea"}>
            
               <input
                 type="text"
                 placeholder="rent in your area . . . "
                 id="rentInYourArea"
-                className="cursor-pointer font-mono text-amber-950 italic mr-5 h-10 pl-4 p-7 first-line:border rounded-lg bg-sky-100 hover:bg-sky-200 active:bg-sky-300 focus:outline-none focus:ring focus:ring-violet-100"
+                className="cursor-pointer p-2 font-mono text-amber-950 italic md:mr-5 md:h-10 md:pl-4 md:p-7 first-line:border rounded-lg bg-sky-100 hover:bg-sky-200 active:bg-sky-300 focus:outline-none focus:ring focus:ring-violet-100"
               />
               
             </Link>
@@ -45,26 +45,28 @@ export const Home = () => {
                 type="text"
                 id="buyInYourArea"
                 placeholder="buy in your area . . ."
-                className="cursor-pointer font-mono text-amber-950 italic mr-5 h-10 pl-4 p-7 border rounded-lg bg-sky-100 hover:bg-sky-200 active:bg-sky-300 focus:outline-none focus:ring focus:ring-violet-100"
+                className="cursor-pointer p-2 font-mono text-amber-950 italic md:mr-5 md:h-10 md:pl-4 md:p-7 border rounded-lg bg-sky-100 hover:bg-sky-200 active:bg-sky-300 focus:outline-none focus:ring focus:ring-violet-100"
               />
             </Link>
           </form>
         </div>
       </div>
-      <div className="w-2/3 mx-auto mt-10 mb-10">
-        <span className="uppercase font-extrabold text-4xl text-cyan-700 font-serif ">
+      <div className="w-2/3 text-sm mx-auto md:mt-10 md:mb-10">
+        <span className="uppercase font-bold md:font-extrabold md:text-4xl text-cyan-700 font-serif ">
           Welcome to L&D Estate, your Trusted Real Estate Partner
         </span>
-        <div className="grid grid-cols-3 grid-flow-row-dense justify-center gap-10 items-top font-bold size-70 mt-8 text-cyan-700">
-          <p className="col-span-2">
+        <div className="flex flex-col md:grid md:grid-cols-3 md:grid-flow-row-dense md:justify-center md:gap-10 md:items-top font-bold md:size-70 mt-8 text-cyan-700">
+          <p className="md:col-span-2">
             At L&D Estate, we understand that finding the perfect home is more
             than just a transaction; it's about finding a space where memories
             are created and dreams come to life. With a commitment to excellence
             and a passion for real estate, we proudly serve our community in
-            connecting individuals and families with their ideal properties..
+            connecting individuals and families with their ideal properties.
           </p>
-          <PiWarehouseLight className="text-red-600 size-20 font-bold justify-self-center" />
-          <p className=" opacity-80">Our Approach: </p>
+        
+          <PiWarehouseLight className="text-red-600 w-full  text-5xl md:size-20 font-bold md:justify-self-center" />
+     
+          <p className=" opacity-80 uppercase">Our Approach: </p>
           <p>
             1 - Personalized Service: Our dedicated team of real estate
             professionals is here to guide you through every step of the
@@ -91,9 +93,9 @@ export const Home = () => {
             quality and comfort. Let us help you find a place to call home.
           </p>
           <p className="col-start-1 col-span-3 mt-5 text-red-600">Why Choose L&D</p>
-          <p className="flex  justify-evenly uppercase font-extrabold">Professionalism <FaCheckDouble /></p>
-          <p  className="flex justify-evenly uppercase font-extrabold"> Client-Centric Approach <FaCheckDouble /></p>
-          <p  className="flex  justify-evenly uppercase font-extrabold">Tech-Enabled Solutions <FaCheckDouble /></p>
+          <p className="flex  md:justify-evenly uppercase md:font-extrabold">Professionalism <FaCheckDouble /></p>
+          <p  className="flex md:justify-evenly uppercase md:font-extrabold"> Client-Centric Approach <FaCheckDouble /></p>
+          <p  className="flex  md:justify-evenly uppercase md:font-extrabold">Tech-Enabled Solutions <FaCheckDouble /></p>
          
         </div>
       </div>
