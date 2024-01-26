@@ -46,17 +46,17 @@ export const ListOfHouses = ({ housesToPass , setHouses , selectedStatus }: List
 
   return (
     <>
-    <div className="flex items-center gap-2 flex-wrap w-4/5 mx-auto uppercase mb-4">
-    <IoMdSquareOutline  className="text-green-500 h-4 bg-green-500" />
-      <span className="mr-6 text-green-500 "> available </span>
-    <IoMdSquareOutline className="text-yellow-300 h-4 bg-yellow-300" />
-      <span className="mr-6 text-yellow-300"> reserved. Check back for status changes</span>
-    <IoMdSquareOutline className="text-red-500 h-4 bg-red-500" />
+    <div className="grid grid-cols-3 mx-auto md:flex md:items-center text-sm gap-2 md:flex-wrap md:w-4/5 md:mx-auto uppercase mb-4">
+    <IoMdSquareOutline  className=" hidden md:inline text-green-500 h-4 bg-green-500" />
+      <span className="ml-2 md:mr-6 text-green-500 "> available </span>
+    <IoMdSquareOutline className="hidden md:inline text-yellow-300 h-4 bg-yellow-300" />
+      <span className="md:mr-6 text-yellow-300"> reserved. <span className="hidden md:inline"> Check back for status changes</span> </span>
+    <IoMdSquareOutline className=" hidden md:inline text-red-500 h-4 bg-red-500" />
       <span className="text-red-500"> Sold / to be removed</span>
     </div>
     <div className= " h-full  ">
     
-      <div className="grid grid-cols-1 md:grid-cols-2  mx-auto w-4/5 justify-self-center ms:grid-cols-1">
+      <div className="grid grid-cols-1 md:grid-cols-2  mx-auto w-4/5 justify-self-center ">
         {housesToPass.map((house) => (
             // console.log("in the map the id:", house._id),
             (
