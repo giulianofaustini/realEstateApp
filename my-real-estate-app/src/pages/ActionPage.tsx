@@ -2,17 +2,31 @@ import { Link } from "react-router-dom"
 
 import { useSelector } from "react-redux"
 
-import { UserState } from "../redux/user/userSlice"
+import { UserState, signOut } from "../redux/user/userSlice"
 import React from "react"
+import { persistor } from "../redux/store"
+import { useNavigate } from "react-router-dom"
+import { useDispatch } from "react-redux"
 
 
 export const ActionPage = () => {
   const { currentUser } = useSelector((state: {user: UserState}) => ({ 
     currentUser: state.user.currentUser
    }))
+   
+   const navigate = useNavigate()
+    const dispatch = useDispatch()
  
 
    console.log("CURRNET current user from the action page", currentUser)
+
+
+   const handleSignOut = () => {
+     dispatch(signOut())
+     persistor.purge()
+     navigate("/")
+    console.log("sign out")
+    }
 
   return (
     <div id="actionPage" className="max-w-lg mx-auto text-start flex flex-col mt-10">
@@ -35,6 +49,11 @@ export const ActionPage = () => {
         <button className="shadow-xl hover:shadow-amber-950 ">  
         <h1 className="m-5 uppercase font-bold hover:font-extrabold text-2xl text-amber-950"><Link to={`/api/userHouses/${currentUser?._id}`}>Manage your properties</Link></h1>
         </button>
+        <div className="flex justify-end px-4 mt-2 ">
+        <button className="bg-fuchsia-100 rounded-lg p-2 px-4 mt-2 text-cyan-400 uppercase " onClick={handleSignOut}>
+          sign out
+        </button>
+        </div>
        
       
        
@@ -44,3 +63,4 @@ export const ActionPage = () => {
     </div>
   )
 }
+

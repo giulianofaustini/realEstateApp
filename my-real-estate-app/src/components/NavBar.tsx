@@ -44,7 +44,7 @@ export const NavBar: React.FC = () => {
   };
 
   return (
-    <div id="navBar" className=" uppercase text-gray mt-5 h-15 md:h-20 flex justify-between items-center  md:mx-auto">
+    <div id="navBar" className=" uppercase text-gray mt-2 h-15 md:h-20 flex justify-between items-center md:w-2/3 md:mx-auto">
 
       <h1 className="ml-2 md:ml-10">
         <Link to="/">
@@ -68,7 +68,7 @@ export const NavBar: React.FC = () => {
      
 
       {currentUser ? (
-        <div className="relative mb-4 flex h-10 items-center">
+        <div className="relative mb-2 mt-1 flex h-10 items-center mr-1">
           <Link to={"/api/action"}> 
           <img
             className="rounded-full h-9 w-9 object-cover cursor-context-menu"
@@ -80,7 +80,7 @@ export const NavBar: React.FC = () => {
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
             onClick={handleSignOut}
-            className="select-none ml-1 md:ml-2 rounded-lg bg-fuchsia-100 py-3 md:py-3 md:px-6 text-center align-middle font-sans text-xs font-bold uppercase text-cyan-400 shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-700/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+            className="select-none md:ml-2 rounded-lg bg-fuchsia-100 py-2 md:py-3 md:px-6 text-center align-middle font-sans text-xs font-bold uppercase text-cyan-400 shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-700/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
           >
             Welcome, {currentUser.username}!
           </button>
