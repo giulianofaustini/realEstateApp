@@ -234,7 +234,7 @@ export const Map: React.FC<HousesForRentInTheMapProps> = ({
               key={house._id}
             >
               <img
-                className="max-h-60 w-full md:w-48 max-w-auto md:max-h-60 pb-2 mx-auto rounded"
+                className="max-h-60 w-full md:w-48  md:max-h-60 pb-2 mx-auto rounded"
                 src={house.imageUrl[0]}
                 alt="house image"
               />

@@ -203,8 +203,8 @@ export const MapSale: React.FC<HousesToBuyInTheMapProps> = ({
 
   return (
     <div className="flex">
-      <div className="flex flex-col w-3/12 h-screen items-center  ">
-        <div className="uppercase text-center m-5  text-amber-950 font-bold text-5xl hover:font-extrabold ">
+      <div className="flex flex-col md:w-3/12 h-screen items-center  ">
+        <div className="uppercase text-center mt-2 md:m-5  text-amber-950 font-bold text-2xl md:text-5xl md:hover:font-extrabold ">
           Houses to buy
         </div>
         {houseToBuyInMap &&
@@ -224,7 +224,7 @@ export const MapSale: React.FC<HousesToBuyInTheMapProps> = ({
               key={house._id}
             >
               <img
-                className="w-48 max-h-60 pb-2 mx-auto rounded"
+                className="max-h-60 w-full md:w-48 md:max-h-60 pb-2 mx-auto rounded"
                 src={house.imageUrl[0]}
                 alt="house image"
               />
@@ -238,7 +238,7 @@ export const MapSale: React.FC<HousesToBuyInTheMapProps> = ({
       </div>
 
       <div className="flex-1 h-screen w-9/12 ">
-        <div className="map-wrapper w-4/6 h-5/6 fixed border-4 border-amber-600">
+        <div className="hidden md:inline md:map-wrapper md:w-4/6 h-5/6 md:fixed md:border-4 md:border-amber-600">
           <GoogleMap
             center={center}
             zoom={11}
