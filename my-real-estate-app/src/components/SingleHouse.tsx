@@ -48,7 +48,7 @@ export const SingleHouse = ({ houses }: SingleHouseProps) => {
         </Swiper>
       </div>
       <div className="flex flex-col w-screen px-2 justify-evenly md:w-2/3 md:mx-10 md:flex md:flex-col md:justify-normal md:ml-20 md:p-20 ">
-        <span className="uppercase md:mb-5 font-bold ">{selectedHouse.title} for sale</span>
+        <span className="uppercase mb-2 md:mb-5 font-bold ">{selectedHouse.title} for sale</span>
   
         <p className="font-light ">
            Description:  { ' ' }
@@ -70,12 +70,12 @@ export const SingleHouse = ({ houses }: SingleHouseProps) => {
       
         </div>
         <div className="flex justify-start item-center mt-2">
-        <FaEuroSign className="text-green-600 md:size-8 " />
+        <FaEuroSign className="text-green-600 size-8 " />
         <span className="md:pr-10 text-sm md:text-3xl "> {selectedHouse.price} </span>
         </div>
 
 
-        <p className=" mt-2">Contact the owner {selectedHouse.addedBy} at this email address: {selectedHouse.userEmail}</p>
+        <p className="text-red-500 mt-2">Contact the owner {selectedHouse.addedBy} at this email address: {selectedHouse.userEmail}</p>
 
       </div>
     </div>
