@@ -27,12 +27,17 @@ const app = express();
 const port = process.env.PORT || 3000;
 app.use(cookieParser());
 
-app.use(cors(
-  {
-    origin: "https://sharestate.onrender.com/",
-    credentials: true
-  }
-))
+
+const corsOptions = {
+  origin: ['http://localhost:5173', 'https://sharestateback.onrender.com'], 
+  credentials: true
+};
+
+
+app.use(cors(corsOptions));
+
+
+
 app.use(express.json());
 
 
