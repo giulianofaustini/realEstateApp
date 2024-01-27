@@ -21,8 +21,7 @@ export const ListOfHousesForRent = ({
   );
 
   console.log("filteredHouses FOR RENT", filteredHouses);
-
-  const backendUrl = 'https://sharestateback.onrender.com' || 'http://localhost:3000';
+  
 
   useEffect(() => {
     
@@ -36,7 +35,7 @@ export const ListOfHousesForRent = ({
 
   useEffect(() => {
     const fetchHousesForRent = async () => {
-      const response = await fetch(`${backendUrl}/api/housesForRent`);
+      const response = await fetch("http://localhost:3000/api/housesForRent");
       const data = await response.json();
       console.log("data from the fetchHousesForRent", data);
       setHousesForRent(data);

@@ -27,17 +27,12 @@ const app = express();
 const port = process.env.PORT || 3000;
 app.use(cookieParser());
 
-
-const corsOptions = {
-  origin: ['http://localhost:5173', 'https://sharestateback.onrender.com'], 
-  credentials: true
-};
-
-
-app.use(cors(corsOptions));
-
-
-
+app.use(cors(
+  {
+    origin: "http://localhost:5173",
+    credentials: true
+  }
+))
 app.use(express.json());
 
 
@@ -74,32 +69,9 @@ app.use("/api/update-house-for-sale", allHousesRouter);
 
 app.use("/api/update-house-for-rent", allHousesForRentRouter);
 
-app.use(express.static('my-real-estate-app', {
-  setHeaders: (res, path) => {
-    if (path.endsWith('.js')) {
-      res.setHeader('Content-Type', 'application/javascript');
-    }
-  },
-}));
-
-app.use((err: { statusCode?: number, message?: string }, req: Request, res: Response, next: NextFunction) => {
-  const statusCode = err.statusCode || 500;
-  const message = err.message || "Internal Server Error";
-  return res.status(statusCode).json({ 
-    success: false,
-    statusCode,
-    message,
-   });
+app.listen(Number(port), "0.0.0.0", () => {
+  console.log(`Server running at http://0.0.0.0:${port}`);
 });
-
-  
-
-
-app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
-});
-
-
 
 // // // all api s 
 // // http://localhost:3000/api/users
