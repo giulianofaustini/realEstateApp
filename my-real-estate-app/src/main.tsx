@@ -5,6 +5,7 @@ import './index.css'
 import { store , persistor } from './redux/store.ts';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
+import React from 'react';
 
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

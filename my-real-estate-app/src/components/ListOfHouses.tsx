@@ -29,9 +29,12 @@ export const ListOfHouses = ({ housesToPass , setHouses , selectedStatus }: List
     }
   }, [housesToPass, selectedStatus]);
 
+  const backendUrl = 'https://sharestateback.onrender.com';
+
+
   useEffect(() => {
     const fetchHouses = async () => {
-      const response = await fetch("http://localhost:3000/api/housesForSale");
+      const response = await fetch(`${backendUrl}/api/housesForSale`);
       const data = await response.json();
       console.log("data from the fetchHouses", data);
       setHouses(data);
