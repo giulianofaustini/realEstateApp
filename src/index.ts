@@ -74,6 +74,14 @@ app.use("/api/update-house-for-sale", allHousesRouter);
 
 app.use("/api/update-house-for-rent", allHousesForRentRouter);
 
+app.use(express.static('my-real-estate-app', {
+  setHeaders: (res, path) => {
+    if (path.endsWith('.js')) {
+      res.setHeader('Content-Type', 'application/javascript');
+    }
+  },
+}));
+
 app.use((err: { statusCode?: number, message?: string }, req: Request, res: Response, next: NextFunction) => {
   const statusCode = err.statusCode || 500;
   const message = err.message || "Internal Server Error";
