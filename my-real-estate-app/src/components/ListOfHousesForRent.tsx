@@ -22,7 +22,7 @@ export const ListOfHousesForRent = ({
 
   console.log("filteredHouses FOR RENT", filteredHouses);
 
-  const backendUrl = 'https://sharestateback.onrender.com';
+  const backendUrl = 'https://sharestateback.onrender.com' || 'http://localhost:3000';
 
   useEffect(() => {
     

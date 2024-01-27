@@ -29,7 +29,7 @@ export const ListOfHouses = ({ housesToPass , setHouses , selectedStatus }: List
     }
   }, [housesToPass, selectedStatus]);
 
-  const backendUrl = 'https://sharestateback.onrender.com';
+  const backendUrl = 'https://sharestateback.onrender.com' || 'http://localhost:3000';
 
 
   useEffect(() => {
