@@ -40,7 +40,7 @@ app.get("/", (req, res) => {
 });
 
 
-app.use(express.static('my-real-estate-app'));
+app.use(express.static('dist'));
 
 app.use("/api/housesForSale", allHousesRouter);
 
