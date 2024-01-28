@@ -31,14 +31,14 @@ export const Home = () => {
           </h1>
         
 
-          <form className="flex flex-row absolute mx-auto inset-y-1 gap-0.5 items-center justify-center md:flex-row md:items-center">
+          <form className="flex flex-row  mx-auto  gap-0.5 items-center justify-center md:flex-row md:items-center">
             <Link to={"/api/rentInYourArea"}>
            
               <input
                 type="text"
-                placeholder="rent in your area "
+                placeholder="rent in your area"
                 id="rentInYourArea"
-                className="cursor-pointer  ml-2 text-sm py-2 px-1 font-mono text-amber-950 italic md:mr-5 md:h-10 md:pl-4 md:p-7 first-line:border rounded-lg bg-sky-100 hover:bg-sky-200 active:bg-sky-300 focus:outline-none focus:ring focus:ring-violet-100"
+                className="cursor-pointer  ml-2 text-sm py-2 px-1 md:text-2xl  font-mono text-amber-950 italic md:mr-5 md:h-10 md:pl-4 md:p-7 first-line:border rounded-lg bg-sky-100 hover:bg-sky-200 active:bg-sky-300 focus:outline-none focus:ring focus:ring-violet-100"
               />
               
             </Link>
@@ -46,12 +46,12 @@ export const Home = () => {
               <input
                 type="text"
                 id="buyInYourArea"
-                placeholder="buy in your area "
-                className="text-sm cursor-pointer mr-2 py-2 px-1 font-mono text-amber-950 italic md:mr-5 md:h-10 md:pl-4 md:p-7 border rounded-lg bg-sky-100 hover:bg-sky-200 active:bg-sky-300 focus:outline-none focus:ring focus:ring-violet-100"
+                placeholder="buy in your area"
+                className="text-sm cursor-pointer mr-2 py-2 px-1 md:text-2xl font-mono text-amber-950 italic md:mr-5 md:h-10 md:pl-4 md:p-7 border rounded-lg bg-sky-100 hover:bg-sky-200 active:bg-sky-300 focus:outline-none focus:ring focus:ring-violet-100"
               />
             </Link>
           </form>
-          <div className="h-full relative"> <PiCircleFill className="absolute mix-blend-multiply -focus-active:translate-x-5 transition-all text-cyan-100 text-[60px] bottom-2 right-3 lg:hidden " /> <PiCircleFill className="mix-blend-multiply focus-active:translate-x-5 text-fuchsia-100 absolute text-[60px] bottom-2 -right-5 lg:hidden " /> </div>
+          <div className="h-full relative"> <PiCircleFill className="absolute mix-blend-multiply -focus:translate-x-5 transition-all text-cyan-100 text-[60px] bottom-0 right-3 lg:hidden " /> <PiCircleFill className="mix-blend-multiply focus:translate-x-5 text-fuchsia-100 absolute text-[60px] bottom-0 -right-5 lg:hidden " /> </div>
         </div>
       
       </div>
