@@ -9,6 +9,9 @@ export const OAuth: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const backendURL = process.env.NODE_ENV === 'production' ? 'https://sharestateback.onrender.com' : 'http://localhost:3000';
+
+
   const handleGoogleClick = async () => {
     
 
@@ -17,7 +20,9 @@ export const OAuth: React.FC = () => {
       const auth = getAuth(app);
       const result = await signInWithPopup(auth, provider);
       console.log('result from hanlde GOOGLE CLICK',result)
-      const res = await fetch("http://localhost:3000/api/auth/google", {
+      const res = await fetch(`${backendURL}/api/auth/google`, {
+
+      
         method: "POST",
         headers: {
           "Content-Type": "application/json",
