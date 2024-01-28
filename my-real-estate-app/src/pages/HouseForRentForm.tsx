@@ -30,6 +30,9 @@ export const HouseForRentForm = ({ onSubmitForm}: {onSubmitForm:(status: string 
   }));
 
   const authInstance = getAuth(app);
+  
+  const backendURL = process.env.NODE_ENV === 'production' ? 'https://sharestateback.onrender.com' : 'http://localhost:3000';
+
 
   console.log("current user from the form", currentUser);
   console.log("current user from the form", currentUser?._id);
@@ -124,7 +127,7 @@ export const HouseForRentForm = ({ onSubmitForm}: {onSubmitForm:(status: string 
       if (currentUser) {
 
       const res = await fetch(
-        "http://localhost:3000/api/create-house-for-rent",
+        `${backendURL}/api/create-house-for-rent`,
         {
           method: "POST",
           headers: {

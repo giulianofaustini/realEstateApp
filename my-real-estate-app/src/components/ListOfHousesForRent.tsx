@@ -21,6 +21,8 @@ export const ListOfHousesForRent = ({
   );
 
   console.log("filteredHouses FOR RENT", filteredHouses);
+
+  const backendURL = process.env.NODE_ENV === 'production' ? 'https://sharestateback.onrender.com' : 'http://localhost:3000';
   
 
   useEffect(() => {
@@ -35,13 +37,13 @@ export const ListOfHousesForRent = ({
 
   useEffect(() => {
     const fetchHousesForRent = async () => {
-      const response = await fetch("http://localhost:3000/api/housesForRent");
+      const response = await fetch(`${backendURL}/api/housesForRent`);
       const data = await response.json();
       console.log("data from the fetchHousesForRent", data);
       setHousesForRent(data);
     };
     fetchHousesForRent();
-  }, [setHousesForRent]);
+  }, [backendURL, setHousesForRent]);
 
   console.log("from List Of Houses For Rent component", housesToRent);
   return (

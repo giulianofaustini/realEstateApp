@@ -19,6 +19,10 @@ export const UpdateHouseForRentForm = () => {
 
   const params = useParams();
 
+
+  const backendURL = process.env.NODE_ENV === 'production' ? 'https://sharestateback.onrender.com' : 'http://localhost:3000';
+
+
   const [formDataForRent, setFormDataForRent] =
     useState<housesForRentInterface>({
       title: "",
@@ -66,7 +70,7 @@ export const UpdateHouseForRentForm = () => {
         // console.log('the try block is running and set loading to true')
 
         const response = await fetch(
-          `http://localhost:3000/api/housesForRent/rent/${id}`
+          `${backendURL}/api/housesForRent/rent/${id}`
         );
 
         const data = await response.json();

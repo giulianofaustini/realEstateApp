@@ -18,6 +18,8 @@ export const SignUp = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
 
+  const backendURL = process.env.NODE_ENV === 'production' ? 'https://sharestateback.onrender.com' : 'http://localhost:3000';
+
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...formData,
@@ -30,7 +32,9 @@ export const SignUp = () => {
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:3000/api/sign-up", {
+      const res = await fetch(`${backendURL}/api/sign-up`, {
+
+  
         method: "POST",
         headers: {
           "Content-Type": "application/json",

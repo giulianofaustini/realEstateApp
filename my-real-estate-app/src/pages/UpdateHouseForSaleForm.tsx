@@ -24,6 +24,10 @@ export const UpdateHouseForSaleForm = () => {
 
   // console.log("currentUser from the house for sale form", currentUser);
 
+
+  const backendURL = process.env.NODE_ENV === 'production' ? 'https://sharestateback.onrender.com' : 'http://localhost:3000';
+
+
   const [formDataForSale, setFormDataForSale] = useState<HouseInterface>({
     title: "",
     description: "",
@@ -66,7 +70,7 @@ export const UpdateHouseForSaleForm = () => {
       try {
         setLoading(true);
         const res = await fetch(
-          `http://localhost:3000/api/housesForSale/sale/${id}`
+          `${backendURL}/api/housesForSale/sale/${id}`
         );
         const data = await res.json();
         console.log("UPDATE data from the fetch", data);

@@ -21,6 +21,9 @@ export const SignIn = () => {
     photo: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
   });
 
+  const backendURL = process.env.NODE_ENV === 'production' ? 'https://sharestateback.onrender.com' : 'http://localhost:3000';
+
+
   
 
   const { currentUser, loading } = useSelector((state: { user: UserState }) => ({
@@ -43,7 +46,7 @@ export const SignIn = () => {
     dispatch(setLoading(true));
 
     try {
-      const res = await fetch("http://localhost:3000/api/sign-in", {
+      const res = await fetch(`${backendURL}/api/sign-in`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

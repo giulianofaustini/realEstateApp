@@ -36,6 +36,9 @@ export const HouseForSaleForm = ({
 
   const authInstance = getAuth(app);
 
+
+  const backendURL = process.env.NODE_ENV === 'production' ? 'https://sharestateback.onrender.com' : 'http://localhost:3000';
+
   console.log("currentUser from the house for sale form", currentUser);
 
   const [formDataForSale, setFormDataForSale] = useState<HouseInterface>({
@@ -109,7 +112,7 @@ export const HouseForSaleForm = ({
 
     try {
       const res = await fetch(
-        "http://localhost:3000/api/create-house-for-sale",
+        `${backendURL}/api/create-house-for-sale`,
         {
           method: "POST",
           headers: {

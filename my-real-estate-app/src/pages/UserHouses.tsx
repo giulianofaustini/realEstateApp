@@ -4,6 +4,7 @@ import { HouseProps } from "../App";
 import { HousesForRentProps } from "../App";
 import { useSelector } from "react-redux";
 import { UserState } from "../redux/user/userSlice";
+import React from "react";
 
 
 
@@ -20,14 +21,17 @@ export const UserHouses = () => {
     currentUser: state.user.currentUser,
   }));
 
+  const backendURL = process.env.NODE_ENV === 'production' ? 'https://sharestateback.onrender.com' : 'http://localhost:3000';
+
+
   const fetchHouses = async () => {
-    const response = await fetch("http://localhost:3000/api/housesForSale");
+    const response = await fetch(`${backendURL}/api/housesForSale`);
     const data = await response.json();
     setHouses(data);
   };
 
   const fetchHousesForRent = async () => {
-    const response = await fetch("http://localhost:3000/api/housesForRent");
+    const response = await fetch(`${backendURL}/api/housesForRent`);
     const data = await response.json();
     setHousesForRent(data);
   };
@@ -73,7 +77,7 @@ export const UserHouses = () => {
     const isConfirmed = window.confirm("Are you sure you want to delete this listing?");
     if (isConfirmed) {
       try {
-        const response = await fetch(`http://localhost:3000/api/delete-house-for-sale/${houseId}`, {
+        const response = await fetch(`${backendURL}/api/delete-house-for-sale/${houseId}`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
@@ -100,7 +104,7 @@ export const UserHouses = () => {
     const isConfirmed = window.confirm("Are you sure you want to delete this listing?");
     if (isConfirmed) {
       try {
-        const response = await fetch(`http://localhost:3000/api/delete-house-for-rent/${houseId}`, {
+        const response = await fetch(`${backendURL}/api/delete-house-for-rent/${houseId}`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",

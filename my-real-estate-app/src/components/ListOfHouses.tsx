@@ -18,6 +18,8 @@ export const ListOfHouses = ({ housesToPass , setHouses , selectedStatus }: List
 
   console.log("filteredHouses ONSALE", filteredHouses);
 
+  const backendURL = process.env.NODE_ENV === 'production' ? 'https://sharestateback.onrender.com' : 'http://localhost:3000';
+
 
   useEffect(() => {
     
@@ -33,7 +35,7 @@ export const ListOfHouses = ({ housesToPass , setHouses , selectedStatus }: List
 
   useEffect(() => {
     const fetchHouses = async () => {
-      const response = await fetch("http://localhost:3000/api/housesForSale");
+      const response = await fetch(`${backendURL}/api/housesForSale`);
       const data = await response.json();
       console.log("data from the fetchHouses", data);
       setHouses(data);

@@ -73,12 +73,12 @@ function App() {
     setSelectedStatusRent(status);
   };
 
-
+  const backendURL = process.env.NODE_ENV === 'production' ? 'https://sharestateback.onrender.com' : 'http://localhost:3000';
 
 
  
     const fetchHouses = async () => {
-      const response = await fetch("http://localhost:3000/api/housesForSale");
+      const response = await fetch(`${backendURL}/api/housesForSale`);
       const data = await response.json();
       setHouses(data);
       setLoading(false);
@@ -89,7 +89,7 @@ function App() {
   
  
     const fetchHousesForRent = async () => {
-      const response = await fetch("http://localhost:3000/api/housesForRent");
+      const response = await fetch(`${backendURL}/api/housesForRent`);
       const data = await response.json();
       setHousesForRent(data);
       setLoading(false);
