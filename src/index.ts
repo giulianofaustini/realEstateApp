@@ -68,6 +68,10 @@ app.use("/api/update-house-for-sale", allHousesRouter);
 
 app.use("/api/update-house-for-rent", allHousesForRentRouter);
 
+app.use((req, res) => {
+  res.redirect('https://sharestate.onrender.com');
+});
+
 app.listen(Number(port), "0.0.0.0", () => {
   console.log(`Server running at http://0.0.0.0:${port}`);
 });
