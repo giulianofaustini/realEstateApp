@@ -13,6 +13,11 @@ import signinWithGoogleRoute from "../src/routes/signInWithGoogleRoute";
 import userRouter from "../src/routes/userRouter";
 
 const app = express();
+
+app.get("/", (req, res) => {
+  res.send("Welcome to the Real Estate API!");
+});
+
 app.use(express.json());
 app.use(cookieParser());
 const port = process.env.PORT || 3000;
@@ -35,9 +40,7 @@ app.use(
   })
 );
 
-app.get("/", (req, res) => {
-  res.send("Welcome to the Real Estate API!");
-});
+
 
 app.use(express.static("dist"));
 

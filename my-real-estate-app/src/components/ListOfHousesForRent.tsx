@@ -20,8 +20,6 @@ export const ListOfHousesForRent = ({
     housesToRent
   );
 
-  console.log("filteredHouses FOR RENT", filteredHouses);
-
   const backendURL = process.env.NODE_ENV === 'production' ? 'https://sharestateback.onrender.com' : 'http://localhost:3000';
   
 
@@ -44,7 +42,6 @@ export const ListOfHousesForRent = ({
     fetchHousesForRent();
   }, [backendURL, setHousesForRent]);
 
-  console.log("from List Of Houses For Rent component", housesToRent);
   return (
 
     <>
@@ -59,7 +56,7 @@ export const ListOfHousesForRent = ({
     <div className="grid grid-cols-1 md:grid-cols-2 w-4/5 mx-auto justify-center">
       {housesToRent.map((house) => (
         <div key={house._id}>
-          <Link key={house._id} to={`/api/housesForRent/rent/${house._id}`}>
+          <Link to={`/api/housesForRent/rent/${house._id}`}>
             <div className=" bg-cyan-900 p-1 border-2 border-slate-200  m-2 rounded-xl text-white">
               <div
                 className={`p-4 border-4 rounded-xl m-2 ${house.status === "onHold"

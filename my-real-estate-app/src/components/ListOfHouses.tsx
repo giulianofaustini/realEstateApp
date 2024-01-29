@@ -16,11 +16,9 @@ export const ListOfHouses = ({
   setHouses,
   selectedStatus,
 }: ListOfHousesProps) => {
-  console.log("from List Of Houses component", housesToPass);
 
   const [filteredHouses, setFilteredHouses] = useState<HouseProps[]>([]);
 
-  console.log("filteredHouses ONSALE", filteredHouses);
 
   const backendURL =
     process.env.NODE_ENV === "production"
@@ -69,7 +67,7 @@ export const ListOfHouses = ({
           {housesToPass.map((house) => (
             // console.log("in the map the id:", house._id),
             <div className="   " key={house._id}>
-              <Link key={house._id} to={`/api/houses/sale/${house._id}`}>
+              <Link to={`/api/houses/sale/${house._id}`}>
                 <div className=" bg-cyan-900 p-1 border-2 rounded-xl border-white  m-2  text-white ">
                   <div
                     className={`p-4 border-4 rounded-xl m-2 ${

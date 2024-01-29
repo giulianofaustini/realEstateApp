@@ -8,11 +8,14 @@ import {
 import { HouseProps } from "../App";
 import { Link } from "react-router-dom";
 import { IoMdSquareOutline } from "react-icons/io";
+import { Libraries } from "@react-google-maps/api";
 
 export interface HousesToBuyInTheMapProps {
     houseToBuyInMap: HouseProps[];
     selectedStatus: { value: string; label: string } | null;
 }
+
+const libraries: Libraries = ["places"]; 
 
 type LatLongLiteral = google.maps.LatLngLiteral;
 type mapOptions = google.maps.MapOptions;
@@ -23,13 +26,12 @@ export const MapSale: React.FC<HousesToBuyInTheMapProps> = ({
 }) => {
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY || "",
-    libraries: ["places"],
+    libraries: libraries,
   });
 
 
   const [filteredHouses, setFilteredHouses] = useState<HouseProps[]>([]);
 
-  console.log("filteredHouses FOR SALE", filteredHouses);
 
 
 

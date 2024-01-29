@@ -9,6 +9,7 @@ import { HousesForRentProps } from "../App";
 import { Link } from "react-router-dom";
 
 import { IoMdSquareOutline } from "react-icons/io";
+import { Libraries } from "@react-google-maps/api";
 
 export interface HousesForRentInTheMapProps {
   houseToRentInMap: HousesForRentProps[];
@@ -18,13 +19,15 @@ export interface HousesForRentInTheMapProps {
 type LatLongLiteral = google.maps.LatLngLiteral;
 type mapOptions = google.maps.MapOptions;
 
+const libraries: Libraries = ["places"]; 
+
 export const Map: React.FC<HousesForRentInTheMapProps> = ({
   houseToRentInMap,  selectedStatusRent
 }) => {
 
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY || "",
-    libraries: ["places"],
+    libraries: libraries,
   });
 
 
@@ -39,7 +42,7 @@ export const Map: React.FC<HousesForRentInTheMapProps> = ({
 
   const [filteredHouses, setFilteredHouses] = useState<HousesForRentProps[]>([]);
 
-  console.log("filteredHouses FOR RENT", filteredHouses);
+
 
 
 
