@@ -20,8 +20,6 @@ export const SingleHouse = ({ houses }: SingleHouseProps) => {
 
   SwiperCore.use([Navigation]);
 
-  console.log("this is the id from the URL:", id);
-
   const selectedHouse = houses.find((house) => house._id === id);
 
   if (!selectedHouse) {

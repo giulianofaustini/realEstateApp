@@ -4,11 +4,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setCurrentUser, setLoading } from "../redux/user/userSlice";
 import { useSelector } from "react-redux";
-import { UserState } from "../redux/user/userSlice"
+import { UserState } from "../redux/user/userSlice";
 import { OAuth } from "../components/OAuth";
 import React from "react";
-
-
 
 export const SignIn = () => {
   const [formData, setFormData] = useState<UserInterface>({
@@ -18,18 +16,21 @@ export const SignIn = () => {
     isAdmin: false,
     createdAt: new Date(),
     updatedAt: new Date(),
-    photo: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
+    photo:
+      "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
   });
 
-  const backendURL = process.env.NODE_ENV === 'production' ? 'https://sharestateback.onrender.com' : 'http://localhost:3000';
+  const backendURL =
+    process.env.NODE_ENV === "production"
+      ? "https://sharestateback.onrender.com"
+      : "http://localhost:3000";
 
-
-  
-
-  const { currentUser, loading } = useSelector((state: { user: UserState }) => ({
-    currentUser: state.user.currentUser,
-    loading: state.user.loading,
-  }));
+  const { currentUser, loading } = useSelector(
+    (state: { user: UserState }) => ({
+      currentUser: state.user.currentUser,
+      loading: state.user.loading,
+    })
+  );
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -55,17 +56,24 @@ export const SignIn = () => {
       });
 
       const data = await res.json();
-      console.log('data from the handle submit form to check what info I have', data);
 
       if (res.ok) {
-        const { _id, username, password , email, isAdmin, createdAt, updatedAt , photo} =
-          data as UserInterface;
-          console.log(' email from the singin function' , email)
+        const {
+          _id,
+          username,
+          password,
+          email,
+          isAdmin,
+          createdAt,
+          updatedAt,
+          photo,
+        } = data as UserInterface;
+        console.log(" email from the singin function", email);
         dispatch(
           setCurrentUser({
             _id,
             username,
-            password, 
+            password,
             email,
             isAdmin,
             createdAt,
@@ -73,7 +81,6 @@ export const SignIn = () => {
             photo,
           })
         );
-     
 
         setFormData({
           username: "",
@@ -96,7 +103,6 @@ export const SignIn = () => {
 
   // console.log(formData)
   return (
-    
     <div className="max-w-lg  mx-auto mt-10">
       {currentUser && (
         <div className="mb-4">

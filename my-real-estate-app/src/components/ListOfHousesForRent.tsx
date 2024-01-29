@@ -39,7 +39,6 @@ export const ListOfHousesForRent = ({
     const fetchHousesForRent = async () => {
       const response = await fetch(`${backendURL}/api/housesForRent`);
       const data = await response.json();
-      console.log("data from the fetchHousesForRent", data);
       setHousesForRent(data);
     };
     fetchHousesForRent();

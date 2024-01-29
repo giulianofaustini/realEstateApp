@@ -1,4 +1,3 @@
-
 import { NextFunction } from "express";
 import { HouseInterface } from "../interfaces/houseInterface";
 import { Request, Response } from "express";
@@ -50,7 +49,7 @@ const getHousesForRent = async (): Promise<housesForRentInterface[]> => {
       imageUrl: house.imageUrl,
       bathrooms: house.bathrooms,
       bedrooms: house.bedrooms,
-      year: house.year, 
+      year: house.year,
       addedBy: house.addedBy?.toString(),
       userEmail: house.userEmail?.toString(),
       userId: house.userId?.toString(),
@@ -67,9 +66,9 @@ const getHousesForRent = async (): Promise<housesForRentInterface[]> => {
   }
 };
 
-const getHouseById =  async (id: string) => {
+const getHouseById = async (id: string) => {
   try {
-    const house = await HouseForSale.findById(id)
+    const house = await HouseForSale.findById(id);
     const convertedHouse: HouseInterface = {
       _id: house?._id.toString(),
       title: house?.title || "",
@@ -89,13 +88,12 @@ const getHouseById =  async (id: string) => {
     return convertedHouse;
   } catch (error) {
     throw new Error("Error while fetching house");
-    }
-  
+  }
 };
 
 const getHouseForRentById = async (id: string) => {
   try {
-    const house = await HouseForRent.findById(id)
+    const house = await HouseForRent.findById(id);
     const convertedHouse: housesForRentInterface = {
       _id: house?._id.toString(),
       title: house?.title || "",
@@ -114,13 +112,9 @@ const getHouseForRentById = async (id: string) => {
       status: house?.status || "",
     };
     return convertedHouse;
-
   } catch (error) {
     throw new Error("Error while fetching house");
-    }
- 
-
-  
+  }
 };
 
 const createHouseForSale = async (
@@ -143,7 +137,7 @@ const createHouseForSale = async (
     addedBy,
     userEmail,
     userId,
-    status
+    status,
   } = houseForSaleData;
   try {
     const newHouseForSale = new HouseForSale({
@@ -160,7 +154,7 @@ const createHouseForSale = async (
       addedBy,
       userEmail,
       userId,
-      status
+      status,
     });
     await newHouseForSale.save();
     res.status(201).json({ message: "House created successfully" });
@@ -190,7 +184,7 @@ const createHouseForRent = async (
     addedBy,
     userEmail,
     userId,
-    status
+    status,
   } = houseForRentData;
   try {
     const newHouseForRent = new HouseForRent({
@@ -208,7 +202,7 @@ const createHouseForRent = async (
       addedBy,
       userEmail,
       userId,
-      status
+      status,
     });
     await newHouseForRent.save();
     res.status(201).json({ message: "House created successfully" });
@@ -217,142 +211,145 @@ const createHouseForRent = async (
   }
 };
 
+const deleteHouseForSale = async (
+  _id: string
+): Promise<HouseInterface | null> => {
+  try {
+    const houseToDelete = await HouseForSale.findById(_id);
 
-const deleteHouseForSale = async (_id: string): Promise<HouseInterface | null> => {
-    try {
-        const houseToDelete = await HouseForSale.findById(_id);
+    if (houseToDelete) {
+      const convertedHouse: HouseInterface = {
+        _id: houseToDelete._id.toString(),
+        title: houseToDelete.title,
+        description: houseToDelete.description,
+        address: houseToDelete.address,
+        location: houseToDelete.location || undefined,
+        price: houseToDelete.price,
+        imageUrl: houseToDelete.imageUrl,
+        bathrooms: houseToDelete.bathrooms,
+        bedrooms: houseToDelete.bedrooms,
+        year: houseToDelete.year,
+        addedBy: houseToDelete.addedBy?.toString(),
+        userEmail: houseToDelete.userEmail?.toString(),
+        userId: houseToDelete.userId?.toString(),
+        status: houseToDelete.status,
+      };
 
-        if (houseToDelete) {
-            const convertedHouse: HouseInterface = {
-              _id: houseToDelete._id.toString(),
-              title: houseToDelete.title,
-              description: houseToDelete.description,
-              address: houseToDelete.address,
-              location: houseToDelete.location || undefined,
-              price: houseToDelete.price,
-              imageUrl: houseToDelete.imageUrl,
-              bathrooms: houseToDelete.bathrooms,
-              bedrooms: houseToDelete.bedrooms,
-              year: houseToDelete.year,
-              addedBy: houseToDelete.addedBy?.toString(),
-              userEmail: houseToDelete.userEmail?.toString(),
-              userId: houseToDelete.userId?.toString(),
-              status: houseToDelete.status,
-            };
-
-        await HouseForSale.findByIdAndDelete(_id);
-            return convertedHouse;
-           
-        } else {
-            return null;
-        }
-    } catch (error) {
-        throw new Error("Error while deleting house");
+      await HouseForSale.findByIdAndDelete(_id);
+      return convertedHouse;
+    } else {
+      return null;
     }
+  } catch (error) {
+    throw new Error("Error while deleting house");
+  }
 };
 
-const deleteHouseForRent = async (_id: string): Promise<housesForRentInterface | null> => {
-    try {
-        const houseToDelete = await HouseForRent.findById(_id);
+const deleteHouseForRent = async (
+  _id: string
+): Promise<housesForRentInterface | null> => {
+  try {
+    const houseToDelete = await HouseForRent.findById(_id);
 
-        if (houseToDelete) {
-            const convertedHouse: housesForRentInterface = {
-                _id: houseToDelete._id.toString(),
-                title: houseToDelete.title,
-                description: houseToDelete.description,
-                address: houseToDelete.address,
-                location: houseToDelete.location || undefined,
-                monthlyRent: houseToDelete.monthlyRent,
-                rentalDeposit: houseToDelete.rentalDeposit,
-                imageUrl: houseToDelete.imageUrl,
-                bathrooms: houseToDelete.bathrooms,
-                bedrooms: houseToDelete.bedrooms,
-                year: houseToDelete.year,
-                addedBy: houseToDelete.addedBy?.toString(),
-                userEmail: houseToDelete.userEmail?.toString(),
-                userId: houseToDelete.userId?.toString(),
-                status: houseToDelete.status,
-            };
+    if (houseToDelete) {
+      const convertedHouse: housesForRentInterface = {
+        _id: houseToDelete._id.toString(),
+        title: houseToDelete.title,
+        description: houseToDelete.description,
+        address: houseToDelete.address,
+        location: houseToDelete.location || undefined,
+        monthlyRent: houseToDelete.monthlyRent,
+        rentalDeposit: houseToDelete.rentalDeposit,
+        imageUrl: houseToDelete.imageUrl,
+        bathrooms: houseToDelete.bathrooms,
+        bedrooms: houseToDelete.bedrooms,
+        year: houseToDelete.year,
+        addedBy: houseToDelete.addedBy?.toString(),
+        userEmail: houseToDelete.userEmail?.toString(),
+        userId: houseToDelete.userId?.toString(),
+        status: houseToDelete.status,
+      };
 
-        await HouseForRent.findByIdAndDelete(_id);
-            return convertedHouse;
-           
-        } else {
-            return null;
-        }
-    } catch (error) {
-        throw new Error("Error while deleting house");
+      await HouseForRent.findByIdAndDelete(_id);
+      return convertedHouse;
+    } else {
+      return null;
     }
-}
+  } catch (error) {
+    throw new Error("Error while deleting house");
+  }
+};
 
+const updateHouseForSale = async (
+  _id: string,
+  houseForSaleData: HouseInterface
+): Promise<HouseInterface | null> => {
+  try {
+    const houseToUpdate = await HouseForSale.findById(_id);
 
-const updateHouseForSale = async (_id: string, houseForSaleData: HouseInterface): Promise<HouseInterface | null> => {
-    try {
-        const houseToUpdate = await HouseForSale.findById(_id);
+    if (houseToUpdate) {
+      const convertedHouse: HouseInterface = {
+        _id: houseToUpdate._id.toString(),
+        title: houseToUpdate.title,
+        description: houseToUpdate.description,
+        address: houseToUpdate.address,
+        location: houseToUpdate.location || undefined,
+        price: houseToUpdate.price,
+        imageUrl: houseToUpdate.imageUrl,
+        bathrooms: houseToUpdate.bathrooms,
+        bedrooms: houseToUpdate.bedrooms,
+        year: houseToUpdate.year,
+        addedBy: houseToUpdate.addedBy?.toString(),
+        userEmail: houseToUpdate.userEmail?.toString(),
+        userId: houseToUpdate.userId?.toString(),
+        status: houseToUpdate.status,
+      };
 
-        if (houseToUpdate) {
-            const convertedHouse: HouseInterface = {
-                _id: houseToUpdate._id.toString(),
-                title: houseToUpdate.title,
-                description: houseToUpdate.description,
-                address: houseToUpdate.address,
-                location: houseToUpdate.location || undefined,
-                price: houseToUpdate.price,
-                imageUrl: houseToUpdate.imageUrl,
-                bathrooms: houseToUpdate.bathrooms,
-                bedrooms: houseToUpdate.bedrooms,
-                year: houseToUpdate.year,
-                addedBy: houseToUpdate.addedBy?.toString(),
-                userEmail: houseToUpdate.userEmail?.toString(),
-                userId: houseToUpdate.userId?.toString(),
-                status: houseToUpdate.status,
-            };
-
-            await HouseForSale.findByIdAndUpdate(_id, houseForSaleData);
-            return convertedHouse;
-        } else {
-            return null;
-        }
-    } catch (error) {
-        throw new Error("Error while updating house");
+      await HouseForSale.findByIdAndUpdate(_id, houseForSaleData);
+      return convertedHouse;
+    } else {
+      return null;
     }
+  } catch (error) {
+    throw new Error("Error while updating house");
+  }
+};
 
-}
+const updateHouseForRent = async (
+  _id: string,
+  houseForRentData: housesForRentInterface
+): Promise<housesForRentInterface | null> => {
+  try {
+    const houseToUpdate = await HouseForRent.findById(_id);
 
+    if (houseToUpdate) {
+      const convertedHouse: housesForRentInterface = {
+        _id: houseToUpdate._id.toString(),
+        title: houseToUpdate.title,
+        description: houseToUpdate.description,
+        address: houseToUpdate.address,
+        location: houseToUpdate.location || undefined,
+        monthlyRent: houseToUpdate.monthlyRent,
+        rentalDeposit: houseToUpdate.rentalDeposit,
+        imageUrl: houseToUpdate.imageUrl,
+        bathrooms: houseToUpdate.bathrooms,
+        bedrooms: houseToUpdate.bedrooms,
+        year: houseToUpdate.year,
+        addedBy: houseToUpdate.addedBy?.toString(),
+        userEmail: houseToUpdate.userEmail?.toString(),
+        userId: houseToUpdate.userId?.toString(),
+        status: houseToUpdate.status,
+      };
 
-const updateHouseForRent = async (_id: string, houseForRentData: housesForRentInterface): Promise<housesForRentInterface | null> => {
-    try {
-        const houseToUpdate = await HouseForRent.findById(_id);
-
-        if (houseToUpdate) {
-            const convertedHouse: housesForRentInterface = {
-                _id: houseToUpdate._id.toString(),
-                title: houseToUpdate.title,
-                description: houseToUpdate.description,
-                address: houseToUpdate.address,
-                location: houseToUpdate.location || undefined,
-                monthlyRent: houseToUpdate.monthlyRent,
-                rentalDeposit: houseToUpdate.rentalDeposit,
-                imageUrl: houseToUpdate.imageUrl,
-                bathrooms: houseToUpdate.bathrooms,
-                bedrooms: houseToUpdate.bedrooms,
-                year: houseToUpdate.year,
-                addedBy: houseToUpdate.addedBy?.toString(),
-                userEmail: houseToUpdate.userEmail?.toString(),
-                userId: houseToUpdate.userId?.toString(),
-                status: houseToUpdate.status,
-            };
-
-            await HouseForRent.findByIdAndUpdate(_id, houseForRentData);
-            return convertedHouse;
-        } else {
-            return null;
-        }
-    } catch (error) {
-        throw new Error("Error while updating house");
+      await HouseForRent.findByIdAndUpdate(_id, houseForRentData);
+      return convertedHouse;
+    } else {
+      return null;
     }
-
-}
+  } catch (error) {
+    throw new Error("Error while updating house");
+  }
+};
 
 export const housesService = {
   getHouses,
@@ -364,5 +361,5 @@ export const housesService = {
   deleteHouseForSale,
   deleteHouseForRent,
   updateHouseForSale,
-  updateHouseForRent
+  updateHouseForRent,
 };

@@ -1,4 +1,4 @@
-import React, { useState , useEffect} from "react";
+import React, { useState, useEffect } from "react";
 
 import { useNavigate } from "react-router-dom";
 import { housesForRentInterface } from "../../../src/interfaces/housesForRentInterface";
@@ -11,28 +11,32 @@ import {
   ref,
   uploadBytesResumable,
 } from "firebase/storage";
-import { getAuth } from "firebase/auth"; 
-
+import { getAuth } from "firebase/auth";
 
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
 } from "react-places-autocomplete";
 
-import loadGoogleMapsApi from 'load-google-maps-api';
+import loadGoogleMapsApi from "load-google-maps-api";
 
 import Select from "react-select";
 
-
-export const HouseForRentForm = ({ onSubmitForm}: {onSubmitForm:(status: string | null) => void}) => {
+export const HouseForRentForm = ({
+  onSubmitForm,
+}: {
+  onSubmitForm: (status: string | null) => void;
+}) => {
   const { currentUser } = useSelector((state: { user: UserState }) => ({
     currentUser: state.user.currentUser,
   }));
 
   const authInstance = getAuth(app);
-  
-  const backendURL = process.env.NODE_ENV === 'production' ? 'https://sharestateback.onrender.com' : 'http://localhost:3000';
 
+  const backendURL =
+    process.env.NODE_ENV === "production"
+      ? "https://sharestateback.onrender.com"
+      : "http://localhost:3000";
 
   console.log("current user from the form", currentUser);
   console.log("current user from the form", currentUser?._id);
@@ -56,14 +60,12 @@ export const HouseForRentForm = ({ onSubmitForm}: {onSubmitForm:(status: string 
     });
   console.log("data from the form", formDataForRent);
 
- // setState for status of the house
+  // setState for status of the house
 
- const [selectedStatusRent, setSelectedStatusRent] = useState<{
-  value: string;
-  label: string;
-} | null>(null);
-
-
+  const [selectedStatusRent, setSelectedStatusRent] = useState<{
+    value: string;
+    label: string;
+  } | null>(null);
 
   const [address, setAddress] = useState<string>("");
   const [mapsLoaded, setMapsLoaded] = useState(false);
@@ -83,20 +85,17 @@ export const HouseForRentForm = ({ onSubmitForm}: {onSubmitForm:(status: string 
     const loadGoogleMaps = async () => {
       try {
         const googleMaps = await loadGoogleMapsApi({
-          
           key: import.meta.env.VITE_GOOGLE_MAPS_API_KEY || "",
-          libraries: ['places'],
+          libraries: ["places"],
         });
         setMapsLoaded(true);
-        console.log('RENT STATUS in GoogleMaps', googleMaps)
+        console.log("RENT STATUS in GoogleMaps", googleMaps);
       } catch (error) {
-        console.error('Error loading Google Maps API:', error);
+        console.error("Error loading Google Maps API:", error);
       }
-      
     };
     loadGoogleMaps();
   }, []);
-
 
   useEffect(() => {
     if (imageUploadError) {
@@ -107,7 +106,9 @@ export const HouseForRentForm = ({ onSubmitForm}: {onSubmitForm:(status: string 
     }
   }, [imageUploadError]);
 
-  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleFormChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setFormDataForRent({
       ...formDataForRent,
       [e.target.id]: e.target.value,
@@ -121,14 +122,8 @@ export const HouseForRentForm = ({ onSubmitForm}: {onSubmitForm:(status: string 
     setLoading(true);
 
     try {
-      
-
-
       if (currentUser) {
-
-      const res = await fetch(
-        `${backendURL}/api/create-house-for-rent`,
-        {
+        const res = await fetch(`${backendURL}/api/create-house-for-rent`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -138,40 +133,34 @@ export const HouseForRentForm = ({ onSubmitForm}: {onSubmitForm:(status: string 
             ...formDataForRent,
             status: selectedStatusRent?.value,
           }),
-        }
-      );
-
-      const data = await res.json();
-      console.log(
-        "data from the handle submit form to check what info RENT HOUSES I have",
-        data
-      );
-
-      if (data.ok) {
-        setFormDataForRent({
-          title: "",
-          description: "",
-          monthlyRent: 0,
-          rentalDeposit: 0,
-          address: "",
-          location: "",
-          imageUrl: [],
-          year: 0,
-          bedrooms: 0,
-          bathrooms: 0,
-          userId: currentUser?._id || "",
         });
-        setLoading(false);
-        if (selectedStatusRent) {
-          onSubmitForm(selectedStatusRent.value);
+
+        const data = await res.json();
+        if (data.ok) {
+          setFormDataForRent({
+            title: "",
+            description: "",
+            monthlyRent: 0,
+            rentalDeposit: 0,
+            address: "",
+            location: "",
+            imageUrl: [],
+            year: 0,
+            bedrooms: 0,
+            bathrooms: 0,
+            userId: currentUser?._id || "",
+          });
+          setLoading(false);
+          if (selectedStatusRent) {
+            onSubmitForm(selectedStatusRent.value);
+          }
+
+          console.log(data.message);
+        } else {
+          setLoading(false);
+          alert(data.message);
         }
-  
-        console.log(data.message);
       } else {
-        setLoading(false);
-        alert(data.message);
-      } } else {
-      
         console.log("User is not authenticated");
         setLoading(false);
       }
@@ -183,17 +172,12 @@ export const HouseForRentForm = ({ onSubmitForm}: {onSubmitForm:(status: string 
     }
   };
 
-
   const handleUploadImagesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-   
     const files = e.target.files;
     setFiles(files ? Array.from(files) : []);
-
-    console.log("files", files);
   };
 
   const storeImage = async (file: File) => {
-   
     return new Promise((resolve, reject) => {
       const storage = getStorage(app);
       const fileName = new Date().getTime() + file.name;
@@ -229,7 +213,7 @@ export const HouseForRentForm = ({ onSubmitForm}: {onSubmitForm:(status: string 
   const handleImageSubmit = () => {
     const userToken = authInstance.currentUser;
     console.log("TOKEN userToken from the form", userToken);
-    if (!files ) return;
+    if (!files) return;
     try {
       if (
         files.length > 0 &&
@@ -251,6 +235,7 @@ export const HouseForRentForm = ({ onSubmitForm}: {onSubmitForm:(status: string 
         });
       } else {
         setImageUploadError("Please upload between 1 and 6 images");
+        setUpLoading(false);
       }
     } catch (error) {
       setImageUploadError("Something went wrong, please try again");
@@ -262,9 +247,7 @@ export const HouseForRentForm = ({ onSubmitForm}: {onSubmitForm:(status: string 
       ...formDataForRent,
       imageUrl: formDataForRent.imageUrl.filter((_url, i) => i !== index),
     });
-
-  }
-
+  };
 
   const handleSelect = async (selectedAddress: string) => {
     try {
@@ -285,10 +268,12 @@ export const HouseForRentForm = ({ onSubmitForm}: {onSubmitForm:(status: string 
     setAddress(newAddress);
   };
 
-
   return (
     <div className="max-w-lg  mx-auto mt-10">
-      <div className="text-start pl-6 text-cyan-950 uppercase" >add a property <span className="font-bold"> for rent </span> to the listing</div>
+      <div className="text-start pl-6 text-cyan-950 uppercase">
+        add a property <span className="font-bold"> for rent </span> to the
+        listing
+      </div>
       <form
         className="flex flex-col gap-3 m-5"
         onSubmit={handleFormForSaleChange}
@@ -321,42 +306,45 @@ export const HouseForRentForm = ({ onSubmitForm}: {onSubmitForm:(status: string 
           id="rentalDeposit"
           onChange={handleFormChange}
         />
-{mapsLoaded && (
-<PlacesAutocomplete
-          value={address}
-          onChange={handleAddressChange}
-          onSelect={handleSelect}
-        >
-          {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-            <div>
-              <input
-                {...getInputProps({
-                  placeholder: "Type and Select The Address",
-                  className: "p-5 border rounded-lg w-full",
-                })}
-              />
+        {mapsLoaded && (
+          <PlacesAutocomplete
+            value={address}
+            onChange={handleAddressChange}
+            onSelect={handleSelect}
+          >
+            {({
+              getInputProps,
+              suggestions,
+              getSuggestionItemProps,
+              loading,
+            }) => (
               <div>
-                {loading ? <div>choose the address </div> : null}
-                {suggestions.map((suggestion) => {
-                  const style = {
-                    backgroundColor: suggestion.active ? "#22d3ee" : "#fff",
-                  };
-                  return (
-                    <div
-                      {...getSuggestionItemProps(suggestion, { style })}
-                      key={suggestion.placeId}
-                    >
-                      {suggestion.description}
-                    </div>
-                  );
-                })}
+                <input
+                  {...getInputProps({
+                    placeholder: "Type and Select The Address",
+                    className: "p-5 border rounded-lg w-full",
+                  })}
+                />
+                <div>
+                  {loading ? <div>choose the address </div> : null}
+                  {suggestions.map((suggestion) => {
+                    const style = {
+                      backgroundColor: suggestion.active ? "#22d3ee" : "#fff",
+                    };
+                    return (
+                      <div
+                        {...getSuggestionItemProps(suggestion, { style })}
+                        key={suggestion.placeId}
+                      >
+                        {suggestion.description}
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
-            </div>
-          )}
-        </PlacesAutocomplete>
-)}
-
-      
+            )}
+          </PlacesAutocomplete>
+        )}
 
         <div className="flex items-center gap-2 h-auto">
           <input
@@ -368,12 +356,16 @@ export const HouseForRentForm = ({ onSubmitForm}: {onSubmitForm:(status: string 
             onChange={handleUploadImagesChange}
           />
           <button
-          disabled={uploading}
+            disabled={uploading}
             onClick={handleImageSubmit}
             type="button"
             className="p-5 border rounded-full bg-red-600 text-white uppercase"
           >
-           { uploading ? <span className=" text-cyan-950 ">'uploading'</span>  :  'Upload' }
+            {uploading ? (
+              <span className=" text-cyan-950 ">'uploading'</span>
+            ) : (
+              "Upload"
+            )}
           </button>
         </div>
 
@@ -399,20 +391,30 @@ export const HouseForRentForm = ({ onSubmitForm}: {onSubmitForm:(status: string 
           onChange={handleFormChange}
         />
         <p>
-        {imageUploadError ? (
-          <div className="text-red-500 ">{imageUploadError}</div>
-        ) : null}
+          {imageUploadError ? (
+            <div className="text-red-500 ">{imageUploadError}</div>
+          ) : null}
         </p>
-        { formDataForRent.imageUrl.length > 0 ? (
+        {formDataForRent.imageUrl.length > 0 ? (
           <div className="flex flex-col gap-2">
             {formDataForRent.imageUrl.map((url, index) => (
               <div className="flex justify-between">
-                <img key={index} src={url} alt="listing images"  className="w-20 h-20 object-contain rounded-lg"/>
-                <button onClick={() => handleRemoveImages(index)} className="text-red-700 uppercase hover:opacity-75 pr-5">delete</button>
+                <img
+                  key={index}
+                  src={url}
+                  alt="listing images"
+                  className="w-20 h-20 object-contain rounded-lg"
+                />
+                <button
+                  onClick={() => handleRemoveImages(index)}
+                  className="text-red-700 uppercase hover:opacity-75 pr-5"
+                >
+                  delete
+                </button>
               </div>
             ))}
           </div>
-        ) : null} 
+        ) : null}
 
         {/* select options for selctedSTate */}
 
@@ -435,12 +437,12 @@ export const HouseForRentForm = ({ onSubmitForm}: {onSubmitForm:(status: string 
           placeholder="Set the status of the house"
         />
 
-
-
-        <button className="p-5 border rounded-lg uppercase bg-cyan-900 text-white hover:opacity-85 " disabled={loading}>
+        <button
+          className="p-5 border rounded-lg uppercase bg-cyan-900 text-white hover:opacity-85 "
+          disabled={loading}
+        >
           Submit
         </button>
-    
       </form>
     </div>
   );

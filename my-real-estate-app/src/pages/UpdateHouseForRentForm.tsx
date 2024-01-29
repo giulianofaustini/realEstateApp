@@ -93,7 +93,7 @@ export const UpdateHouseForRentForm = () => {
       }
     };
     fetchHousesForRent();
-  }, [params.id]);
+  }, [backendURL, params.id]);
 
   useEffect(() => {
     if (imageUploadError) {
@@ -120,7 +120,7 @@ export const UpdateHouseForRentForm = () => {
     try {
      
       const res = await fetch(
-        `http://localhost:3000/api/update-house-for-rent/${params.id}`,
+        `${backendURL}/api/update-house-for-rent/${params.id}`,
         {
           method: "PUT",
           headers: {

@@ -17,7 +17,7 @@ router.post(
         error.statusCode = 400;
         throw error;
       }
-      
+
       await authService.addUser(req.body, req, res, next);
       console.log("user created", req.body);
     } catch (err) {

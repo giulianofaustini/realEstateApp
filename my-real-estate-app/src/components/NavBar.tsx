@@ -66,7 +66,6 @@ export const NavBar: React.FC = () => {
           </Link>
       </h1>
      
-
       {currentUser ? (
         <div className="relative mb-2 mt-1 flex h-10 items-center mr-1">
           <Link to={"/api/action"}> 

@@ -19,7 +19,6 @@ export const OAuth: React.FC = () => {
       const provider = new GoogleAuthProvider();
       const auth = getAuth(app);
       const result = await signInWithPopup(auth, provider);
-      console.log('result from hanlde GOOGLE CLICK',result)
       const res = await fetch(`${backendURL}/api/auth/google`, {
 
       
@@ -36,7 +35,6 @@ export const OAuth: React.FC = () => {
       const data = await res.json();
       dispatch(setCurrentUser(data));
       navigate("/");
-      console.log(' Oauth data from handle GOOGLE CLICK', data)
     } catch (error) {
       console.log("cannot sign in with googlwe");
     }
@@ -48,7 +46,7 @@ export const OAuth: React.FC = () => {
       type="button"
       className="bg-red-700 text-white p-3 rounded-lg hover:opacity-95 disabled:opacity-80 uppercase"
     >
-      Continute with google
+      Continue with google
     </button>
   );
 };

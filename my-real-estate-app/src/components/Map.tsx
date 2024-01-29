@@ -22,11 +22,6 @@ export const Map: React.FC<HousesForRentInTheMapProps> = ({
   houseToRentInMap,  selectedStatusRent
 }) => {
 
-
-  console.log("houseToRentInMap BIIIIIIIIIIGGGGGGG", houseToRentInMap);
-
-
-
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY || "",
     libraries: ["places"],
@@ -270,7 +265,7 @@ export const Map: React.FC<HousesForRentInTheMapProps> = ({
     <IoMdSquareOutline  className="text-green-500 h-4 bg-green-500" />
       <span className="mr-6 text-green-500 ">  available for rent</span>
     <IoMdSquareOutline className="text-yellow-400 h-4 bg-yellow-400" />
-      <span className="mr-6 text-yellow-300">  reserved. Check back for status changes</span>
+      <span className="mr-6 text-yellow-300">  reserved. Check back later</span>
     <IoMdSquareOutline className="text-red-500 h-4 bg-red-500" />
       <span className="text-red-500"> rented out/ to be removed</span>
     </div>

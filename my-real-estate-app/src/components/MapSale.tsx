@@ -259,7 +259,7 @@ export const MapSale: React.FC<HousesToBuyInTheMapProps> = ({
     <IoMdSquareOutline  className="text-green-500 h-4 bg-green-500" />
       <span className="mr-6 text-green-500 ">  available </span>
     <IoMdSquareOutline className="text-yellow-400 h-4 bg-yellow-400" />
-      <span className="mr-6 text-yellow-300">  reserved. Check back for status changes</span>
+      <span className="mr-6 text-yellow-300">  reserved. Check back later</span>
     <IoMdSquareOutline className="text-red-500 h-4 bg-red-500" />
       <span className="text-red-500">  sold / to be removed</span>
     </div>

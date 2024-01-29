@@ -84,7 +84,7 @@ export const UpdateHouseForSaleForm = () => {
       }
     };
     fetchHousesForSale();
-  }, [params.id]);
+  }, [backendURL, params.id]);
 
   useEffect(() => {
     if (imageUploadError) {
@@ -110,7 +110,7 @@ export const UpdateHouseForSaleForm = () => {
 
     try {
       const res = await fetch(
-        `http://localhost:3000/api/update-house-for-sale/${params.id}`,
+        `${backendURL}/api/update-house-for-sale/${params.id}`,
         {
           method: "PUT",
           headers: {
