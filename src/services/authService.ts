@@ -13,6 +13,21 @@ if (!secret) {
   throw new Error("JWT_SECRET is not defined in the environment variables.");
 }
 
+
+const deleteUser = async (
+  userId: string,
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    await User.findByIdAndDelete(userId);
+    res.status(200).json({ message: "User deleted successfully" });
+  } catch (error) {
+    next(error);
+  }
+}
+
 const addUser = async (
   userData: UserInterface,
   req: Request,
@@ -155,4 +170,5 @@ export const authService = {
   addUser,
   signIn,
   google,
+  deleteUser
 };

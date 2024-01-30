@@ -64,6 +64,8 @@ app.use("/api/create-house-for-rent", allHousesForRentRouter);
 
 app.use("/api/delete-house-for-sale", allHousesRouter);
 
+app.use("/api/delete-user", authRouter);
+
 app.use("/api/delete-house-for-rent", allHousesForRentRouter);
 
 app.use("/api/update-house-for-sale", allHousesRouter);

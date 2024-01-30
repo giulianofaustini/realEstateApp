@@ -13,6 +13,16 @@ export const ActionPage = () => {
     currentUser: state.user.currentUser,
   }));
 
+  console.log(
+    "current user FROM ACTION PAGE: CHECK IS THERE HOUSES",
+    currentUser
+  );
+
+  const backendURL =
+    process.env.NODE_ENV === "production"
+      ? "https://sharestateback.onrender.com"
+      : "http://localhost:3000";
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -21,6 +31,37 @@ export const ActionPage = () => {
     persistor.purge();
     navigate("/");
     console.log("sign out");
+  };
+
+  const handleDeleteAccount = () => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete your account?"
+    );
+
+    if (confirmDelete) {
+      fetch(`${backendURL}/api/delete-user/${currentUser?._id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ _id: currentUser?._id }),
+      })
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error("Failed to delete account");
+          }
+          return res.json();
+        })
+        .then((data) => {
+          console.log("delete user data", data);
+          dispatch(signOut());
+          persistor.purge();
+          navigate("/");
+        })
+        .catch((error) => {
+          console.error("Error deleting account:", error.message);
+        });
+    }
   };
 
   return (
@@ -73,6 +114,12 @@ export const ActionPage = () => {
           onClick={handleSignOut}
         >
           sign out
+        </button>
+        <button
+          className="bg-fuchsia-100 rounded-lg p-2 px-4 mt-2 text-cyan-400 uppercase "
+          onClick={handleDeleteAccount}
+        >
+          delete account
         </button>
       </div>
     </div>
