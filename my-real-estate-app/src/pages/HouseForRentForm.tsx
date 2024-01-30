@@ -21,6 +21,7 @@ import PlacesAutocomplete, {
 import loadGoogleMapsApi from "load-google-maps-api";
 
 import Select from "react-select";
+import { use } from "chai";
 
 export const HouseForRentForm = ({
   onSubmitForm,
@@ -210,7 +211,6 @@ export const HouseForRentForm = ({
 
   const handleImageSubmit = () => {
     const userToken = authInstance.currentUser;
-   
     if (!files) return;
     try {
       if (
