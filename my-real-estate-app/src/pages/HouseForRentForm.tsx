@@ -21,7 +21,7 @@ import PlacesAutocomplete, {
 import loadGoogleMapsApi from "load-google-maps-api";
 
 import Select from "react-select";
-import { use } from "chai";
+
 
 export const HouseForRentForm = ({
   onSubmitForm,

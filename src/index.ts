@@ -14,6 +14,7 @@ import userRouter from "../src/routes/userRouter";
 import path from "path";
 
 const app = express();
+const buildPath = path.join(__dirname, 'build')
 
 app.get("/", (req, res) => {
   res.send("Welcome to the Real Estate API!");
@@ -41,7 +42,7 @@ app.use(
   })
 );
 
-app.use(express.static("dist"));
+app.use(express.static(buildPath))
 
 app.use("/api/housesForSale", allHousesRouter);
 
@@ -75,9 +76,9 @@ app.use("/api/update-house-for-rent", allHousesForRentRouter);
 //   res.redirect('https://sharestate.onrender.com');
 // });
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "dist", "index.html"));
-});
+app.get('*', (req, res) => {
+  res.sendFile(path.join(buildPath, 'index.html'))
+})
 
 app.listen(Number(port), "0.0.0.0", () => {
   console.log(`Server running at http://0.0.0.0:${port}`);
