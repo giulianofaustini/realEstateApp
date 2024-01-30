@@ -7,16 +7,33 @@ import React from "react";
 import { persistor } from "../redux/store";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { housesForRentInterface } from "../../../src/interfaces/housesForRentInterface";
+import { HouseInterface } from "../../../src/interfaces/houseInterface";
 
-export const ActionPage = () => {
+interface Props {
+  houseToRent: housesForRentInterface[] ;
+  housesToPass: HouseInterface[];
+}
+
+export const ActionPage : React.FC<Props> = ( { houseToRent , housesToPass}) => {
   const { currentUser } = useSelector((state: { user: UserState }) => ({
     currentUser: state.user.currentUser,
   }));
 
-  console.log(
-    "current user FROM ACTION PAGE: CHECK IS THERE HOUSES",
-    currentUser
-  );
+ console.log("ACTION SALE housesToPass", housesToPass);
+ console.log("ACTION RENT houseToRent", houseToRent);
+
+ const userMatchRent = houseToRent.filter((house) => {
+  const thisMatchrent = house.userId === currentUser?._id;
+  return thisMatchrent;
+}
+);
+const userMatchSale = housesToPass.filter((house) => {
+  const thisMatchsale = house.userId === currentUser?._id; 
+  return thisMatchsale;
+}
+);
+
 
   const backendURL =
     process.env.NODE_ENV === "production"
@@ -34,6 +51,13 @@ export const ActionPage = () => {
   };
 
   const handleDeleteAccount = () => {
+
+    if (userMatchRent.length > 0 || userMatchSale.length > 0) {
+      alert("You cannot delete you account because you have properties listed in the app. Delete all your property from your list in your account before deliting your account");
+      return;
+    }
+
+
     const confirmDelete = window.confirm(
       "Are you sure you want to delete your account?"
     );
@@ -108,15 +132,15 @@ export const ActionPage = () => {
           </Link>
         </h1>
       </button>
-      <div className="flex justify-end px-4 mt-2 ">
+      <div className="flex gap-2 justify-end px-4 mt-2 ">
         <button
-          className="bg-fuchsia-100 rounded-lg p-2 px-4 mt-2 text-cyan-400 uppercase "
+          className="bg-fuchsia-100 rounded-lg p-2 px-4 mt-2 text-cyan-400 uppercase hover:text-cyan-900"
           onClick={handleSignOut}
         >
           sign out
         </button>
         <button
-          className="bg-fuchsia-100 rounded-lg p-2 px-4 mt-2 text-cyan-400 uppercase "
+          className="bg-fuchsia-100 rounded-lg p-2 px-4 mt-2 text-cyan-400 uppercase hover:text-cyan-900"
           onClick={handleDeleteAccount}
         >
           delete account

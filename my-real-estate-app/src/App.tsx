@@ -174,8 +174,9 @@ function App() {
             <Route path="/api/sign-up" element={<SignUp />} />
 
             <Route element={<PrivateComponent />}>
-              <Route path="/api/action" element={<ActionPage />} />
+              <Route path="/api/action" element={<ActionPage  houseToRent={housesForRent} housesToPass={houses}  />} />
             </Route>
+
             <Route
               path="/api/create-house-for-sale"
               element={
