@@ -39,7 +39,7 @@ export const HouseForSaleForm = ({
 
   const backendURL = process.env.NODE_ENV === 'production' ? 'https://sharestateback.onrender.com' : 'http://localhost:3000';
 
-  console.log("currentUser from the house for sale form", currentUser);
+
 
   const [formDataForSale, setFormDataForSale] = useState<HouseInterface>({
     title: "",
@@ -57,7 +57,7 @@ export const HouseForSaleForm = ({
     status: "",
   });
 
-  console.log("data from the form", formDataForSale);
+  
 
   // setState for status of the house
 
@@ -67,7 +67,7 @@ export const HouseForSaleForm = ({
   } | null>(null);
 
   const [files, setFiles] = useState<File[] | null>([]);
-  console.log("files form HouseForSaleForm at state level ", files);
+ 
 
   const [imageUploadError, setImageUploadError] = useState<string | null>("");
   const [uploading, setUpLoading] = useState<boolean>(false);
@@ -208,12 +208,12 @@ export const HouseForSaleForm = ({
     if (!files) return;
 
     const userToken = authInstance.currentUser;
-    console.log("TOKEN userToken from the form", userToken);
+    
 
 
 
     if (!currentUser) return;
-    console.log( ' CURRENT USER FROM SALE FORM' , currentUser)
+   
     try {
       if (
         

@@ -11,6 +11,7 @@ import allUsersRouter from "../src/routes/allUsers";
 import signInRoute from "../src/routes/signInRoute";
 import signinWithGoogleRoute from "../src/routes/signInWithGoogleRoute";
 import userRouter from "../src/routes/userRouter";
+import path from "path";
 
 const app = express();
 
@@ -75,6 +76,10 @@ app.use("/api/update-house-for-rent", allHousesForRentRouter);
 // app.use((req, res) => {
 //   res.redirect('https://sharestate.onrender.com');
 // });
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "dist", "index.html"));
+});
 
 app.listen(Number(port), "0.0.0.0", () => {
   console.log(`Server running at http://0.0.0.0:${port}`);

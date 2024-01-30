@@ -38,8 +38,6 @@ export const HouseForRentForm = ({
       ? "https://sharestateback.onrender.com"
       : "http://localhost:3000";
 
-  console.log("current user from the form", currentUser);
-  console.log("current user from the form", currentUser?._id);
 
   const [formDataForRent, setFormDataForRent] =
     useState<housesForRentInterface>({
@@ -58,7 +56,7 @@ export const HouseForRentForm = ({
       userId: currentUser?._id || "",
       status: "",
     });
-  console.log("data from the form", formDataForRent);
+ 
 
   // setState for status of the house
 
@@ -70,7 +68,7 @@ export const HouseForRentForm = ({
   const [address, setAddress] = useState<string>("");
   const [mapsLoaded, setMapsLoaded] = useState(false);
   const [files, setFiles] = useState<File[]>([]);
-  console.log("files form HouseForRentForm at state level ", files);
+ 
 
   const [imageUploadError, setImageUploadError] = useState<string | null>("");
 
@@ -212,7 +210,7 @@ export const HouseForRentForm = ({
 
   const handleImageSubmit = () => {
     const userToken = authInstance.currentUser;
-    console.log("TOKEN userToken from the form", userToken);
+   
     if (!files) return;
     try {
       if (

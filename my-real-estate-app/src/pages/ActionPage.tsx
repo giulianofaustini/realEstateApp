@@ -11,29 +11,23 @@ import { housesForRentInterface } from "../../../src/interfaces/housesForRentInt
 import { HouseInterface } from "../../../src/interfaces/houseInterface";
 
 interface Props {
-  houseToRent: housesForRentInterface[] ;
+  houseToRent: housesForRentInterface[];
   housesToPass: HouseInterface[];
 }
 
-export const ActionPage : React.FC<Props> = ( { houseToRent , housesToPass}) => {
+export const ActionPage: React.FC<Props> = ({ houseToRent, housesToPass }) => {
   const { currentUser } = useSelector((state: { user: UserState }) => ({
     currentUser: state.user.currentUser,
   }));
 
- console.log("ACTION SALE housesToPass", housesToPass);
- console.log("ACTION RENT houseToRent", houseToRent);
-
- const userMatchRent = houseToRent.filter((house) => {
-  const thisMatchrent = house.userId === currentUser?._id;
-  return thisMatchrent;
-}
-);
-const userMatchSale = housesToPass.filter((house) => {
-  const thisMatchsale = house.userId === currentUser?._id; 
-  return thisMatchsale;
-}
-);
-
+  const userMatchRent = houseToRent.filter((house) => {
+    const thisMatchrent = house.userId === currentUser?._id;
+    return thisMatchrent;
+  });
+  const userMatchSale = housesToPass.filter((house) => {
+    const thisMatchsale = house.userId === currentUser?._id;
+    return thisMatchsale;
+  });
 
   const backendURL =
     process.env.NODE_ENV === "production"
@@ -51,12 +45,12 @@ const userMatchSale = housesToPass.filter((house) => {
   };
 
   const handleDeleteAccount = () => {
-
     if (userMatchRent.length > 0 || userMatchSale.length > 0) {
-      alert("You cannot delete you account because you have properties listed in the app. Delete all your property from your list in your account before deliting your account");
+      alert(
+        "You cannot delete you account because you have properties listed in the app. Delete all your property from your list in your account before deliting your account"
+      );
       return;
     }
-
 
     const confirmDelete = window.confirm(
       "Are you sure you want to delete your account?"
