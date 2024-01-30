@@ -41,8 +41,6 @@ app.use(
   })
 );
 
-
-
 app.use(express.static("dist"));
 
 app.use("/api/housesForSale", allHousesRouter);
